@@ -189,8 +189,8 @@
                                     <div class="col-md-2 form-group2 group-mail,checkbox-inline">
                                         <label class="control-label" id="lblAssignedTo">AssignedTo</label>
                                         <asp:DropDownList ID="ddlAssignedTo" runat="server"></asp:DropDownList>
-                                        <asp:RequiredFieldValidator ID="rfvAssignedTo" ControlToValidate="ddlAssignedTo" ForeColor="#d0582e" runat="server"
-                                            ErrorMessage="Please select User Name" ValidationGroup="Save" InitialValue="-1"></asp:RequiredFieldValidator>
+                                        <%--<asp:RequiredFieldValidator ID="rfvAssignedTo" ControlToValidate="ddlAssignedTo" ForeColor="#d0582e" runat="server"
+                                            ErrorMessage="Please select User Name" ValidationGroup="Save" InitialValue="-1"></asp:RequiredFieldValidator>--%>
                                     </div>
                                 </div>
                             </div>

@@ -43,7 +43,7 @@ public partial class NewLead : System.Web.UI.Page
                 GetDetails();
                 GetLeadStatus();
                 GetAssignedTo();
-                
+
                 clextDeparture.StartDate = DateTime.Today;
             }
         }
@@ -108,11 +108,15 @@ public partial class NewLead : System.Web.UI.Page
         txtNoOfPax.Text = ds.Tables[0].Rows[0]["NoOfPax"].ToString();
         Session["CustomerId"] = ds.Tables[0].Rows[0]["CustomerId"].ToString();
         txtReturnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["ReturnDate"].ToString()).Date.ToString("dd-MM-yyyy");
-        txtDepartureDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["DepartureDate"].ToString()).Date.ToString("dd-MM-yyyy");        
+        txtDepartureDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["DepartureDate"].ToString()).Date.ToString("dd-MM-yyyy");
         ddlNoOfAdults.SelectedValue = ds.Tables[0].Rows[0]["NoOfAdults"].ToString();
         ddlNoOfChilds.SelectedValue = ds.Tables[0].Rows[0]["NoOfChilds"].ToString();
         ddlNoOfInfants.SelectedValue = ds.Tables[0].Rows[0]["NoOfInfants"].ToString();
-        ddlAssignedTo.SelectedValue = ds.Tables[0].Rows[0]["AssignedTo"].ToString();
+        if (ds.Tables[0].Rows[0]["AssignedTo"].ToString() != "")
+        {
+            ddlAssignedTo.SelectedValue = ds.Tables[0].Rows[0]["AssignedTo"].ToString();
+        }
+
         ddlLeadStatus.SelectedValue = ds.Tables[0].Rows[0]["LeadStatus"].ToString();
         string Services = ds.Tables[0].Rows[0]["Services"].ToString().TrimEnd(',');
         GetServices();
@@ -131,7 +135,7 @@ public partial class NewLead : System.Web.UI.Page
             divclass.Visible = true;
             foreach (ListItem li in chbklstClass.Items)
             {
-                if (classtype.Contains(li.Text))
+                if(classtype.Contains(li.Text))
                 {
                     li.Selected = true;
                 }
