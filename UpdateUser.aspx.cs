@@ -23,6 +23,8 @@ public partial class UpdateUser : System.Web.UI.Page
                 if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
                 {
                     Session["id"] = Convert.ToInt32(Request.QueryString["id"].ToString());
+                    //Session["loginid"] = null;
+                    //Session["password"] = null;
                     getRows();
                     lblpermissions.Text = "";
                     divUsersList.Visible = true;

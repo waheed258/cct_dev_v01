@@ -34,20 +34,34 @@ public partial class AllLeadsList : System.Web.UI.Page
     }
     protected void GetGridData()
     {
-        ds = newLeadBL.GetLeadData();
-        gvAllLeads.DataSource = ds;
-        Session["dt"] = ds.Tables[0];
-        gvAllLeads.DataBind();
+        try
+        {
+            ds = newLeadBL.GetLeadData();
+            gvAllLeads.DataSource = ds;
+            Session["dt"] = ds.Tables[0];
+            gvAllLeads.DataBind();
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
     protected void gvAllLeads_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName == "Edit")
+        try
         {
-            int id = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvAllLeads.Rows[id];
-            int res = Convert.ToInt32(gvAllLeads.DataKeys[row.RowIndex].Values[0]);
-            Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 0);
+            if (e.CommandName == "Edit")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gvAllLeads.Rows[id];
+                int res = Convert.ToInt32(gvAllLeads.DataKeys[row.RowIndex].Values[0]);
+                Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 0);
+            }
+        }
+        catch (Exception ex)
+        { 
+        
         }
     }
     protected void gvAllLeads_RowEditing(object sender, GridViewEditEventArgs e)
@@ -57,7 +71,8 @@ public partial class AllLeadsList : System.Web.UI.Page
     }
     protected void gvAllLeads_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        gvAllLeads.PageIndex = e.NewPageIndex;
+        GetGridData();
     }
     protected void gvAllLeads_RowDataBound(object sender, GridViewRowEventArgs e)
     {
