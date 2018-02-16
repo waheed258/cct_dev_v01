@@ -1,0 +1,213 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Layout.master.cs" Inherits="Layout" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Nedbank Call Center</title>
+    <!-- custom-theme -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Hauling Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link rel="shortcut icon" type="image/png" href="CustomScripts/images/favicon.ico" />
+    <!-- For Testimonials slider -->
+    <link rel="stylesheet" href="CustomScripts/css/flexslider.css" type="text/css" media="all" />
+    <!-- //For Testimonials slider -->
+    <!-- //custom-theme files-->
+    <link href="CustomScripts/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="CustomScripts/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- //custom-theme files-->
+    <!-- font-awesome-icons -->
+    <link href="CustomScripts/css/font-awesome.css" rel="stylesheet" />
+    <!-- //font-awesome-icons -->
+    <!-- googlefonts -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet" />
+    <link href="//fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext,vietnamese" rel="stylesheet" />
+    <!-- //googlefonts -->
+    <!-- Custom CSS -->
+    <link href="CustomScripts/custom/css/style.css" rel='stylesheet' type='text/css' />
+    <!-- Graph CSS -->
+
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="CustomScripts/custom/css/icon-font.min.css" type='text/css' />
+    <!-- //lined-icons -->
+    <%--<script src="CustomScripts/custom/js/jquery-1.10.2.min.js"></script>--%>
+    <script type="text/javascript" src="CustomScripts/js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css" />
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!--clock init-->
+    <script src="CustomScripts/custom/js/css3clock.js"></script>
+    <!--Easy Pie Chart-->
+    <!--skycons-icons-->
+    <script src="CustomScripts/custom/js/skycons.js"></script>
+    <style type="text/css">
+        .profile_details {
+            float: right;
+            margin-left: 1em;
+        }
+
+        .toupper {
+            text-transform: uppercase;
+        }
+    </style>
+    <script type="text/javascript">
+        function preventBack() {
+            window.history.forward();
+        }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <!-- banner -->
+            <div class="banner">
+                <div class="banner-dott">
+                    <!-- Top-Bar -->
+                    <div class="top" style="padding: 0px">
+                        <div class="container" style="width: 100%">
+                            <div class="col-md-6 top-left">
+                                <a class="navbar-brand" href="index.html">
+                                    <img src="CustomScripts/images/NEDBANK_logo_RGB_hr.png" style="width: 75px" /></a>
+                            </div>
+                            <div class="col-md-6 top-middle" style="margin-top: 10px; padding-right: 11px">
+                                <ul>
+                                    <li><a href="UserProfile.aspx" style="color: #FFF"><i class="fa fa-user" style="margin-right: 8px"></i>
+                                        <asp:Label ID="lblProfile" runat="server"></asp:Label></a>
+                                    </li>
+                                    <li><a href="index.aspx"><i class="fa fa-power-off"></i></a></li>
+                                </ul>
+                                <%--<ul>
+                                    <li class="dropdown profile_details_drop">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <div class="profile_img">
+                                                <span class="prfil-img"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu drp-mnu">
+                                            <li><a href="#"><i class="fa fa-cog"></i>Settings</a> </li>
+                                            <li><a href="#"><i class="fa fa-user"></i>Profile</a> </li>
+                                            <li><a href="#"><i class="fa fa-sign-out"></i>Logout</a> </li>
+                                        </ul>
+                                    </li>
+                                </ul>--%>
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+                    <div class="top-bar">
+                        <div class="container" style="width: 100%">
+                            <div class="header">
+                                <nav class="navbar navbar-default">
+                                    <div class="navbar-header navbar-left">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                        <!--<h1><a class="navbar-brand" href="index.html"><img src="images/NEDBANK_logo_RGB_hr.png" style="width:100px" /></a></h1>-->
+                                    </div>
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                                        <nav class="cl-effect-15" id="cl-effect-15">
+                                            <ul class="nav navbar-nav">
+                                                <li class="active"><a href="Dashboard.aspx">Dashboard</a></li>
+                                                <%-- <li><a href="about.html">User</a></li>
+                                                <li><a href="services.html">Lead</a></li>
+                                                <li><a href="gallery.html">Reports</a></li>--%>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-hover="Users" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="NewUser.aspx">New User</a></li>
+                                                        <li><a href="UserList.aspx">Users List</a></li>
+                                                        <li><a href="ResetPassword.aspx">Password Reset</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-hover="Customers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Customers <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="NewCustomer.aspx">New Customer</a></li>
+                                                        <li><a href="CustomerInfoUpdateList.aspx">Customers List</a></li>                                                        
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-hover="Leads" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Leads <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <%--<li><a href="NewLead.aspx">New Lead</a></li>--%>
+
+                                                        <li><a href="LeadAllocation.aspx">Lead Allocation</a></li>
+                                                        <li><a href="AllLeadsList.aspx">All Leads</a></li>
+                                                        <li><a href="UserLeadList.aspx">Your Leads</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-hover="Reports" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="LeadsList.aspx">All Leads</a></li>
+                                                        <li><a href="CustomerList.aspx">All Customers</a></li>
+                                                        
+                                                        <%-- <li><a href="typography.html">Open Leads Reports</a></li>
+                                                        <li><a href="typography.html">Service wise Reports</a></li>--%>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //Top-Bar -->
+                </div>
+            </div>
+            <!-- //banner -->
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <!-- footer -->
+
+            <%--<div class="wthree_copy_right copyright navbar-fixed-bottom">
+                <div class="container">
+                    <p>© 2018 Dinoosys. All rights reserved | Design by <a href="http://dinoosys.com/">Dinoosys Technologies</a></p>
+                </div>
+            </div>--%>
+            <!-- //footer -->
+            <!-- js -->
+
+            <!-- for bootstrap working -->
+            <script src="CustomScripts/js/bootstrap.js"></script>
+            <!-- //for bootstrap working -->
+            <!-- //js -->
+            <!-- //here starts scrolling icon -->
+            <script src="CustomScripts/js/SmoothScroll.min.js"></script>
+            <script type="text/javascript" src="CustomScripts/js/move-top.js"></script>
+            <script type="text/javascript" src="CustomScripts/js/easing.js"></script>
+
+            <!-- stats -->
+            <script src="CustomScripts/js/jquery.waypoints.min.js"></script>
+            <script src="CustomScripts/js/jquery.countup.js"></script>
+
+            <script src="CustomScripts/custom/js/jquery.nicescroll.js"></script>
+            <script src="CustomScripts/custom/js/scripts.js"></script>
+
+            <!-- Bootstrap Core JavaScript -->
+            <script src="CustomScripts/js/bootstrap.min.js"></script>   
+            <script>
+                $('.counter').countUp();
+            </script>
+            <!-- //stats -->
+        </div>
+    </form>
+</body>
+</html>
