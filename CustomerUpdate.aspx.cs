@@ -14,13 +14,17 @@ public partial class CustomerUpdate : System.Web.UI.Page
     CustomerEntity customerEntity = new CustomerEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        Label mastertxt = (Label)Master.FindControl("lblProfile");
-        mastertxt.Text = Session["Name"].ToString();
-        if (!IsPostBack)
+        try
         {
-            Session["id"] = Convert.ToInt32(Request.QueryString["id"].ToString());
-            GetCustomerInfo();      
+            Label mastertxt = (Label)Master.FindControl("lblProfile");
+            mastertxt.Text = Session["Name"].ToString();
+            if (!IsPostBack)
+            {
+                Session["id"] = Convert.ToInt32(Request.QueryString["id"].ToString());
+                GetCustomerInfo();
+            }
         }
+        catch { }
     }
     private void GetCustomerInfo()
     {
@@ -41,37 +45,49 @@ public partial class CustomerUpdate : System.Web.UI.Page
     }
     private void Clear()
     {
-        txtMobileNumber.Text = "";
-        txtCustomerName.Text = "";
-        txtSurName.Text = "";
-        txtEmail.Text = "";
-        txtCity.Text = "";
+        try
+        {
+            txtMobileNumber.Text = "";
+            txtCustomerName.Text = "";
+            txtSurName.Text = "";
+            txtEmail.Text = "";
+            txtCity.Text = "";
+        }
+        catch { }
     }
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
-        customerEntity.CustomerId = Convert.ToInt32(Session["id"].ToString());
-        customerEntity.MobileNum = txtMobileNumber.Text;
-        customerEntity.CustomerName = txtCustomerName.Text;
-        customerEntity.EmailId = txtEmail.Text;
-        customerEntity.Surname = txtSurName.Text;
-        customerEntity.City = txtCity.Text;
-        customerEntity.NedbankAccountHolder = 1;
-        int result = customerBL.CUDCustomerInfo(customerEntity, 'u');
-        if (result > 0)
+        try
         {
-            lblMessage.Text = "Details Updated Successfully!";
-            Response.Redirect("CustomerInfoUpdateList.aspx");
-        }
-        else
-        {
-            lblMessage.Text = "Please try again!";
-        }
+            customerEntity.CustomerId = Convert.ToInt32(Session["id"].ToString());
+            customerEntity.MobileNum = txtMobileNumber.Text;
+            customerEntity.CustomerName = txtCustomerName.Text;
+            customerEntity.EmailId = txtEmail.Text;
+            customerEntity.Surname = txtSurName.Text;
+            customerEntity.City = txtCity.Text;
+            customerEntity.NedbankAccountHolder = 1;
+            int result = customerBL.CUDCustomerInfo(customerEntity, 'u');
+            if (result > 0)
+            {
+                lblMessage.Text = "Details Updated Successfully!";
+                Response.Redirect("CustomerInfoUpdateList.aspx");
+            }
+            else
+            {
+                lblMessage.Text = "Please try again!";
+            }
 
-        Clear();
+            Clear();
+        }
+        catch { }
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
-        Clear();
+        try
+        {
+            Clear();
+        }
+        catch { }
     }
    
 }

@@ -14,19 +14,23 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
     CustomerBL customerBl = new CustomerBL();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Name"] != null)
+        try
         {
-            Label mastertxt = (Label)Master.FindControl("lblProfile");
-            mastertxt.Text = Session["Name"].ToString();
-            if (!IsPostBack)
+            if (Session["Name"] != null)
             {
-                GetCustomerInfo();
+                Label mastertxt = (Label)Master.FindControl("lblProfile");
+                mastertxt.Text = Session["Name"].ToString();
+                if (!IsPostBack)
+                {
+                    GetCustomerInfo();
+                }
+            }
+            else
+            {
+                Response.Redirect("index.aspx");
             }
         }
-        else
-        {
-            Response.Redirect("index.aspx");
-        }
+        catch { }
     }
 
     private void GetCustomerInfo()
@@ -39,40 +43,57 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
             gvCustomerUpdate.DataBind();
 
         }
-        catch (Exception ex)
-        {
-
-        }
+        catch{ }
     }
     protected void gvCustomerUpdate_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName == "Edit")
+        try
         {
-            int id = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvCustomerUpdate.Rows[id];
-            Response.Redirect("~/CustomerUpdate.aspx?id=" + row.Cells[0].Text);
+            if (e.CommandName == "Edit")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gvCustomerUpdate.Rows[id];
+                Response.Redirect("~/CustomerUpdate.aspx?id=" + row.Cells[0].Text);
+            }
         }
+        catch { }
     }
 
     protected void gvCustomerUpdate_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        gvCustomerUpdate.EditIndex = e.NewEditIndex;
-        GetCustomerInfo();
+        try
+        {
+            gvCustomerUpdate.EditIndex = e.NewEditIndex;
+            GetCustomerInfo();
+        }
+        catch { }
     }
     protected void gvCustomerUpdate_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        gvCustomerUpdate.PageIndex = e.NewPageIndex;
-        GetCustomerInfo();
+        try
+        {
+            gvCustomerUpdate.PageIndex = e.NewPageIndex;
+            GetCustomerInfo();
+        }
+        catch { }
     }
 
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        Response.Redirect("NewCustomer.aspx");
+        try
+        {
+            Response.Redirect("NewCustomer.aspx");
+        }
+        catch { }
     }
     protected void cmdSearch_Click(object sender, ImageClickEventArgs e)
     {
-        SearchFromList(txtSearch.Text.Trim());
+        try
+        {
+            SearchFromList(txtSearch.Text.Trim());
+        }
+        catch { }
     }
     public void SearchFromList(string instring)
     {
@@ -94,13 +115,14 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
-        {
-
-        }
+        catch  {}
     }
     protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("CustomerInfoUpdateList.aspx");
+        try
+        {
+            Response.Redirect("CustomerInfoUpdateList.aspx");
+        }
+        catch { }
     }
 }

@@ -15,22 +15,27 @@ public partial class AllLeadsList : System.Web.UI.Page
     int id = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Name"] != null)
+        try
         {
-            Label mastertxt = (Label)Master.FindControl("lblProfile");
-            mastertxt.Text = Session["Name"].ToString();
-            if (!IsPostBack)
+
+            if (Session["Name"] != null)
             {
-                lblpermissions.Text = "";
-                divAllLeadsList.Visible = true;
-                divmessage.Visible = false;
-                GetGridData();
+                Label mastertxt = (Label)Master.FindControl("lblProfile");
+                mastertxt.Text = Session["Name"].ToString();
+                if (!IsPostBack)
+                {
+                    lblpermissions.Text = "";
+                    divAllLeadsList.Visible = true;
+                    divmessage.Visible = false;
+                    GetGridData();
+                }
+            }
+            else
+            {
+                Response.Redirect("index.aspx");
             }
         }
-        else
-        {
-            Response.Redirect("index.aspx");
-        }
+        catch { }
     }
     protected void GetGridData()
     {
@@ -41,10 +46,7 @@ public partial class AllLeadsList : System.Web.UI.Page
             ViewState["dt"] = ds.Tables[0];
             gvAllLeads.DataBind();
         }
-        catch (Exception ex)
-        {
-
-        }
+        catch { }
     }
 
     protected void gvAllLeads_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -59,32 +61,46 @@ public partial class AllLeadsList : System.Web.UI.Page
                 Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 0);
             }
         }
-        catch (Exception ex)
-        { 
-        
-        }
+        catch { }
     }
     protected void gvAllLeads_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        gvAllLeads.EditIndex = e.NewEditIndex;
-        GetGridData();
+        try
+        {
+            gvAllLeads.EditIndex = e.NewEditIndex;
+            GetGridData();
+        }
+        catch { }
     }
     protected void gvAllLeads_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        gvAllLeads.PageIndex = e.NewPageIndex;
-        GetGridData();
+        try
+        {
+            gvAllLeads.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch { }
     }
     protected void gvAllLeads_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        //if (e.Row.RowType == DataControlRowType.DataRow)
-        //{
-        //    e.Row.Cells[9].Text = e.Row.Cells[9].Text.TrimEnd(',');
-        //    e.Row.Cells[10].Text = e.Row.Cells[10].Text.TrimEnd(',');
-        //}
+        try
+        {
+
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    e.Row.Cells[9].Text = e.Row.Cells[9].Text.TrimEnd(',');
+            //    e.Row.Cells[10].Text = e.Row.Cells[10].Text.TrimEnd(',');
+            //}
+        }
+        catch { }
     }
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/NewCustomer.aspx");
+        try
+        {
+            Response.Redirect("~/NewCustomer.aspx");
+        }
+        catch { }
     }
 
     public void SearchFromList(string instring)
@@ -107,18 +123,23 @@ public partial class AllLeadsList : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
-        {
-
-        }
+        catch  { }
     }
 
     protected void cmdSearch_Click(object sender, ImageClickEventArgs e)
     {
-        SearchFromList(txtSearch.Text.Trim());
+        try
+        {
+            SearchFromList(txtSearch.Text.Trim());
+        }
+        catch { }
     }
     protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("AllLeadsList.aspx");
+        try
+        {
+            Response.Redirect("AllLeadsList.aspx");
+        }
+        catch { }
     }
 }
