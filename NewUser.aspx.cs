@@ -18,32 +18,36 @@ public partial class NewUser : System.Web.UI.Page
     UserInfoEntity userInfoEntity = new UserInfoEntity();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Name"] != null)
+        try
         {
-            Label mastertxt = (Label)Master.FindControl("lblProfile");
-            mastertxt.Text = Session["Name"].ToString();
-            if (!IsPostBack)
+            if (Session["Name"] != null)
             {
-                if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
+                Label mastertxt = (Label)Master.FindControl("lblProfile");
+                mastertxt.Text = Session["Name"].ToString();
+                if (!IsPostBack)
                 {
-                    lblpermissions.Text = "";
-                    divNewLead.Visible = true;
-                    divmessage.Visible = false;
-                    GetUserType();
-                    GetStatus();
-                }
-                else
-                {
-                    lblpermissions.Text = "Invalid Permissions";
-                    divNewLead.Visible = false;
-                    divmessage.Visible = true;
+                    if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
+                    {
+                        lblpermissions.Text = "";
+                        divNewLead.Visible = true;
+                        divmessage.Visible = false;
+                        GetUserType();
+                        GetStatus();
+                    }
+                    else
+                    {
+                        lblpermissions.Text = "Invalid Permissions";
+                        divNewLead.Visible = false;
+                        divmessage.Visible = true;
+                    }
                 }
             }
+            else
+            {
+                Response.Redirect("index.aspx");
+            }
         }
-        else
-        {
-            Response.Redirect("index.aspx");
-        }
+        catch { }
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -71,7 +75,7 @@ public partial class NewUser : System.Web.UI.Page
                 Clear();
             }
         }
-        catch (Exception ex)
+        catch(Exception ex)
         {
             if (ex.Message.Contains("duplicate key"))
             {
@@ -98,7 +102,7 @@ public partial class NewUser : System.Web.UI.Page
             ddlUserType.DataBind();
             ddlUserType.Items.Insert(0, new ListItem("--Select User Type--", "-1"));
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -114,7 +118,7 @@ public partial class NewUser : System.Web.UI.Page
             ddlStatus.DataBind();
             ddlStatus.Items.Insert(0, new ListItem("--Select Status--", "-1"));
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -122,36 +126,44 @@ public partial class NewUser : System.Web.UI.Page
 
     private string Encrypt(string clearText)
     {
-        string EncryptionKey = "MAKV2SPBNI99212";
-        byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
-        using (Aes encryptor = Aes.Create())
+        try
         {
-            Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-            encryptor.Key = pdb.GetBytes(32);
-            encryptor.IV = pdb.GetBytes(16);
-            using (MemoryStream ms = new MemoryStream())
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
             {
-                using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    cs.Write(clearBytes, 0, clearBytes.Length);
-                    cs.Close();
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
                 }
-                clearText = Convert.ToBase64String(ms.ToArray());
             }
         }
+        catch { }
         return clearText;
     }
     private void Clear()
     {
-        txtFirstName.Text = "";
-        txtLastName.Text = "";
-        txtMobileNumber.Text = "";
-        txtPhoneNumber.Text = "";
-        txtEmail.Text = "";
-        txtLogin.Text = "";
-        txtPassword.Text = "";
-        txtLocation.Text = "";
-        ddlUserType.SelectedValue = "-1";
-        ddlStatus.SelectedValue = "-1";
+        try
+        {
+            txtFirstName.Text = "";
+            txtLastName.Text = "";
+            txtMobileNumber.Text = "";
+            txtPhoneNumber.Text = "";
+            txtEmail.Text = "";
+            txtLogin.Text = "";
+            txtPassword.Text = "";
+            txtLocation.Text = "";
+            ddlUserType.SelectedValue = "-1";
+            ddlStatus.SelectedValue = "-1";
+        }
+        catch { }
     }
 }

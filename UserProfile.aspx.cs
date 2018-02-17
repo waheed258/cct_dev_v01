@@ -16,21 +16,29 @@ public partial class UserProfile : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Name"] != null)
+        try
         {
-            Label mastertxt = (Label)Master.FindControl("lblProfile");
-            mastertxt.Text = Session["Name"].ToString();
-            if (!IsPostBack)
+
+            if (Session["Name"] != null)
             {
-                GetUserType();
-                GetStatus();
-                GetUser(Convert.ToInt32(Session["LoginId"].ToString()));
-                
+                Label mastertxt = (Label)Master.FindControl("lblProfile");
+                mastertxt.Text = Session["Name"].ToString();
+                if (!IsPostBack)
+                {
+                    GetUserType();
+                    GetStatus();
+                    GetUser(Convert.ToInt32(Session["LoginId"].ToString()));
+
+                }
+            }
+            else
+            {
+                Response.Redirect("index.aspx");
             }
         }
-        else
+        catch
         {
-            Response.Redirect("index.aspx");
+
         }
     }
     protected void GetUserType()
@@ -44,7 +52,7 @@ public partial class UserProfile : System.Web.UI.Page
             ddlUserType.DataBind();
             ddlUserType.Items.Insert(0, new ListItem("--Select User Type--", "-1"));
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -60,7 +68,7 @@ public partial class UserProfile : System.Web.UI.Page
             ddlStatus.DataBind();
             ddlStatus.Items.Insert(0, new ListItem("--Select Status--", "-1"));
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -85,7 +93,7 @@ public partial class UserProfile : System.Web.UI.Page
                 ddlStatus.SelectedValue = ds.Tables[0].Rows[0]["UserStatus"].ToString();
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -117,21 +125,28 @@ public partial class UserProfile : System.Web.UI.Page
                 lblMessage.Text = "Please try again";
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
     }
     public void Clear()
     {
-        txtFirstName.Text = "";
-        txtLastName.Text = "";
-        txtPhoneNumber.Text = "";
-        txtMobileNumber.Text = "";
-        txtEmail.Text = "";
-        txtLogin.Text = "";
-        txtLocation.Text = "";
-        ddlUserType.SelectedValue = "-1";
-        ddlStatus.SelectedValue = "-1";
+        try
+        {
+            txtFirstName.Text = "";
+            txtLastName.Text = "";
+            txtPhoneNumber.Text = "";
+            txtMobileNumber.Text = "";
+            txtEmail.Text = "";
+            txtLogin.Text = "";
+            txtLocation.Text = "";
+            ddlUserType.SelectedValue = "-1";
+            ddlStatus.SelectedValue = "-1";
+        }
+        catch
+        {
+
+        }
     }
 }

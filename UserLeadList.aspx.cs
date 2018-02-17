@@ -15,22 +15,29 @@ public partial class UserLeadList : System.Web.UI.Page
     int id = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Name"] != null)
+        try
         {
-            Label mastertxt = (Label)Master.FindControl("lblProfile");
-            mastertxt.Text = Session["Name"].ToString();
-            if (!IsPostBack)
+            if (Session["Name"] != null)
             {
-                lblpermissions.Text = "";
-                divUserList.Visible = true;
-                divmessage.Visible = false;
-                GetGridData();
+                Label mastertxt = (Label)Master.FindControl("lblProfile");
+                mastertxt.Text = Session["Name"].ToString();
+                if (!IsPostBack)
+                {
+                    lblpermissions.Text = "";
+                    divUserList.Visible = true;
+                    divmessage.Visible = false;
+                    GetGridData();
 
+                }
+            }
+            else
+            {
+                Response.Redirect("index.aspx");
             }
         }
-        else
+        catch
         {
-            Response.Redirect("index.aspx");
+
         }
     }
 
@@ -45,33 +52,57 @@ public partial class UserLeadList : System.Web.UI.Page
             gvUserList.DataBind();
 
         }
-        catch (Exception ex)
+        catch
         {
 
         }
     }
     protected void gvUserList_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName == "EditUser")
+        try
         {
-            int id = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvUserList.Rows[id];
-            int res = Convert.ToInt32(gvUserList.DataKeys[row.RowIndex].Values[0]);
-            Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 0);
+            if (e.CommandName == "EditUser")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gvUserList.Rows[id];
+                int res = Convert.ToInt32(gvUserList.DataKeys[row.RowIndex].Values[0]);
+                Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 0);
+            }
         }
+        catch { }
     }
     protected void gvUserList_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        gvUserList.EditIndex = e.NewEditIndex;
-        GetGridData();
+        try
+        {
+            gvUserList.EditIndex = e.NewEditIndex;
+            GetGridData();
+        }
+        catch
+        {
+
+        }
     }
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/LeadAllocation.aspx");
+        try
+        {
+            Response.Redirect("~/LeadAllocation.aspx");
+        }
+        catch
+        {
+
+        }
+        
     }
     protected void cmdSearch_Click(object sender, ImageClickEventArgs e)
     {
-        SearchFromList(txtSearch.Text.Trim());
+        try
+        {
+            SearchFromList(txtSearch.Text.Trim());
+        }
+        catch { }
+        
     }
     public void SearchFromList(string instring)
     {
@@ -93,18 +124,28 @@ public partial class UserLeadList : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
     }
     protected void gvUserList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        gvUserList.PageIndex = e.NewPageIndex;
-        GetGridData();
+        try
+        {
+            gvUserList.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch { }
+       
     }
     protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("UserLeadList.aspx");
+        try
+        {
+            Response.Redirect("UserLeadList.aspx");
+        }
+        catch { }
+       
     }
 }

@@ -14,65 +14,116 @@ public partial class UserList : System.Web.UI.Page
     int id = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Name"] != null)
+        try
         {
-            Label mastertxt = (Label)Master.FindControl("lblProfile");
-            mastertxt.Text = Session["Name"].ToString();
-            if (!IsPostBack)
+            if (Session["Name"] != null)
             {
-                if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
+                Label mastertxt = (Label)Master.FindControl("lblProfile");
+                mastertxt.Text = Session["Name"].ToString();
+                if (!IsPostBack)
                 {
-                    lblpermissions.Text = "";
-                    divUserList.Visible = true;
-                    divmessage.Visible = false;
-                    GetGridData();
-                }
-                else
-                {
-                    lblpermissions.Text = "Invalid Permissions";
-                    divUserList.Visible = false;
-                    divmessage.Visible = true;
+                    if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
+                    {
+                        lblpermissions.Text = "";
+                        divUserList.Visible = true;
+                        divmessage.Visible = false;
+                        GetGridData();
+                    }
+                    else
+                    {
+                        lblpermissions.Text = "Invalid Permissions";
+                        divUserList.Visible = false;
+                        divmessage.Visible = true;
+                    }
                 }
             }
+            else
+            {
+                Response.Redirect("index.aspx");
+            }
         }
-        else
+        catch
         {
-            Response.Redirect("index.aspx");
+
         }
     }
     protected void GetGridData()
     {
-        ds = ds = userBL.GetUsers(0);
-        gvUserList.DataSource = ds;
-        Session["dt"] = ds.Tables[0];
-        gvUserList.DataBind();
+        try
+        {
+            ds = ds = userBL.GetUsers(0);
+            gvUserList.DataSource = ds;
+            Session["dt"] = ds.Tables[0];
+            gvUserList.DataBind();
+        }
+        catch
+        {
+
+        }
     }
     protected void gvUserList_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName == "Edit")
+        try
         {
-            int id = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvUserList.Rows[id];
-            Response.Redirect("~/UpdateUser.aspx?id=" + row.Cells[0].Text);
+            if (e.CommandName == "Edit")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gvUserList.Rows[id];
+                Response.Redirect("~/UpdateUser.aspx?id=" + row.Cells[0].Text);
+            }
+        }
+        catch
+        {
+
         }
     }
     protected void gvUserList_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        gvUserList.EditIndex = e.NewEditIndex;
-        GetGridData();
+        try
+        {
+            gvUserList.EditIndex = e.NewEditIndex;
+            GetGridData();
+        }
+        catch
+        {
+
+        }
     }
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/NewUser.aspx");
+        try
+        {
+            Response.Redirect("~/NewUser.aspx");
+        }
+        catch
+        {
+
+        }
+        
     }
     protected void gvUserList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        gvUserList.PageIndex = e.NewPageIndex;
-        GetGridData();
+        try
+        {
+            gvUserList.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch
+        {
+
+        }
     }
     protected void cmdSearch_Click(object sender, ImageClickEventArgs e)
     {
-        SearchFromList(txtSearch.Text.Trim());   
+        try
+        {
+            SearchFromList(txtSearch.Text.Trim());   
+        }
+        catch
+        {
+
+        }
+        
     }
     public void SearchFromList(string instring)
     {
@@ -98,7 +149,7 @@ public partial class UserList : System.Web.UI.Page
                 }
             }
         }
-        catch (Exception ex)
+        catch
         {
 
         }
@@ -106,6 +157,14 @@ public partial class UserList : System.Web.UI.Page
 
     protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("UserList.aspx");
+        try
+        {
+            Response.Redirect("UserList.aspx");
+        }
+        catch
+        {
+
+        }
+        
     }
 }
