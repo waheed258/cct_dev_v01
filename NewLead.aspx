@@ -67,6 +67,8 @@
                     <h2 class="inner-tittle"></h2>
                     <div class="graph-form">
                         <div class="validation-form">
+                              <asp:UpdatePanel ID="updatePanel1" runat="server">
+                                    <ContentTemplate>
                             <div class="vali-form">
                                 <div class="col-md-2 form-group1">
                                     <label class="control-label" id="lblDestination">Destination<span style="color: #d0582e">*</span></label>
@@ -80,13 +82,15 @@
                                     <asp:RequiredFieldValidator ID="rfvDepartingFrom" ControlToValidate="txtDepartingFrom" ForeColor="#d0582e" runat="server"
                                         ErrorMessage="Please enter DepartingFrom" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
+                              
                                 <div class="col-md-2 form-group1">
                                     <label class="control-label" id="lblDepartureDate">Departure Date</label>
-                                    <asp:TextBox ID="txtDepartureDate" runat="server" OnTextChanged="txtDepartureDate_TextChanged"></asp:TextBox>
+                                    <asp:TextBox ID="txtDepartureDate" runat="server" OnTextChanged="txtDepartureDate_TextChanged" AutoPostBack="true"></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="clextDeparture" runat="server" TargetControlID="txtDepartureDate" Format="dd-MM-yyyy" />
                                     <asp:RequiredFieldValidator ID="rfvDepartureDate" ControlToValidate="txtDepartureDate" ForeColor="#d0582e" runat="server"
                                         ErrorMessage="Please enter Departure Date" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
+                                       
                                 <div class="col-md-2 form-group1 form-last">
                                     <label class="control-label" id="lblReturnDate">Return Date</label>
                                     <asp:TextBox ID="txtReturnDate" runat="server"></asp:TextBox>
@@ -96,6 +100,7 @@
                                     <asp:CustomValidator ID="cvReturnDate" runat="server"
                                         ClientValidationFunction="cvfReturnDate"></asp:CustomValidator>
                                 </div>
+                                        
                                 <div class="col-md-1 form-group1 group-mail , col-md-3 form-group2 group-mail">
                                     <label class="control-label" id="lblNoOfAdults">Adults</label>
 
@@ -194,7 +199,10 @@
                                     </div>
                                 </div>
                             </div>
+                                        </ContentTemplate>
+                                  </asp:UpdatePanel>
                             <div class="clearfix"></div>
+
                             <div class="col-md-12 form-group button-2">
                                 <asp:Button ID="btnUpdate" runat="server" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
                                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-default" OnClick="btnCancel_Click" />
