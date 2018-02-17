@@ -117,4 +117,8 @@ public partial class AllLeadsList : System.Web.UI.Page
     {
         SearchFromList(txtSearch.Text.Trim());
     }
+    protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
+    {
+        Response.Redirect("AllLeadsList.aspx");
+    }
 }

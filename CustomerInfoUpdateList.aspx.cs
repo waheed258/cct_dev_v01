@@ -99,4 +99,8 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
 
         }
     }
+    protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
+    {
+        Response.Redirect("CustomerInfoUpdateList.aspx");
+    }
 }

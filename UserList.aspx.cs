@@ -104,4 +104,8 @@ public partial class UserList : System.Web.UI.Page
         }
     }
 
+    protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
+    {
+        Response.Redirect("UserList.aspx");
+    }
 }

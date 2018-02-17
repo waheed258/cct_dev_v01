@@ -46,6 +46,8 @@
                     <div class="col-lg-1" style="margin-top: 6px">
                         <asp:ImageButton ID="cmdSearch" ImageUrl="CustomScripts/images/search.png" runat="server" Height="30px"
                             ToolTip="Search..." OnClick="cmdSearch_Click" ValidationGroup="Search" />
+                         <asp:ImageButton ID="imgbtnRefresh" ImageUrl="CustomScripts/images/icon-refresh.png" runat="server" Height="30px" style="margin-left:19px"
+                            ToolTip="Refresh" OnClick="imgbtnRefresh_Click"/>
                     </div>
                     <div class="col-lg-3 text-right">
                         <asp:Button ID="btnAdd" runat="server" Text="Add New Lead" class="btn btn-default" OnClick="btnAdd_Click" />
