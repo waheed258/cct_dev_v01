@@ -54,12 +54,12 @@
                         <div class="validation-form">
                             <div class="vali-form">
                                 <div class="col-md-3 form-group1">
-                                    <label class="control-label">Firstname<span style="color: #d0582e">*</span></label>
+                                    <label class="control-label">First Name<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtFirstName" runat="server" CssClass="toupper onlyAlphabet"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvFirstName" ControlToValidate="txtFirstName" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter First Name" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-3 form-group1 form-last">
-                                    <label class="control-label">Lastname</label>
+                                    <label class="control-label">Last Name</label>
                                     <asp:TextBox ID="txtLastName" runat="server" CssClass="toupper onlyAlphabet"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvLastName" ControlToValidate="txtLastName" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Last Name" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
@@ -113,7 +113,6 @@
                                 <div class="col-md-3 form-group1 group-mail">
                                     <label class="control-label">Password</label>
                                     <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
-                                    
                                 </div>
                             </div>
                             <div class="clearfix"></div>
