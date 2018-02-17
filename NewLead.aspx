@@ -105,7 +105,6 @@
                                     <label class="control-label" id="lblNoOfAdults">Adults</label>
 
                                     <asp:DropDownList ID="ddlNoOfAdults" runat="server" CssClass="pax">
-                                        <asp:ListItem Value="0" Text="Select"></asp:ListItem>
                                         <asp:ListItem Value="1" Text="1"></asp:ListItem>
                                         <asp:ListItem Value="2" Text="2"></asp:ListItem>
                                         <asp:ListItem Value="3" Text="3"></asp:ListItem>
@@ -122,7 +121,6 @@
                                 <div class="col-md-1 form-group1,col-md-3 form-group2 group-mail">
                                     <label class="control-label" id="lblNoOfChilds">Children</label>
                                     <asp:DropDownList ID="ddlNoOfChilds" runat="server" CssClass="pax">
-                                        <asp:ListItem Value="-1" Text="Select"></asp:ListItem>
                                         <asp:ListItem Value="0" Text="0"></asp:ListItem>
                                         <asp:ListItem Value="1" Text="1"></asp:ListItem>
                                         <asp:ListItem Value="2" Text="2"></asp:ListItem>
@@ -138,7 +136,6 @@
                                 <div class="col-md-1 form-group1 form-last,col-md-3 form-group2 group-mail">
                                     <label class="control-label" id="lblNoOfInfants">Infants</label>
                                     <asp:DropDownList ID="ddlNoOfInfants" runat="server" CssClass="pax">
-                                        <asp:ListItem Value="-1" Text="Select"></asp:ListItem>
                                         <asp:ListItem Value="0" Text="0"></asp:ListItem>
                                         <asp:ListItem Value="1" Text="1"></asp:ListItem>
                                         <asp:ListItem Value="2" Text="2"></asp:ListItem>
