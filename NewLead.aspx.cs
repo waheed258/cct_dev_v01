@@ -129,16 +129,20 @@ public partial class NewLead : System.Web.UI.Page
         }
         txtAdditionalInformation.Text = ds.Tables[0].Rows[0]["AdditionalInfo"].ToString();
         string classtype = ds.Tables[0].Rows[0]["Class"].ToString().TrimEnd(',');
+        string[] arrayClass = classtype.Split(',');
         if (chbklstAdditionalInfo.SelectedIndex == 0)
         {
             GetClass();
             divclass.Visible = true;
             foreach (ListItem li in chbklstClass.Items)
             {
-                if(classtype.Contains(li.Text))
+                foreach(string type in arrayClass)
                 {
-                    li.Selected = true;
-                }
+                    if (li.Text == type)
+                    {
+                        li.Selected = true;
+                    }
+                }                
             }
         }
 
