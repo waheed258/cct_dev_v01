@@ -53,12 +53,12 @@
                         <div class="validation-form">
                             <div class="vali-form">
                                 <div class="col-md-3 form-group1">
-                                    <label class="control-label">Firstname<span style="color: #d0582e">*</span></label>
+                                    <label class="control-label">First Name<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtFirstName" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvFirstName" ControlToValidate="txtFirstName" ForeColor="#d0582e" Display="Dynamic" runat="server" ErrorMessage="Please enter First Name" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-3 form-group1 form-last">
-                                    <label class="control-label">Lastname<span style="color: #d0582e">*</span></label>
+                                    <label class="control-label">Last Name<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtLastName" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvLastName" ControlToValidate="txtLastName" ForeColor="#d0582e" Display="Dynamic" runat="server" ErrorMessage="Please enter Last Name" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
@@ -85,12 +85,12 @@
                                     <asp:RegularExpressionValidator ID="revEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format" ControlToValidate="txtEmail" ValidationGroup="Save" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                                 </div>
                                 <div class="col-md-3 form-group1 group-mail">
-                                    <label class="control-label">Login ID<span style="color: #d0582e">*</span></label>
+                                    <label class="control-label">Login Id<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtLogin" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvLogin" ControlToValidate="txtLogin" Display="Dynamic" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Login" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-3 form-group1">
-                                    <label class="control-label">Create a password<span style="color: #d0582e">*</span></label>
+                                    <label class="control-label">Password<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvPassword" ControlToValidate="txtPassword" Display="Dynamic" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Password" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="rgvPassword" runat="server"
