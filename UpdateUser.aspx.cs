@@ -60,7 +60,7 @@ public partial class UpdateUser : System.Web.UI.Page
         txtLocation.Text = dsData.Tables[0].Rows[0]["Location"].ToString();
         txtLoginId.Text = dsData.Tables[0].Rows[0]["LoginId"].ToString();
 
-        if (userid == "1" || userid == "2" || userid == "3")
+        if (userid == "1")
         {
             txtPassword.Text = dsData.Tables[0].Rows[0]["Password"].ToString();
         }
