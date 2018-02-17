@@ -23,6 +23,7 @@ public partial class UserLeadList : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
+                    ViewState["ps"] = 10;
                     lblpermissions.Text = "";
                     divUserList.Visible = true;
                     divmessage.Visible = false;
@@ -45,6 +46,7 @@ public partial class UserLeadList : System.Web.UI.Page
     {
         try
         {
+            gvUserList.PageSize = int.Parse(ViewState["ps"].ToString());
             int CreatedBy = Convert.ToInt32(Session["LoginId"].ToString());
             ds = newLeadBl.GetLeadByUserId(CreatedBy);
             gvUserList.DataSource = ds;
@@ -147,5 +149,14 @@ public partial class UserLeadList : System.Web.UI.Page
         }
         catch { }
        
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
+            GetGridData();
+        }
+        catch { }
     }
 }

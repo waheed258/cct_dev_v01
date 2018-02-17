@@ -37,8 +37,19 @@
             <div class="outter-wp">
                 <!--/forms-->
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-2">
                         <h4 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-top: 15px;">Your Leads List</h4>
+                    </div>
+                     <div class="col-lg-4">
+                         <asp:DropDownList ID="DropPage" runat="server" OnSelectedIndexChanged="DropPage_SelectedIndexChanged"
+                            AutoPostBack="true">
+                            <asp:ListItem Value="10" Selected="True">10</asp:ListItem>
+                            <asp:ListItem Value="25">25</asp:ListItem>
+                            <asp:ListItem Value="50">50</asp:ListItem>
+                            <asp:ListItem Value="100">100</asp:ListItem>
+                        </asp:DropDownList>
+                         <label class="control-label">
+                            Records per page</label>
                     </div>
                     <div class="col-lg-2 form-group1">
                         <asp:TextBox ID="txtSearch" runat="server" placeholder="Search..." />
@@ -52,13 +63,13 @@
                     <div class="col-lg-3 text-right">
                         <asp:Button ID="btnAdd" runat="server" Text="Add New Lead" class="btn btn-default" OnClick="btnAdd_Click" />
                     </div>
-                </div>
+                
 
                 <div class="col-lg-12 ">
                     <asp:GridView ID="gvUserList" runat="server" Width="100%"
                         AutoGenerateColumns="False" DataKeyNames="SRNO"
                         EmptyDataText="There are no data records to display."
-                        BorderStyle="Solid" BorderWidth="3px"
+                        BorderStyle="Solid" BorderWidth="3px" AllowPaging="true" PageSize="10"
                         CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvUserList_RowCommand" OnRowEditing="gvUserList_RowEditing" OnPageIndexChanging="gvUserList_PageIndexChanging">
                         <Columns>
                             <asp:BoundField DataField="SRNO" HeaderText="Sl.No" ReadOnly="true" />
@@ -83,6 +94,6 @@
     </div>
     <!--//content-inner-->
     <!--/sidebar-menu-->
-    </div>
+  </div>
 </asp:Content>
 

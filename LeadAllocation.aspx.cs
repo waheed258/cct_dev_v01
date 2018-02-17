@@ -23,6 +23,7 @@ public partial class LeadAllocation : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
+                    ViewState["ps"] = 10;
                     if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
                     {
                         lblpermissions.Text = "";
@@ -49,6 +50,7 @@ public partial class LeadAllocation : System.Web.UI.Page
     {
         try
         {
+            gvLeadData.PageSize = int.Parse(ViewState["ps"].ToString());
             ds = newLeadBL.GetLeadData();
             gvLeadData.DataSource = ds;
             ViewState["dt"] = ds.Tables[0];
@@ -148,6 +150,15 @@ public partial class LeadAllocation : System.Web.UI.Page
         try
         {
             Response.Redirect("LeadAllocation.aspx");
+        }
+        catch { }
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
+            GetGridData();
         }
         catch { }
     }

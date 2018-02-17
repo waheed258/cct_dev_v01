@@ -22,6 +22,7 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
+                    ViewState["ps"] = 10;
                     GetCustomerInfo();
                 }
             }
@@ -37,6 +38,7 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
     {
         try
         {
+            gvCustomerUpdate.PageSize = int.Parse(ViewState["ps"].ToString());
             DataSet ds = customerBl.GetCustomer(0);
             gvCustomerUpdate.DataSource = ds;
             Session["dt"] = ds.Tables[0];
@@ -122,6 +124,15 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
         try
         {
             Response.Redirect("CustomerInfoUpdateList.aspx");
+        }
+        catch { }
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
+            GetCustomerInfo();
         }
         catch { }
     }

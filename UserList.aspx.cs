@@ -22,6 +22,7 @@ public partial class UserList : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
+                    ViewState["ps"] = 10;
                     if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
                     {
                         lblpermissions.Text = "";
@@ -51,6 +52,7 @@ public partial class UserList : System.Web.UI.Page
     {
         try
         {
+            gvUserList.PageSize = int.Parse(ViewState["ps"].ToString());
             ds = ds = userBL.GetUsers(0);
             gvUserList.DataSource = ds;
             Session["dt"] = ds.Tables[0];
@@ -166,5 +168,14 @@ public partial class UserList : System.Web.UI.Page
 
         }
         
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
+            GetGridData();
+        }
+        catch { }
     }
 }

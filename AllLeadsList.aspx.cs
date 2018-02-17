@@ -24,6 +24,7 @@ public partial class AllLeadsList : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
+                    ViewState["ps"] = 10;
                     lblpermissions.Text = "";
                     divAllLeadsList.Visible = true;
                     divmessage.Visible = false;
@@ -41,6 +42,7 @@ public partial class AllLeadsList : System.Web.UI.Page
     {
         try
         {
+            gvAllLeads.PageSize = int.Parse(ViewState["ps"].ToString());
             ds = newLeadBL.GetLeadData();
             gvAllLeads.DataSource = ds;
             ViewState["dt"] = ds.Tables[0];
@@ -139,6 +141,15 @@ public partial class AllLeadsList : System.Web.UI.Page
         try
         {
             Response.Redirect("AllLeadsList.aspx");
+        }
+        catch { }
+    }
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            ViewState["ps"] = DropPage.SelectedItem.ToString().Trim();
+            GetGridData();
         }
         catch { }
     }
