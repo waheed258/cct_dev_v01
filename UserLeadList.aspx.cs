@@ -106,4 +106,8 @@ public partial class UserLeadList : System.Web.UI.Page
         gvUserList.PageIndex = e.NewPageIndex;
         GetGridData();
     }
+    protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
+    {
+        Response.Redirect("UserLeadList.aspx");
+    }
 }
