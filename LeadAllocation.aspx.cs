@@ -45,7 +45,7 @@ public partial class LeadAllocation : System.Web.UI.Page
     {
         ds = newLeadBL.GetLeadData();
         gvLeadData.DataSource = ds;
-        Session["dt"] = ds.Tables[0];
+        ViewState["dt"] = ds.Tables[0];
         gvLeadData.DataBind();
     }   
    
@@ -90,19 +90,15 @@ public partial class LeadAllocation : System.Web.UI.Page
     {
         try
         {
-            if (Session["dt"] != null)
+            if (ViewState["dt"] != null)
             {
-                DataTable dt = (DataTable)Session["dt"];
+                DataTable dt = (DataTable)ViewState["dt"];
                 DataRow[] dr = dt.Select(
-                    "ClientReqId like '%" + instring +
-                    "%' OR Destination LIKE '%" + instring +
-                    "%' OR Convert(NoOfPax, 'System.String') LIKE '%" + instring +
-                    "%' OR Convert(NoOfAdults, 'System.String') LIKE '%" + instring +
-                    "%' OR Convert(NoOfInfants, 'System.String') LIKE '%" + instring +
-                    "%' OR Convert(NoOfChilds, 'System.String') LIKE '%" + instring +
-                    "%' OR Services LIKE '%" + instring +
-                    "%' OR AdditionalInfo LIKE '%" + instring +
-                    "%' OR Class LIKE '%" + instring + "%'");
+                    "CLIENTREQID like '%" + instring +
+                    "%' OR Convert(CREATEDDATE, 'System.String') LIKE '%" + instring +
+                    "%' OR CREATEDBY LIKE '%" + instring +
+                    "%' OR ASSIGNEDTO LIKE '%" + instring +
+                    "%' OR STATUS LIKE '%" + instring + "%'");
                 if (dr.Count() > 0)
                 {
                     gvLeadData.DataSource = dr.CopyToDataTable();
