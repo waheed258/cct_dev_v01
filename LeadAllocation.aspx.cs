@@ -15,75 +15,107 @@ public partial class LeadAllocation : System.Web.UI.Page
     int id = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Name"] != null)
+        try
         {
-            Label mastertxt = (Label)Master.FindControl("lblProfile");
-            mastertxt.Text = Session["Name"].ToString();
-            if (!IsPostBack)
+            if (Session["Name"] != null)
             {
-                if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
+                Label mastertxt = (Label)Master.FindControl("lblProfile");
+                mastertxt.Text = Session["Name"].ToString();
+                if (!IsPostBack)
                 {
-                    lblpermissions.Text = "";
-                    divLeadAllocation.Visible = true;
-                    divmessage.Visible = false;
-                    GetGridData();
-                }
-                else
-                {
-                    lblpermissions.Text = "Invalid Permissions";
-                    divLeadAllocation.Visible = false;
-                    divmessage.Visible = true;
+                    if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
+                    {
+                        lblpermissions.Text = "";
+                        divLeadAllocation.Visible = true;
+                        divmessage.Visible = false;
+                        GetGridData();
+                    }
+                    else
+                    {
+                        lblpermissions.Text = "Invalid Permissions";
+                        divLeadAllocation.Visible = false;
+                        divmessage.Visible = true;
+                    }
                 }
             }
+            else
+            {
+                Response.Redirect("index.aspx");
+            }
         }
-        else
-        {
-            Response.Redirect("index.aspx");
-        }
+        catch { }
     }
     protected void GetGridData()
     {
-        ds = newLeadBL.GetLeadData();
-        gvLeadData.DataSource = ds;
-        ViewState["dt"] = ds.Tables[0];
-        gvLeadData.DataBind();
+        try
+        {
+            ds = newLeadBL.GetLeadData();
+            gvLeadData.DataSource = ds;
+            ViewState["dt"] = ds.Tables[0];
+            gvLeadData.DataBind();
+        }
+        catch { }
     }   
    
     protected void gvLeadData_RowEditing1(object sender, GridViewEditEventArgs e)
     {
-        gvLeadData.EditIndex = e.NewEditIndex;
-        GetGridData();
+        try
+        {
+            gvLeadData.EditIndex = e.NewEditIndex;
+            GetGridData();
+        }
+        catch { }
     }
     protected void gvLeadData_RowDataBound1(object sender, GridViewRowEventArgs e)
     {
-        //if (e.Row.RowType == DataControlRowType.DataRow)
-        //{
-        //    e.Row.Cells[6].Text = e.Row.Cells[6].Text.TrimEnd(',');
-        //    e.Row.Cells[7].Text = e.Row.Cells[7].Text.TrimEnd(',');
-        //}
+        try
+        {
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    e.Row.Cells[6].Text = e.Row.Cells[6].Text.TrimEnd(',');
+            //    e.Row.Cells[7].Text = e.Row.Cells[7].Text.TrimEnd(',');
+            //}
+        }
+        catch { }
     }
     protected void gvLeadData_RowCommand1(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName == "Edit")
+        try
         {
-            int id = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvLeadData.Rows[id];
-            int res = Convert.ToInt32(gvLeadData.DataKeys[row.RowIndex].Values[0]);
-            Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 1);
+            if (e.CommandName == "Edit")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gvLeadData.Rows[id];
+                int res = Convert.ToInt32(gvLeadData.DataKeys[row.RowIndex].Values[0]);
+                Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 1);
+            }
         }
+        catch { }
     }
     protected void btnAdd_Click1(object sender, EventArgs e)
     {
-        Response.Redirect("NewCustomer.aspx");
+        try
+        {
+            Response.Redirect("NewCustomer.aspx");
+        }
+        catch { }
     }
     protected void gvLeadData_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        gvLeadData.PageIndex = e.NewPageIndex;
-        GetGridData();
+        try
+        {
+            gvLeadData.PageIndex = e.NewPageIndex;
+            GetGridData();
+        }
+        catch { }
     }
     protected void cmdSearch_Click(object sender, ImageClickEventArgs e)
     {
-        SearchFromList(txtSearch.Text.Trim());   
+        try
+        {
+            SearchFromList(txtSearch.Text.Trim());
+        }
+        catch { }
     }
 
     public void SearchFromList(string instring)
@@ -113,6 +145,10 @@ public partial class LeadAllocation : System.Web.UI.Page
     }
     protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("LeadAllocation.aspx");
+        try
+        {
+            Response.Redirect("LeadAllocation.aspx");
+        }
+        catch { }
     }
 }
