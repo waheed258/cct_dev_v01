@@ -86,9 +86,9 @@
                     <h5 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px">Verify Customer</h5>
                     <div class="graph-form" id="divVerify" runat="server">
                         <div class="validation-form">
-                          
+
                             <div class="vali-form">
-                                 
+
                                 <div class="col-md-2 form-group1">
                                     <label class="control-label" id="lblMobileNum">Mobile Number</label>
                                     <asp:TextBox ID="txtMobileNum" runat="server" MaxLength="10" CssClass="Verify"></asp:TextBox>
@@ -105,9 +105,9 @@
                                 <div class="col-md-1 form-group button-2">
                                     <asp:Button ID="btnValidate" runat="server" Text="Verify" Style="margin-top: 2em" CssClass="VerifyButton" ValidationGroup="ValidateVerify" OnClick="btnValidate_Click1" />
                                 </div>
-                               
+
                                 <div runat="server" id="divHolderOrNot">
-                                   
+
                                     <div class="vali-form">
                                         <div class="col-md-3 form-group1 group-mail" style="margin-top: 2em">
                                             <label class="control-label" id="lblAccountHolder">Are you a Nedbank account holder?<span style="color: #d0582e">*</span></label>
@@ -119,11 +119,11 @@
                                             <asp:RadioButton ID="rdbtnNo" Text="No" runat="server" GroupName="Nedbankaccountholder" AutoPostBack="True" OnCheckedChanged="rdbtnNo_CheckedChanged" />
                                         </div>
                                     </div>
-                                       
+
                                 </div>
-                                     
+
                             </div>
-                               
+
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -255,21 +255,38 @@
                             <div class="vali-form vali-form1">
                                 <asp:UpdatePanel ID="updatePanel2" runat="server">
                                     <ContentTemplate>
-                                        <div class="col-md-6 form-group2 group-mail,checkbox-inline">
+                                        <div class="col-md-1 form-group2 group-mail,checkbox-inline">
                                             <label class="control-label" id="lblAdditionalInfo">Services<span style="color: #d0582e">*</span></label>
-                                            <asp:CheckBoxList ID="chbklstAdditionalInfo" runat="server" DataTextField="Services" DataValueField="SpecialServicesId" CssClass="spaced"
-                                                RepeatDirection="Horizontal" AutoPostBack="True" OnSelectedIndexChanged="chbklstAdditionalInfo_SelectedIndexChanged">
+                                            <asp:CheckBoxList ID="chbklstAdditionalInfo" runat="server" CssClass="spaced"
+                                                RepeatDirection="Horizontal" OnSelectedIndexChanged="chbklstAdditionalInfo_SelectedIndexChanged" AutoPostBack="true">
+                                                <asp:ListItem Text="Flight" Value="1"></asp:ListItem>
                                             </asp:CheckBoxList>
                                             <asp:CustomValidator ID="cvAdditionalInfo" runat="server" ErrorMessage="Please select at Least One Service"
-                                                ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList"></asp:CustomValidator>
+                                                ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList" Display="Dynamic"></asp:CustomValidator>
                                         </div>
-                                        <div class="col-md-6 form-group2 group-mail,checkbox-inline" id="divClassChk" runat="server">
+                                        <div class="col-md-11 form-group2 group-mail,checkbox-inline" id="divClassItems" runat="server">
                                             <label class="control-label" id="lblClass">Class</label>
-                                            <asp:CheckBoxList ID="chbklstClass" runat="server" DataTextField="ClassType" DataValueField="ClassId" RepeatDirection="Horizontal"
+                                            <asp:CheckBoxList ID="chbkClass" runat="server" CssClass="spaced"
+                                                RepeatDirection="Horizontal">
+                                                <asp:ListItem Text="Economy" Value="1"></asp:ListItem>
+                                                <asp:ListItem Text="Premium Economy" Value="2"></asp:ListItem>
+                                                <asp:ListItem Text="Business" Value="3"></asp:ListItem>
+                                                <asp:ListItem Text="First" Value="4"></asp:ListItem>
+                                                <asp:ListItem Text="Premium First" Value="5"></asp:ListItem>
+                                            </asp:CheckBoxList>
+                                        </div>
+                                        <div class="col-md-12 form-group2 group-mail,checkbox-inline" runat="server">
+                                            <asp:CheckBoxList ID="chbklstClass" runat="server" RepeatDirection="Horizontal"
                                                 CssClass="spaced">
+                                                <asp:ListItem Text="Hotel" Value="1"></asp:ListItem>
+                                                <asp:ListItem Text="Car" Value="2"></asp:ListItem>
+                                                <asp:ListItem Text="Special Packages" Value="3"></asp:ListItem>
+                                                <asp:ListItem Text="Insurance" Value="4"></asp:ListItem>
+                                                <asp:ListItem Text="Visa" Value="5"></asp:ListItem>
+                                                <asp:ListItem Text="Forex" Value="6"></asp:ListItem>
                                             </asp:CheckBoxList>
                                             <asp:CustomValidator ID="cvClass" runat="server" ErrorMessage="Please Select at Least One Value"
-                                                ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList1"></asp:CustomValidator>
+                                                ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList1" Display="Dynamic"></asp:CustomValidator>
                                         </div>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>

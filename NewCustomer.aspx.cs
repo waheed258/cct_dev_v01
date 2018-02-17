@@ -36,9 +36,7 @@ public partial class NewCustomer : System.Web.UI.Page
                     h5CreateLead.Visible = false;
                     h5CustomerInfo.Visible = false;
                     divNewLead.Visible = false;
-                    GetServices();
-                    GetClass();
-                    divClassChk.Visible = false;
+                    divClassItems.Visible = false;
                     clextDeparture.StartDate = DateTime.Today;
                 }
             }
@@ -291,7 +289,11 @@ public partial class NewCustomer : System.Web.UI.Page
     {
         try
         {
-            foreach (ListItem item in this.chbklstAdditionalInfo.Items)
+            if (chbklstAdditionalInfo.SelectedValue == "1")
+            {
+                status += chbklstAdditionalInfo.SelectedItem.Text + ",";
+            }
+            foreach (ListItem item in this.chbklstClass.Items)
                 if (item.Selected)
                     status += item + ",";
         }
@@ -303,7 +305,7 @@ public partial class NewCustomer : System.Web.UI.Page
         try
         {
             status = string.Empty;
-            foreach (ListItem item in this.chbklstClass.Items)
+            foreach (ListItem item in this.chbkClass.Items)
                 if (item.Selected)
                     status += item + ",";
         }
@@ -343,13 +345,13 @@ public partial class NewCustomer : System.Web.UI.Page
     {
         try
         {
-            if (chbklstAdditionalInfo.SelectedValue == "1")
+            if (chbklstAdditionalInfo.SelectedIndex == 0)
             {
-                divClassChk.Visible = true;
+                divClassItems.Visible = true;
             }
             else
             {
-                divClassChk.Visible = false;
+                divClassItems.Visible = false;
             }
         }
         catch { }

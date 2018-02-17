@@ -31,7 +31,6 @@ public partial class NewLead : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
-                    divclass.Visible = false;
                     Session["CustomerId"] = null;
                     Session["id"] = Request.QueryString["id"].ToString();
                     Session["isleadallocate"] = Request.QueryString["isleadallocate"].ToString();
@@ -43,11 +42,10 @@ public partial class NewLead : System.Web.UI.Page
                     {
                         isleadaalocate.Visible = true;
                     }
-                    GetClass();
+                    divClassItems.Visible = false;
                     GetDetails();
                     GetLeadStatus();
                     GetAssignedTo();
-
                     clextDeparture.StartDate = DateTime.Today;
                 }
             }
@@ -131,7 +129,10 @@ public partial class NewLead : System.Web.UI.Page
 
             ddlLeadStatus.SelectedValue = ds.Tables[0].Rows[0]["LeadStatus"].ToString();
             string Services = ds.Tables[0].Rows[0]["Services"].ToString().TrimEnd(',');
-            GetServices();
+            if (Services.Contains("Flight"))
+            {
+                chbklstClass.SelectedIndex = 0;
+            }
             foreach (ListItem li in chbklstAdditionalInfo.Items)
             {
                 if (Services.Contains(li.Text))
@@ -142,11 +143,10 @@ public partial class NewLead : System.Web.UI.Page
             txtAdditionalInformation.Text = ds.Tables[0].Rows[0]["AdditionalInfo"].ToString();
             string classtype = ds.Tables[0].Rows[0]["Class"].ToString().TrimEnd(',');
             string[] arrayClass = classtype.Split(',');
-            if (chbklstAdditionalInfo.SelectedIndex == 0)
+            if (chbklstClass.SelectedIndex == 0)
             {
-                GetClass();
-                divclass.Visible = true;
-                foreach (ListItem li in chbklstClass.Items)
+                divClassItems.Visible = true;
+                foreach (ListItem li in chbkClass.Items)
                 {
                     foreach (string type in arrayClass)
                     {
@@ -234,36 +234,17 @@ public partial class NewLead : System.Web.UI.Page
         catch { }
     }
 
-    protected void GetServices()
-    {
-        try
-        {
-            dt = nlb.GetSpecialServices();
-            chbklstAdditionalInfo.DataSource = dt;
-            chbklstAdditionalInfo.DataTextField = "Services";
-            chbklstAdditionalInfo.DataValueField = "SpecialServicesId";
-            chbklstAdditionalInfo.DataBind();
-        }
-        catch { }
-    }
-    protected void GetClass()
-    {
-        try
-        {
-            dt = nlb.GetClass();
-            chbklstClass.DataSource = dt;
-            chbklstClass.DataTextField = "ClassType";
-            chbklstClass.DataValueField = "ClassId";
-            chbklstClass.DataBind();
-        }
-        catch { }
-    }
+
 
 
     protected void checkboxvalues()
     {
         try
         {
+            if (chbklstClass.SelectedValue == "1")
+            {
+                status += chbklstClass.SelectedItem.Text + ",";
+            }
             foreach (ListItem item in this.chbklstAdditionalInfo.Items)
                 if (item.Selected)
                     status += item + ",";
@@ -276,7 +257,7 @@ public partial class NewLead : System.Web.UI.Page
         try
         {
             status = string.Empty;
-            foreach (ListItem item in this.chbklstClass.Items)
+            foreach (ListItem item in this.chbkClass.Items)
                 if (item.Selected)
                     status += item + ",";
         }
@@ -320,23 +301,7 @@ public partial class NewLead : System.Web.UI.Page
         }
         catch { }
     }
-    protected void chbklstAdditionalInfo_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            if (chbklstAdditionalInfo.SelectedValue == "1")
-            {
-                chbklstClass.ClearSelection();
-                divclass.Visible = true;
-            }
-            else
-            {
-                chbklstClass.ClearSelection();
-                divclass.Visible = false;
-            }
-        }
-        catch { }
-    }
+
     protected void txtDepartureDate_TextChanged(object sender, EventArgs e)
     {
         try
@@ -345,5 +310,16 @@ public partial class NewLead : System.Web.UI.Page
             clextReturn.StartDate = Convert.ToDateTime(txtDepartureDate.Text, new CultureInfo("en-GB"));
         }
         catch { }
+    }
+    protected void chbklstClass_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (chbklstClass.SelectedIndex == 0)
+        {
+            divClassItems.Visible = true;
+        }
+        else
+        {
+            divClassItems.Visible = false;
+        }
     }
 }
