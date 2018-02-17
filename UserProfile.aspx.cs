@@ -28,8 +28,10 @@ public partial class UserProfile : System.Web.UI.Page
                     GetUserType();
                     GetStatus();
                     GetUser(Convert.ToInt32(Session["LoginId"].ToString()));
-                    if(Convert.ToInt32(Session["LoginId"].ToString())!=1){
-                        divUserType.Visible = false;
+                    if(Convert.ToInt32(Session["LoginId"].ToString())!=1)
+                    {
+                        ddlStatus.Enabled = false;
+                        ddlUserType.Enabled = false;
                     }
                 }
             }

@@ -65,7 +65,7 @@
                             </div>
                             <div class="clearfix"></div>
 
-                            <div class="vali-form vali-form1"  id="divUserType" runat="server">
+                            <div class="vali-form vali-form1">
                                 <div class="col-md-3 form-group2 group-mail">
                                     <label class="control-label">User Type<span style="color: #d0582e">*</span></label>
                                     <asp:DropDownList ID="ddlUserType" runat="server">
