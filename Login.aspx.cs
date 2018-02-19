@@ -44,7 +44,7 @@ public partial class Login : System.Web.UI.Page
                 }
                 if (passowrd == txtPassword.Text)
                 {
-                    Session["Name"] = ds.Tables[0].Rows[0]["LoginId"].ToString();
+                    Session["Name"] = ds.Tables[0].Rows[0]["FirstName"].ToString() + " " + ds.Tables[0].Rows[0]["LastName"].ToString();
                     Session["UserType"] = ds.Tables[0].Rows[0]["UserType"].ToString();
                     Session["LoginId"] = ds.Tables[0].Rows[0]["UserId"].ToString();
                     Response.Redirect("NewCustomer.aspx", false);

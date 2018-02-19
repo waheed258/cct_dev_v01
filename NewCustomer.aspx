@@ -86,9 +86,7 @@
                     <h5 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px">Verify Customer</h5>
                     <div class="graph-form" id="divVerify" runat="server">
                         <div class="validation-form">
-
                             <div class="vali-form">
-
                                 <div class="col-md-2 form-group1">
                                     <label class="control-label" id="lblMobileNum">Mobile Number</label>
                                     <asp:TextBox ID="txtMobileNum" runat="server" MaxLength="10" CssClass="Verify"></asp:TextBox>
