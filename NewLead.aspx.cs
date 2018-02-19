@@ -19,6 +19,7 @@ public partial class NewLead : System.Web.UI.Page
     DataTable dt = new DataTable();
     DataSet dataset = new DataSet();
     UserBL userbl = new UserBL();
+    EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
 
     // Testing
     protected void Page_Load(object sender, EventArgs e)
@@ -32,9 +33,10 @@ public partial class NewLead : System.Web.UI.Page
                 if (!IsPostBack)
                 {
                     Session["CustomerId"] = null;
-                    Session["id"] = Request.QueryString["id"].ToString();
-                    Session["isleadallocate"] = Request.QueryString["isleadallocate"].ToString();
-                    if (Convert.ToInt32(Session["isleadallocate"].ToString()) == 0)
+                    string decryptedparam = encryptdecrypt.Decrypt(Request.QueryString["id"].ToString());
+                    ViewState["id"] = decryptedparam;
+                    ViewState["isleadallocate"] = Request.QueryString["isleadallocate"].ToString();
+                    if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
                     {
                         isleadaalocate.Visible = false;
                     }
@@ -111,7 +113,7 @@ public partial class NewLead : System.Web.UI.Page
     {
         try
         {
-            string id = Session["id"].ToString();
+            string id = ViewState["id"].ToString();
             DataSet ds = nlb.GetLeadDataById(id);
             txtDepartingFrom.Text = ds.Tables[0].Rows[0]["DepartingFrom"].ToString();
             txtDestination.Text = ds.Tables[0].Rows[0]["Destination"].ToString();
@@ -184,7 +186,7 @@ public partial class NewLead : System.Web.UI.Page
                     }
                     else
                     {
-                        string id = Session["id"].ToString();
+                        string id = ViewState["id"].ToString();
                         ne.ClientReqId = id;
                         ne.CustomerId = Convert.ToInt32(Session["CustomerId"].ToString());
                         ne.Destination = txtDestination.Text;
@@ -209,7 +211,7 @@ public partial class NewLead : System.Web.UI.Page
                         if (result == 1)
                         {
                             lblMessage.Text = "Details updated successfuly!";
-                            if (Convert.ToInt32(Session["isleadallocate"].ToString()) == 0)
+                            if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
                             {
                                 Response.Redirect("~/AllLeadsList.aspx");
                             }

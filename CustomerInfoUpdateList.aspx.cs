@@ -12,6 +12,7 @@ using BusinessObjects;
 public partial class CustomerInfoUpdateList : System.Web.UI.Page
 {
     CustomerBL customerBl = new CustomerBL();
+    EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -55,7 +56,11 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
             {
                 int id = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = gvCustomerUpdate.Rows[id];
-                Response.Redirect("~/CustomerUpdate.aspx?id=" + row.Cells[0].Text);
+                int res = Convert.ToInt32(gvCustomerUpdate.DataKeys[row.RowIndex].Values[0]);
+                string encryptedparam = encryptdecrypt.Encrypt(res.ToString());
+                string url = "CustomerUpdate.aspx?id=" + Server.UrlEncode(encryptedparam);
+                string s = "window.open('" + url + "', '_blank');";
+                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             }
         }
         catch { }

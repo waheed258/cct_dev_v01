@@ -7,11 +7,15 @@ using System.Web.UI.WebControls;
 using BusinessLogic;
 using System.Data;
 using BusinessObjects;
+using System.Security.Cryptography;
+using System.IO;
+using System.Text;
 public partial class UserList : System.Web.UI.Page
 {
     UserBL userBL = new UserBL();
     DataSet ds = new DataSet();
     int id = 0;
+    EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -71,7 +75,11 @@ public partial class UserList : System.Web.UI.Page
             {
                 int id = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = gvUserList.Rows[id];
-                Response.Redirect("~/UpdateUser.aspx?id=" + row.Cells[0].Text);
+                int res = Convert.ToInt32(gvUserList.DataKeys[row.RowIndex].Values[0]);
+                string encryptedparam = encryptdecrypt.Encrypt(res.ToString());
+                string url = "UpdateUser.aspx?id=" + Server.UrlEncode(encryptedparam);
+                string s = "window.open('" + url + "', '_blank');";
+                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             }
         }
         catch
@@ -101,7 +109,7 @@ public partial class UserList : System.Web.UI.Page
         {
 
         }
-        
+
     }
     protected void gvUserList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -119,13 +127,13 @@ public partial class UserList : System.Web.UI.Page
     {
         try
         {
-            SearchFromList(txtSearch.Text.Trim());   
+            SearchFromList(txtSearch.Text.Trim());
         }
         catch
         {
 
         }
-        
+
     }
     public void SearchFromList(string instring)
     {
@@ -167,7 +175,7 @@ public partial class UserList : System.Web.UI.Page
         {
 
         }
-        
+
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -178,4 +186,6 @@ public partial class UserList : System.Web.UI.Page
         }
         catch { }
     }
+
+   
 }

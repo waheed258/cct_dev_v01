@@ -12,6 +12,7 @@ public partial class CustomerUpdate : System.Web.UI.Page
 {
     CustomerBL customerBL = new CustomerBL();
     CustomerEntity customerEntity = new CustomerEntity();
+    EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -20,7 +21,8 @@ public partial class CustomerUpdate : System.Web.UI.Page
             mastertxt.Text = Session["Name"].ToString();
             if (!IsPostBack)
             {
-                Session["id"] = Convert.ToInt32(Request.QueryString["id"].ToString());
+                string decryptedparam = encryptdecrypt.Decrypt(Request.QueryString["id"].ToString());
+                ViewState["id"] = Convert.ToInt32(decryptedparam);
                 GetCustomerInfo();
             }
         }
@@ -30,7 +32,7 @@ public partial class CustomerUpdate : System.Web.UI.Page
     {
         try
         {
-            int customerid = Convert.ToInt32(Session["id"].ToString());
+            int customerid = Convert.ToInt32(ViewState["id"].ToString());
             DataSet ds = customerBL.GetCustomer(customerid);
             txtMobileNumber.Text = ds.Tables[0].Rows[0]["MobileNum"].ToString();
             txtCustomerName.Text = ds.Tables[0].Rows[0]["CustomerName"].ToString();
@@ -59,7 +61,7 @@ public partial class CustomerUpdate : System.Web.UI.Page
     {
         try
         {
-            customerEntity.CustomerId = Convert.ToInt32(Session["id"].ToString());
+            customerEntity.CustomerId = Convert.ToInt32(ViewState["id"].ToString());
             customerEntity.MobileNum = txtMobileNumber.Text;
             customerEntity.CustomerName = txtCustomerName.Text;
             customerEntity.EmailId = txtEmail.Text;

@@ -108,7 +108,7 @@
                             <div class="vali-form">
                                 <div class="col-md-3 form-group1 group-mail">
                                     <label class="control-label">Login Id</label>
-                                    <asp:TextBox ID="txtLoginId" runat="server" ReadOnly="true"></asp:TextBox>                                    
+                                    <asp:TextBox ID="txtLoginId" runat="server" ReadOnly="true" Enabled="false"></asp:TextBox>                                    
                                 </div>
                                 <div class="col-md-3 form-group1 group-mail">
                                     <label class="control-label">Password</label>

@@ -14,6 +14,7 @@ public partial class UpdateUser : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     UserBL userbl = new UserBL();
+    EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -24,9 +25,8 @@ public partial class UpdateUser : System.Web.UI.Page
                 {
                     if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
                     {
-                        Session["id"] = Convert.ToInt32(Request.QueryString["id"].ToString());
-                        //Session["loginid"] = null;
-                        //Session["password"] = null;
+                        string decryptedparam = encryptdecrypt.Decrypt(Request.QueryString["id"].ToString());
+                        ViewState["id"] = Convert.ToInt32(decryptedparam);
                         getRows();
                         lblpermissions.Text = "";
                         divUsersList.Visible = true;
@@ -55,7 +55,7 @@ public partial class UpdateUser : System.Web.UI.Page
     {
         try
         {
-            int id = Convert.ToInt32(Session["id"].ToString());
+            int id = Convert.ToInt32(ViewState["id"].ToString());
             DataSet dsData = new DataSet();
             dsData = userbl.GetUsers(id);
             txtFirstName.Text = dsData.Tables[0].Rows[0]["FirstName"].ToString();
@@ -72,7 +72,7 @@ public partial class UpdateUser : System.Web.UI.Page
             }
             else
             {
-                txtPassword.Text = Decrypt(dsData.Tables[0].Rows[0]["Password"].ToString());
+                txtPassword.Text = encryptdecrypt.Decrypt(dsData.Tables[0].Rows[0]["Password"].ToString());
             }
             txtEmail.Text = dsData.Tables[0].Rows[0]["EmailId"].ToString();
             GetStatus();
@@ -118,11 +118,11 @@ public partial class UpdateUser : System.Web.UI.Page
     {
         try
         {
-            int id = Convert.ToInt32(Session["id"].ToString());
+            int id = Convert.ToInt32(ViewState["id"].ToString());
             UserInfoEntity userinfoentity = new UserInfoEntity();
             userinfoentity.UserId = id;
-            userinfoentity.LoginID = Session["loginid"].ToString();
-            userinfoentity.Password = Encrypt(txtPassword.Text);
+            userinfoentity.LoginID = "0";
+            userinfoentity.Password = encryptdecrypt.Encrypt(txtPassword.Text);
             userinfoentity.Email = txtEmail.Text;
             userinfoentity.FirstName = txtFirstName.Text;
             userinfoentity.LastName = txtLastName.Text;
@@ -147,34 +147,7 @@ public partial class UpdateUser : System.Web.UI.Page
         {
 
         }
-    }
-
-    private string Encrypt(string clearText)
-    {
-        try
-        {
-            string EncryptionKey = "MAKV2SPBNI99212";
-            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
-            using (Aes encryptor = Aes.Create())
-            {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
-                    {
-                        cs.Write(clearBytes, 0, clearBytes.Length);
-                        cs.Close();
-                    }
-                    clearText = Convert.ToBase64String(ms.ToArray());
-                }
-            }
-           
-        }
-        catch { }
-         return clearText;
-    }
+    }    
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         try
@@ -202,31 +175,5 @@ public partial class UpdateUser : System.Web.UI.Page
             txtLoginId.Text = "";
         }
         catch { }
-    }
-
-    private string Decrypt(string cipherText)
-    {
-        try
-        {
-            string EncryptionKey = "MAKV2SPBNI99212";
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
-            using (Aes encryptor = Aes.Create())
-            {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
-                    {
-                        cs.Write(cipherBytes, 0, cipherBytes.Length);
-                        cs.Close();
-                    }
-                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
-                }
-            }
-        }
-        catch { }
-        return cipherText;
     }
 }

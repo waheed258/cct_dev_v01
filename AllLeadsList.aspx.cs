@@ -7,12 +7,14 @@ using System.Web.UI.WebControls;
 using BusinessLogic;
 using System.Data;
 using BusinessObjects;
+using System.Text;
 
 public partial class AllLeadsList : System.Web.UI.Page
 {
     NewLeadBL newLeadBL = new NewLeadBL();
     DataSet ds = new DataSet();
     int id = 0;
+    EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -60,7 +62,10 @@ public partial class AllLeadsList : System.Web.UI.Page
                 int id = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = gvAllLeads.Rows[id];
                 int res = Convert.ToInt32(gvAllLeads.DataKeys[row.RowIndex].Values[0]);
-                Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 0);
+                string encryptedparam = encryptdecrypt.Encrypt(res.ToString());
+                string url = "NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 0;                
+                string s = "window.open('" + url + "', '_blank');";
+                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             }
         }
         catch { }
@@ -125,7 +130,7 @@ public partial class AllLeadsList : System.Web.UI.Page
                 }
             }
         }
-        catch  { }
+        catch { }
     }
 
     protected void cmdSearch_Click(object sender, ImageClickEventArgs e)

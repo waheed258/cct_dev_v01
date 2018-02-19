@@ -12,6 +12,7 @@ public partial class LeadAllocation : System.Web.UI.Page
 {
     NewLeadBL newLeadBL = new NewLeadBL();
     DataSet ds = new DataSet();
+    EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
     int id = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -89,7 +90,10 @@ public partial class LeadAllocation : System.Web.UI.Page
                 int id = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = gvLeadData.Rows[id];
                 int res = Convert.ToInt32(gvLeadData.DataKeys[row.RowIndex].Values[0]);
-                Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 1);
+                string encryptedparam = encryptdecrypt.Encrypt(res.ToString());
+                string url = "NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 1;
+                string s = "window.open('" + url + "', '_blank');";
+                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             }
         }
         catch { }

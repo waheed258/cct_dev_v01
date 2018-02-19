@@ -9,21 +9,13 @@
                     e.preventDefault();
                 }
             });
-            $("select").on('change', function () {
-                debugger;
+            $("select").on('change', function () {                
                 var total = 0;
                 $(".pax option:selected").each(function () {
                     total += parseInt($(this).val());
                 });
                 $("#ContentPlaceHolder1_txtNoOfPax").val(total);
-            }).change();
-            //$("#ContentPlaceHolder1_txtDepartureDate").datepicker({
-            //    minDate: 0,
-            //    onSelect: function (date) {
-            //        $("#ContentPlaceHolder1_txtReturnDate").datepicker('option', 'minDate', date);
-            //    }
-            //});
-            //$("#ContentPlaceHolder1_txtReturnDate").datepicker({});
+            }).change();            
         });
 
     </script>

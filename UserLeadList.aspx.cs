@@ -13,6 +13,7 @@ public partial class UserLeadList : System.Web.UI.Page
     NewLeadBL newLeadBl = new NewLeadBL();
     DataSet ds = new DataSet();
     int id = 0;
+    EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -68,7 +69,10 @@ public partial class UserLeadList : System.Web.UI.Page
                 int id = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = gvUserList.Rows[id];
                 int res = Convert.ToInt32(gvUserList.DataKeys[row.RowIndex].Values[0]);
-                Response.Redirect("~/NewLead.aspx?id=" + Server.UrlEncode(res.ToString()) + "&isleadallocate=" + 0);
+                string encryptedparam = encryptdecrypt.Encrypt(res.ToString());
+                string url = "NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 0;
+                string s = "window.open('" + url + "', '_blank');";
+                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             }
         }
         catch { }
@@ -89,13 +93,13 @@ public partial class UserLeadList : System.Web.UI.Page
     {
         try
         {
-            Response.Redirect("~/LeadAllocation.aspx");
+            Response.Redirect("~/NewCustomer.aspx");
         }
         catch
         {
 
         }
-        
+
     }
     protected void cmdSearch_Click(object sender, ImageClickEventArgs e)
     {
@@ -104,7 +108,7 @@ public partial class UserLeadList : System.Web.UI.Page
             SearchFromList(txtSearch.Text.Trim());
         }
         catch { }
-        
+
     }
     public void SearchFromList(string instring)
     {
@@ -139,7 +143,7 @@ public partial class UserLeadList : System.Web.UI.Page
             GetGridData();
         }
         catch { }
-       
+
     }
     protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
     {
@@ -148,7 +152,7 @@ public partial class UserLeadList : System.Web.UI.Page
             Response.Redirect("UserLeadList.aspx");
         }
         catch { }
-       
+
     }
     protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
