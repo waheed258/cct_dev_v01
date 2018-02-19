@@ -9,13 +9,13 @@
                     e.preventDefault();
                 }
             });
-            $("select").on('change', function () {                
+            $("select").on('change', function () {
                 var total = 0;
                 $(".pax option:selected").each(function () {
                     total += parseInt($(this).val());
                 });
                 $("#ContentPlaceHolder1_txtNoOfPax").val(total);
-            }).change();            
+            }).change();
         });
 
     </script>
@@ -30,7 +30,7 @@
     </style>
     <script type="text/javascript">
         function ValidateCheckBoxList(sender, args) {
-            if ($("[id*=chbklstAdditionalInfo] input:checked").length > 0)
+            if ($("[id*=chbkClass] input:checked").length > 0)
                 args.IsValid = true;
             else
                 args.IsValid = false;
@@ -56,7 +56,7 @@
                 </div>
                 <!--/forms-->
                 <div class="forms-main">
-                    <h2 class="inner-tittle"></h2>
+                    <h5 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px">Lead Reference:<asp:Label ID="lblrefno" runat="server"></asp:Label></h5>
                     <div class="graph-form">
                         <div class="validation-form">
                             <asp:UpdatePanel ID="updatePanel1" runat="server">
@@ -157,7 +157,7 @@
                                             <asp:CustomValidator ID="cvClass" runat="server" ErrorMessage="Please Select at Least One Value"
                                                 ForeColor="#d0582e" ValidationGroup="Save" ClientValidationFunction="ValidateCheckBoxList1" Display="Dynamic"></asp:CustomValidator>
                                         </div>
-                                        <div class="col-md-11 form-group2 group-mail,checkbox-inline" id="divClassItems" runat="server">
+                                        <div class="col-md-6 form-group2 group-mail,checkbox-inline" id="divClassItems" runat="server">
                                             <label class="control-label" id="lblClass" style="margin-left: 15px">Class</label>
                                             <asp:CheckBoxList ID="chbkClass" runat="server" CssClass="spaced"
                                                 RepeatDirection="Horizontal">
@@ -168,6 +168,7 @@
                                                 <asp:ListItem Text="Premium First" Value="5"></asp:ListItem>
                                             </asp:CheckBoxList>
                                         </div>
+
                                         <div class="col-md-12 form-group2 group-mail,checkbox-inline">
                                             <asp:CheckBoxList ID="chbklstAdditionalInfo" runat="server" RepeatDirection="Horizontal" CssClass="spaced">
                                                 <asp:ListItem Text="Hotel" Value="1"></asp:ListItem>
@@ -176,44 +177,53 @@
                                                 <asp:ListItem Text="Insurance" Value="4"></asp:ListItem>
                                                 <asp:ListItem Text="Visa" Value="5"></asp:ListItem>
                                                 <asp:ListItem Text="Forex" Value="6"></asp:ListItem>
-                                            </asp:CheckBoxList>
-                                            <asp:CustomValidator ID="cvAdditionalInfo" runat="server" ErrorMessage="Please Select at Least One Value"
-                                                ForeColor="#d0582e" ValidationGroup="Save" ClientValidationFunction="ValidateCheckBoxList" Display="Dynamic"></asp:CustomValidator>
+                                            </asp:CheckBoxList>                                            
                                         </div>
-
-
                                         <div class="clearfix"></div>
 
                                         <div class="vali-form vali-form1">
-                                            <div class="col-md-2 form-group1">
-                                                <label class="control-label" id="lblAdditionalInformation">Additional Info</label>
-                                                <asp:TextBox ID="txtAdditionalInformation" runat="server" CssClass="toupper"></asp:TextBox>
-                                            </div>
+
                                             <div id="isleadaalocate" runat="server">
-                                                <div class="col-md-2 form-group2 group-mail,checkbox-inline">
+                                                <div class="col-md-2 form-group2 group-mail">
                                                     <label class="control-label" id="lblLeadStatus">Lead Status</label>
-                                                    <asp:DropDownList ID="ddlLeadStatus" runat="server"></asp:DropDownList>
+                                                    <asp:DropDownList ID="ddlLeadStatus" runat="server" OnSelectedIndexChanged="ddlLeadStatus_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                                     <asp:RequiredFieldValidator ID="rfvLeadStatus" ControlToValidate="ddlLeadStatus" ForeColor="#d0582e" runat="server"
                                                         ErrorMessage="Please enter User Name" ValidationGroup="Save" InitialValue="-1"></asp:RequiredFieldValidator>
                                                 </div>
+                                                <div id="divfollowupdate" class="col-md-2 form-group1" runat="server">
+                                                    <label class="control-label" id="lblFollowUpDate">Followup Date</label>
+                                                    <asp:TextBox ID="txtFollowUpdate" runat="server"></asp:TextBox>
+                                                    <ajaxToolkit:CalendarExtender ID="ccextFollowUpDate" runat="server" TargetControlID="txtFollowUpdate" Format="dd-MM-yyyy" />
+                                                </div>
+                                                <div id="divNotes" runat="server">
+                                                    <div class="col-md-2 form-group2 group-mail" id="divOnlyAssigned" runat="server">
+                                                        <label class="control-label" id="lblAssignedTo">AssignedTo</label>
+                                                        <asp:DropDownList ID="ddlAssignedTo" runat="server"></asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="rfvAssignedTo" ControlToValidate="ddlAssignedTo" ForeColor="#d0582e" runat="server"
+                                                            ErrorMessage="Please select User Name" ValidationGroup="Save" InitialValue="-1"></asp:RequiredFieldValidator>
+                                                    </div>
 
-                                                <div class="col-md-2 form-group2 group-mail,checkbox-inline">
-                                                    <label class="control-label" id="lblAssignedTo">AssignedTo</label>
-                                                    <asp:DropDownList ID="ddlAssignedTo" runat="server"></asp:DropDownList>
-                                                    <asp:RequiredFieldValidator ID="rfvAssignedTo" ControlToValidate="ddlAssignedTo" ForeColor="#d0582e" runat="server"
-                                                        ErrorMessage="Please select User Name" ValidationGroup="Save" InitialValue="-1"></asp:RequiredFieldValidator>
+                                                    <div class="col-md-5 form-group1" id="divOnlyNotes" runat="server">
+                                                        <label class="control-label" id="lblNotes">Notes</label>
+                                                        <asp:TextBox ID="txtNotes" runat="server" CssClass="toupper"></asp:TextBox>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
 
-                                        <div class="clearfix"></div>
-
-                                        <div class="col-md-12 form-group button-2">
-                                            <asp:Button ID="btnUpdate" runat="server" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
-                                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-default" OnClick="btnCancel_Click" />
+                                        <div class="vali-form vali-form1">
+                                            <div class="col-md-5 form-group1">
+                                                <label class="control-label" id="lblAdditionalInformation">Additional Info</label>
+                                                <asp:TextBox ID="txtAdditionalInformation" runat="server" TextMode="MultiLine" placeholder="Specials services required"></asp:TextBox>
+                                            </div>
+                                            <div class="col-md-7 form-group button-2">
+                                                <asp:Button ID="btnUpdate" runat="server" style="margin-top:55px" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
+                                                <asp:Button ID="btnCancel" runat="server" style="margin-top:55px"  Text="Cancel" class="btn btn-default" OnClick="btnCancel_Click" />
+                                            </div>
                                         </div>
-                                        <div class="clearfix"></div>
+                                        <div class="clearfix"></div>                                       
                                         <!---->
                                 </ContentTemplate>
                             </asp:UpdatePanel>

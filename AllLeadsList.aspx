@@ -65,7 +65,7 @@
                 <div class="row">
                     <div class="col-lg-12 ">
                         <asp:GridView ID="gvAllLeads" runat="server" Width="100%"
-                            AutoGenerateColumns="False" DataKeyNames="SrNo"
+                            AutoGenerateColumns="False" DataKeyNames="SrNo,ClientReqId"
                             EmptyDataText="There are no data records to display."
                             BorderStyle="Solid" BorderWidth="3px" AllowPaging="true" PageSize="10"
                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black"

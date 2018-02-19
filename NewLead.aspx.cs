@@ -34,6 +34,8 @@ public partial class NewLead : System.Web.UI.Page
                 {
                     Session["CustomerId"] = null;
                     string decryptedparam = encryptdecrypt.Decrypt(Request.QueryString["id"].ToString());
+                    string decryptedrefno = encryptdecrypt.Decrypt(Request.QueryString["refno"].ToString());
+                    lblrefno.Text = " " +decryptedrefno;
                     ViewState["id"] = decryptedparam;
                     ViewState["isleadallocate"] = Request.QueryString["isleadallocate"].ToString();
                     if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
@@ -43,12 +45,15 @@ public partial class NewLead : System.Web.UI.Page
                     else
                     {
                         isleadaalocate.Visible = true;
+                        divOnlyAssigned.Visible = false;
+                        divOnlyNotes.Visible = true;
+                        divfollowupdate.Visible = false;
                     }
                     divClassItems.Visible = false;
                     GetDetails();
                     GetLeadStatus();
                     GetAssignedTo();
-                    clextDeparture.StartDate = DateTime.Today;
+                    clextDeparture.StartDate = DateTime.Today;                   
                 }
             }
             else
@@ -124,6 +129,20 @@ public partial class NewLead : System.Web.UI.Page
             ddlNoOfAdults.SelectedValue = ds.Tables[0].Rows[0]["NoOfAdults"].ToString();
             ddlNoOfChilds.SelectedValue = ds.Tables[0].Rows[0]["NoOfChilds"].ToString();
             ddlNoOfInfants.SelectedValue = ds.Tables[0].Rows[0]["NoOfInfants"].ToString();
+            if (Convert.ToDateTime(ds.Tables[0].Rows[0]["FollowupDate"].ToString()).Date.ToString("dd-MM-yyyy") != null)
+            {
+                txtFollowUpdate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["FollowupDate"].ToString()).Date.ToString("dd-MM-yyyy");
+            }
+            else {
+                txtFollowUpdate.Text = "";
+            }
+            if (ds.Tables[0].Rows[0]["Notes"].ToString() != null)
+            {
+                txtNotes.Text = ds.Tables[0].Rows[0]["Notes"].ToString();
+            }
+            else {
+                txtNotes.Text = "";
+            }
             if (ds.Tables[0].Rows[0]["AssignedTo"].ToString() != "")
             {
                 ddlAssignedTo.SelectedValue = ds.Tables[0].Rows[0]["AssignedTo"].ToString();
@@ -200,6 +219,8 @@ public partial class NewLead : System.Web.UI.Page
                         ne.AssignedTo = Convert.ToInt32(ddlAssignedTo.SelectedValue);
                         ne.LeadStatus = Convert.ToInt32(ddlLeadStatus.SelectedValue);
                         ne.UpdatedBy = Convert.ToInt32(Session["LoginId"].ToString());
+                        ne.FollowupDate = txtFollowUpdate.Text;
+                        ne.Notes = txtNotes.Text;
                         ne.CreatedBy = 0;
                         ne.AdditionalInfo = txtAdditionalInformation.Text;
                         NewLead nl = new NewLead();
@@ -322,6 +343,27 @@ public partial class NewLead : System.Web.UI.Page
         else
         {
             divClassItems.Visible = false;
+        }
+    }
+    protected void ddlLeadStatus_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlLeadStatus.SelectedValue == "2")
+        {
+            divOnlyNotes.Visible = true;
+            divOnlyAssigned.Visible = true;
+            divfollowupdate.Visible = false;
+        }
+        else if (ddlLeadStatus.SelectedValue == "4")
+        {
+            divOnlyNotes.Visible = true;
+            divOnlyAssigned.Visible = false;
+            divfollowupdate.Visible = true;
+        }
+        else
+        {
+            divfollowupdate.Visible = false;
+            divOnlyAssigned.Visible = false;
+            divOnlyNotes.Visible = true;
         }
     }
 }
