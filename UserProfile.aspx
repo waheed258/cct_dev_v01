@@ -19,12 +19,12 @@
                         <div class="validation-form">
                             <div class="vali-form">
                                 <div class="col-md-3 form-group1">
-                                    <label class="control-label">Firstname<span style="color: #d0582e">*</span></label>
+                                    <label class="control-label">First Name<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvFirstName" ControlToValidate="txtFirstName" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter First Name" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-3 form-group1 form-last">
-                                    <label class="control-label">Lastname<span style="color: #d0582e">*</span></label>
+                                    <label class="control-label">Last Name<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvLastName" ControlToValidate="txtLastName" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Last Name" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
@@ -53,8 +53,8 @@
                                     <asp:RegularExpressionValidator ID="revEmail" runat="server" ForeColor="Red" ErrorMessage="Please check Email Format" ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                                 </div>
                                 <div class="col-md-3 form-group1 group-mail">
-                                    <label class="control-label">Login<span style="color: #d0582e">*</span></label>
-                                    <asp:TextBox ID="txtLogin" runat="server" ReadOnly="true"></asp:TextBox>
+                                    <label class="control-label">Login Id<span style="color: #d0582e">*</span></label>
+                                    <asp:TextBox ID="txtLogin" runat="server" ReadOnly="true" Enabled="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvLogin" ControlToValidate="txtLogin" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Login" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-3 form-group1 group-mail">
@@ -68,14 +68,14 @@
                             <div class="vali-form vali-form1">
                                 <div class="col-md-3 form-group2 group-mail">
                                     <label class="control-label">User Type<span style="color: #d0582e">*</span></label>
-                                    <asp:DropDownList ID="ddlUserType" runat="server">
-                                        <asp:ListItem Value="-1" Text="Select"></asp:ListItem>
+                                    <asp:DropDownList ID="ddlUserType" runat="server" Enabled="false" >
+                                        <asp:ListItem Value="-1" Text="Select" ></asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvUserType" ControlToValidate="ddlUserType" InitialValue="-1" ForeColor="#d0582e" runat="server" ErrorMessage="Please select User Type" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-3 form-group2 group-mail">
                                     <label class="control-label">Status<span style="color: #d0582e">*</span></label>
-                                    <asp:DropDownList ID="ddlStatus" runat="server">
+                                    <asp:DropDownList ID="ddlStatus" runat="server" Enabled="false" >
                                         <asp:ListItem Value="-1" Text="Select"></asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvStatus" ControlToValidate="ddlStatus" InitialValue="-1" ForeColor="#d0582e" runat="server" ErrorMessage="Please select Status" ValidationGroup="Save"></asp:RequiredFieldValidator>
