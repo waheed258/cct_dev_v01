@@ -24,7 +24,7 @@ public partial class LeadAllocation : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
-                    ViewState["ps"] = 10;
+                    ViewState["ps"] = 100;
                     if (Session["UserType"].ToString() == "4" || Session["UserType"].ToString() == "5" || Session["UserType"].ToString() == "6")
                     {
                         lblpermissions.Text = "";

@@ -70,6 +70,26 @@
                 args.IsValid = false;
         }
     </script>
+    <script type="text/javascript">
+        function doClick(btnValidate, e) {
+
+            var key;
+
+            if (window.event)
+                key = window.event.keyCode;
+            else
+                key = e.which;
+
+            if (key == 13) {
+
+                var btn = document.getElementById(btnValidate);
+                if (btn != null) {
+                    btn.click();
+                    event.keyCode = 0
+                }
+            }
+        }
+</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>

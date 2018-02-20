@@ -2567,6 +2567,7 @@ button.btn.btn-default {
     font-size: 1em;
 	outline:none;
 	border:none;
+    border-radius:5px;
 }
 .graph-2.general {
     width: 100%;
@@ -2758,6 +2759,7 @@ form.com-mail {
     color: #fff;
     padding: 10px 20px;
     margin-top: 1em;
+    border-radius:5px;
 }
 ul#menu-comunicacao-sub {
     z-index: 999999;

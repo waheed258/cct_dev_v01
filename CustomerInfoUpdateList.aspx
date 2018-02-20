@@ -19,6 +19,13 @@
                 background-color: #006341;
                 color: #FFF !important;
             }
+            .rounded-corners {
+            border: 1px solid black;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -62,9 +69,9 @@
 
                 <div class="col-lg-12 ">
                     <asp:GridView ID="gvCustomerUpdate" runat="server" Width="100%"
-                        AutoGenerateColumns="False" DataKeyNames="CustomerId"
+                        AutoGenerateColumns="False" DataKeyNames="CustomerId" CssClass="rounded-corners"
                         EmptyDataText="There are no data records to display."
-                        BorderStyle="Solid" BorderWidth="3px" AllowPaging="true" PageSize="10"
+                        BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="10"
                         CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvCustomerUpdate_RowCommand" OnRowEditing="gvCustomerUpdate_RowEditing" OnPageIndexChanging="gvCustomerUpdate_PageIndexChanging">
                         <Columns>
                             <asp:BoundField DataField="CustomerId" HeaderText="ID" ReadOnly="true" />
@@ -73,7 +80,7 @@
                             <asp:BoundField DataField="MobileNum" HeaderText="Mobile Number" ReadOnly="true" DataFormatString="{0:dd/MM/yyyy}" />
                             <asp:BoundField DataField="City" HeaderText="City" ReadOnly="true" DataFormatString="{0:dd/MM/yyyy}" />
                             <asp:BoundField DataField="EmailId" HeaderText="Email Id" ReadOnly="true" />
-                            <asp:TemplateField HeaderText="Update">
+                            <asp:TemplateField HeaderText="Action">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="btnEdit" ImageUrl="~/CustomScripts/images/editicon.png" runat="server" Width="23px" Height="23px"
                                         CommandName="Edit" ToolTip="Edit" CommandArgument="<%#((GridViewRow) Container).RowIndex %>" />                                    

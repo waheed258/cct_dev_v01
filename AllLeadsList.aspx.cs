@@ -26,7 +26,7 @@ public partial class AllLeadsList : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
-                    ViewState["ps"] = 10;
+                    ViewState["ps"] = 100;
                     lblpermissions.Text = "";
                     divAllLeadsList.Visible = true;
                     divmessage.Visible = false;

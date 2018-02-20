@@ -52,10 +52,12 @@ public partial class NewLead : System.Web.UI.Page
                         divfollowupdate.Visible = false;
                     }
                     divClassItems.Visible = false;
-                    GetDetails();
+                    
                     GetLeadStatus();
                     GetAssignedTo();
+                    GetDetails();
                     clextDeparture.StartDate = DateTime.Today;
+                    ccextFollowUpDate.StartDate = DateTime.Today;
                 }
             }
             else
@@ -161,6 +163,10 @@ public partial class NewLead : System.Web.UI.Page
             }
 
             ddlLeadStatus.SelectedValue = ds.Tables[0].Rows[0]["LeadStatus"].ToString();
+            if (ddlLeadStatus.SelectedValue == "4")
+            {
+                divfollowupdate.Visible = true;                
+            }
             string Services = ds.Tables[0].Rows[0]["Services"].ToString().TrimEnd(',');
             if (Services.Contains("Flight"))
             {

@@ -20,6 +20,13 @@
                 background-color: #006341;
                 color: #FFF !important;
             }
+             .rounded-corners {
+            border: 1px solid black;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -60,9 +67,9 @@
                     </div>
                     <div class="col-lg-12 ">
                         <asp:GridView ID="gvUserList" runat="server" Width="100%"
-                            AutoGenerateColumns="False" DataKeyNames="UserId"
+                            AutoGenerateColumns="False" DataKeyNames="UserId" CssClass="rounded-corners"
                             EmptyDataText="There are no data records to display."
-                            BorderStyle="Solid" BorderWidth="3px" AllowPaging="true" PageSize="10"
+                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="10"
                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvUserList_RowCommand" OnRowEditing="gvUserList_RowEditing" OnPageIndexChanging="gvUserList_PageIndexChanging">
                             <Columns>
                                 <asp:BoundField DataField="UserId" HeaderText="ID" ReadOnly="true" />

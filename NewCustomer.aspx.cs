@@ -30,6 +30,7 @@ public partial class NewCustomer : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
+                    txtMobileNum.Attributes.Add("onKeyPress", "doClick('" + btnValidate.ClientID + "',event)");
                     Session["CustomerId"] = null;
                     divCustomerDetails.Visible = false;
                     divHolderOrNot.Visible = false;

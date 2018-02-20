@@ -24,7 +24,7 @@ public partial class UserLeadList : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
-                    ViewState["ps"] = 10;
+                    ViewState["ps"] = 100;
                     lblpermissions.Text = "";
                     divUserList.Visible = true;
                     divmessage.Visible = false;
