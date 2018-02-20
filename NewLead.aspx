@@ -56,6 +56,43 @@
                 </div>
                 <!--/forms-->
                 <div class="forms-main">
+                    <h5 class="inner-tittle" id="h5CustomerInfo" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px; margin-top: 10px">Customer Information</h5>
+                    <div class="graph-form" id="divCustomerDetails" runat="server">
+                        <div class="validation-form">
+                            <div runat="server">
+                                <div class="vali-form">
+                                    <div class="col-md-2 form-group1 group-mail">
+                                        <label class="control-label" id="lblCustomerName">Customer Name<span style="color: #d0582e">*</span></label>
+                                        <asp:TextBox ID="txtCustomerName" runat="server" CssClass="onlyAlphabet toupper" ReadOnly="true"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvCustomerName" ControlToValidate="txtCustomerName" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Customer Name" ValidationGroup="Save"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="col-md-2 form-group1">
+                                        <label class="control-label" id="lblSurname">Surname<span style="color: #d0582e">*</span></label>
+                                        <asp:TextBox ID="txtSurName" runat="server" CssClass="onlyAlphabet toupper" ReadOnly="true"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvSurName" ControlToValidate="txtSurName" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Surname" ValidationGroup="Save"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="col-md-2 form-group1 form-last">
+                                        <label class="control-label">Mobile Number</label>
+                                        <asp:TextBox ID="txtMobileNumber" runat="server" ReadOnly="true"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvMobileNumber" ControlToValidate="txtMobileNumber" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Mobile Number" ValidationGroup="Save"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="col-md-2 form-group1 group-mail">
+                                        <label class="control-label">Email</label>
+                                        <asp:TextBox ID="txtEmail" runat="server" ReadOnly="true"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvEmail" ControlToValidate="txtEmail" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Email" ValidationGroup="Save"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="col-md-2 form-group1 form-last">
+                                        <label class="control-label" id="lblCity">City<span style="color: #d0582e">*</span></label>
+                                        <asp:TextBox ID="txtCity" runat="server" CssClass="onlyAlphabet toupper" ReadOnly="true"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvCity" ControlToValidate="txtCity" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter City" ValidationGroup="Save"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
                     <h5 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px">Lead Reference:<asp:Label ID="lblrefno" runat="server"></asp:Label></h5>
                     <div class="graph-form">
                         <div class="validation-form">
@@ -177,7 +214,7 @@
                                                 <asp:ListItem Text="Insurance" Value="4"></asp:ListItem>
                                                 <asp:ListItem Text="Visa" Value="5"></asp:ListItem>
                                                 <asp:ListItem Text="Forex" Value="6"></asp:ListItem>
-                                            </asp:CheckBoxList>                                            
+                                            </asp:CheckBoxList>
                                         </div>
                                         <div class="clearfix"></div>
 
@@ -219,11 +256,11 @@
                                                 <asp:TextBox ID="txtAdditionalInformation" runat="server" TextMode="MultiLine" placeholder="Specials services required"></asp:TextBox>
                                             </div>
                                             <div class="col-md-7 form-group button-2">
-                                                <asp:Button ID="btnUpdate" runat="server" style="margin-top:55px" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
-                                                <asp:Button ID="btnCancel" runat="server" style="margin-top:55px"  Text="Cancel" class="btn btn-default"  OnClientClick="javascript:window.close();"/>
+                                                <asp:Button ID="btnUpdate" runat="server" Style="margin-top: 55px" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
+                                                <asp:Button ID="btnCancel" runat="server" Style="margin-top: 55px" Text="Cancel" class="btn btn-default" OnClientClick="javascript:window.close();" />
                                             </div>
                                         </div>
-                                        <div class="clearfix"></div>                                       
+                                        <div class="clearfix"></div>
                                         <!---->
                                 </ContentTemplate>
                             </asp:UpdatePanel>

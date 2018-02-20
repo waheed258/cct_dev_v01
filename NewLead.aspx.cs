@@ -19,6 +19,8 @@ public partial class NewLead : System.Web.UI.Page
     DataTable dt = new DataTable();
     DataSet dataset = new DataSet();
     UserBL userbl = new UserBL();
+    CustomerBL customerBL = new CustomerBL();
+    CustomerEntity customerEntity = new CustomerEntity();
     EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
 
     // Testing
@@ -117,7 +119,7 @@ public partial class NewLead : System.Web.UI.Page
             else
             {
                 isleadaalocate.Visible = true;
-            }           
+            }
         }
         catch { }
     }
@@ -137,7 +139,7 @@ public partial class NewLead : System.Web.UI.Page
             ddlNoOfAdults.SelectedValue = ds.Tables[0].Rows[0]["NoOfAdults"].ToString();
             ddlNoOfChilds.SelectedValue = ds.Tables[0].Rows[0]["NoOfChilds"].ToString();
             ddlNoOfInfants.SelectedValue = ds.Tables[0].Rows[0]["NoOfInfants"].ToString();
-            if (ds.Tables[0].Rows[0]["FollowupDate"].ToString() !="")
+            if (ds.Tables[0].Rows[0]["FollowupDate"].ToString() != "")
             {
                 txtFollowUpdate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["FollowupDate"].ToString()).Date.ToString("dd-MM-yyyy");
             }
@@ -188,6 +190,14 @@ public partial class NewLead : System.Web.UI.Page
                     }
                 }
             }
+
+            int customerid = Convert.ToInt32(Session["CustomerId"].ToString());
+            DataSet ds1 = customerBL.GetCustomerInLead(customerid);
+            txtCustomerName.Text = ds1.Tables[0].Rows[0]["CustomerName"].ToString();
+            txtSurName.Text = ds1.Tables[0].Rows[0]["Surname"].ToString();
+            txtMobileNumber.Text = ds1.Tables[0].Rows[0]["MobileNum"].ToString();
+            txtEmail.Text = ds1.Tables[0].Rows[0]["EmailId"].ToString();
+            txtCity.Text = ds1.Tables[0].Rows[0]["City"].ToString();
         }
         catch { }
     }
@@ -326,7 +336,7 @@ public partial class NewLead : System.Web.UI.Page
         catch { }
     }
 
-    
+
 
     protected void txtDepartureDate_TextChanged(object sender, EventArgs e)
     {
