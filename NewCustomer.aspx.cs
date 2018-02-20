@@ -263,6 +263,8 @@ public partial class NewCustomer : System.Web.UI.Page
                         ne.UpdatedBy = 0;
                         ne.LeadStatus = 0;
                         ne.AssignedTo = 0;
+                        ne.FollowupDate = "";
+                        ne.Notes = "";
                         checkboxvalues();
                         ne.Services = status;
                         ne.AdditionalInfo = txtAdditionalInformation.Text;

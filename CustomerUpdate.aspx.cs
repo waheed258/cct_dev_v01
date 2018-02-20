@@ -83,13 +83,5 @@ public partial class CustomerUpdate : System.Web.UI.Page
         }
         catch { }
     }
-    protected void btnCancel_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Clear();
-        }
-        catch { }
-    }
-   
+    
 }

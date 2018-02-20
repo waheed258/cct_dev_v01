@@ -35,7 +35,7 @@ public partial class NewLead : System.Web.UI.Page
                     Session["CustomerId"] = null;
                     string decryptedparam = encryptdecrypt.Decrypt(Request.QueryString["id"].ToString());
                     string decryptedrefno = encryptdecrypt.Decrypt(Request.QueryString["refno"].ToString());
-                    lblrefno.Text = " " +decryptedrefno;
+                    lblrefno.Text = " " + decryptedrefno;
                     ViewState["id"] = decryptedparam;
                     ViewState["isleadallocate"] = Request.QueryString["isleadallocate"].ToString();
                     if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
@@ -53,7 +53,7 @@ public partial class NewLead : System.Web.UI.Page
                     GetDetails();
                     GetLeadStatus();
                     GetAssignedTo();
-                    clextDeparture.StartDate = DateTime.Today;                   
+                    clextDeparture.StartDate = DateTime.Today;
                 }
             }
             else
@@ -110,6 +110,14 @@ public partial class NewLead : System.Web.UI.Page
             ddlNoOfInfants.SelectedValue = "";
             chbklstAdditionalInfo.Items.Clear();
             chbklstClass.Items.Clear();
+            if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
+            {
+                isleadaalocate.Visible = false;
+            }
+            else
+            {
+                isleadaalocate.Visible = true;
+            }           
         }
         catch { }
     }
@@ -129,18 +137,20 @@ public partial class NewLead : System.Web.UI.Page
             ddlNoOfAdults.SelectedValue = ds.Tables[0].Rows[0]["NoOfAdults"].ToString();
             ddlNoOfChilds.SelectedValue = ds.Tables[0].Rows[0]["NoOfChilds"].ToString();
             ddlNoOfInfants.SelectedValue = ds.Tables[0].Rows[0]["NoOfInfants"].ToString();
-            if (Convert.ToDateTime(ds.Tables[0].Rows[0]["FollowupDate"].ToString()).Date.ToString("dd-MM-yyyy") != null)
+            if (ds.Tables[0].Rows[0]["FollowupDate"].ToString() !="")
             {
                 txtFollowUpdate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["FollowupDate"].ToString()).Date.ToString("dd-MM-yyyy");
             }
-            else {
+            else
+            {
                 txtFollowUpdate.Text = "";
             }
-            if (ds.Tables[0].Rows[0]["Notes"].ToString() != null)
+            if (ds.Tables[0].Rows[0]["Notes"].ToString() != "")
             {
                 txtNotes.Text = ds.Tables[0].Rows[0]["Notes"].ToString();
             }
-            else {
+            else
+            {
                 txtNotes.Text = "";
             }
             if (ds.Tables[0].Rows[0]["AssignedTo"].ToString() != "")
@@ -316,14 +326,7 @@ public partial class NewLead : System.Web.UI.Page
         catch { }
     }
 
-    protected void btnCancel_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Response.Redirect("~/NewLead.aspx");
-        }
-        catch { }
-    }
+    
 
     protected void txtDepartureDate_TextChanged(object sender, EventArgs e)
     {

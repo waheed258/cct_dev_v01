@@ -2444,7 +2444,7 @@ ul.dropdown-menu.dropdown-menu-right {
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 470px;
+    left: -130px;
     z-index: 1000;
     display: none;
     float: left;

@@ -220,7 +220,7 @@
                                             </div>
                                             <div class="col-md-7 form-group button-2">
                                                 <asp:Button ID="btnUpdate" runat="server" style="margin-top:55px" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
-                                                <asp:Button ID="btnCancel" runat="server" style="margin-top:55px"  Text="Cancel" class="btn btn-default" OnClick="btnCancel_Click" />
+                                                <asp:Button ID="btnCancel" runat="server" style="margin-top:55px"  Text="Cancel" class="btn btn-default"  OnClientClick="javascript:window.close();"/>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>                                       

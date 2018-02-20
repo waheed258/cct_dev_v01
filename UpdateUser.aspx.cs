@@ -148,17 +148,7 @@ public partial class UpdateUser : System.Web.UI.Page
 
         }
     }    
-    protected void btnCancel_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Clear();
-        }
-        catch
-        {
-
-        }
-    }
+    
     private void Clear()
     {
         try

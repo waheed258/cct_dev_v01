@@ -33,7 +33,7 @@
                 <!--/forms-->
                 <div class="row">
                     <div class="col-lg-2">
-                        <h4 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-top: 27px;">Your Leads List</h4>
+                        <h4 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-top: 27px;">My Leads List</h4>
                     </div>
                      <div class="col-lg-4">
                          <asp:DropDownList ID="DropPage" runat="server" OnSelectedIndexChanged="DropPage_SelectedIndexChanged" style="margin-top:24px"

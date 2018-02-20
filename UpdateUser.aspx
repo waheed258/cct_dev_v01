@@ -119,7 +119,7 @@
 
                             <div class="col-md-12 form-group button-2">
                                 <asp:Button ID="btnUpdate" runat="server" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-default" OnClick="btnCancel_Click" />
+                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-default"  OnClientClick="javascript:window.close();"/>
                             </div>
                             <div class="clearfix"></div>
                             <!---->

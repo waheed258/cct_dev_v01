@@ -20,26 +20,14 @@
                         columns: [
                             { 'data': 'SrNo' },
                             { 'data': 'ClientReqId' },
-                            //{
-                            //    'data': 'DepartureDate',
-                            //    'render': function (jsonDate) {
-                            //        var d = jsonDate;
-                            //        d = d.split(' ')[0];
-                            //        return d;
-                            //    }
-                            //},
-                            //{
-                            //    'data': 'ReturnDate',
-                            //    'render': function (jsonDate) {
-                            //        var d = jsonDate;
-                            //        d = d.split(' ')[0];
-                            //        return d;
-                            //    }
-                            //},
+                            { 'data': 'CustomerName' },
+                             { 'data': 'Destination' },
                             { 'data': 'CreatedDate' },
                             { 'data': 'CreatedUser' },
                             { 'data': 'AssignedName' },
-                            { 'data': 'Status' }
+                            { 'data': 'Status' },
+                            { 'data': 'Services' },
+                            { 'data': 'Class' }
                             
                         ]
                     });
@@ -69,10 +57,14 @@
                                 <tr>
                                     <th>Sl.No</th>
                                     <th>Lead Ref No</th>
+                                    <th>Customer Name</th>  
+                                    <th>Destination</th>  
                                     <th>Date & Time</th>
                                     <th>Lead Created By</th>
                                     <th>Lead Allocated To(TC)</th>
-                                    <th>Lead Staus</th>                                    
+                                    <th>Lead Staus</th>    
+                                     <th>Services</th>
+                                    <th>Flight CLass</th>                                      
                                 </tr>
                             </thead>
                             <tbody></tbody>
