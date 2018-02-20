@@ -44,7 +44,27 @@
                     total += parseInt($(this).val());
                 });
                 $("#ContentPlaceHolder1_txtNoOfPax").val(total);
-            }).change();
+            }).change();           
+
+
+            var timer2 = "0:00";
+            var interval = setInterval(function () {
+
+
+                var timer = timer2.split(':');
+                //by parsing integer, I avoid all extra string processing
+                var minutes = parseInt(timer[0], 10);
+                var seconds = parseInt(timer[1], 10);
+                ++seconds;
+                minutes = (seconds < 0) ? ++minutes : minutes;
+                if (minutes < 0) clearInterval(interval);
+                seconds = (seconds < 0) ? 59 : seconds;
+                seconds = (seconds < 10) ? '0' + seconds : seconds;
+                //minutes = (minutes < 10) ?  minutes : minutes;
+                $('.countdown').html(minutes + ':' + seconds);
+                timer2 = minutes + ':' + seconds;
+            }, 1000);
+
         });
     </script>
     <style type="text/css">
@@ -89,7 +109,7 @@
                 }
             }
         }
-</script>
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -101,9 +121,17 @@
                 <div style="text-align: center; margin-bottom: 10px;">
                     <asp:Label ID="lblMessage" runat="server" Style="color: #006341; font-weight: bold; text-align: center"></asp:Label>
                 </div>
+
                 <!--/forms-->
                 <div class="forms-main">
-                    <h5 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px">Verify Customer</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h5 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px">Verify Customer</h5>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <span class="countdown" style="color: #006341; font-weight: bold; margin-bottom: 10px"></span>
+                        </div>
+                    </div>
                     <div class="graph-form" id="divVerify" runat="server">
                         <div class="validation-form">
                             <div class="vali-form">
