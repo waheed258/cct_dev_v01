@@ -76,10 +76,13 @@
                             <Columns>
                                 <asp:BoundField DataField="SRNO" HeaderText="Sl.No" ReadOnly="true" />
                                 <asp:BoundField DataField="CLIENTREQID" HeaderText="Lead Ref No" ReadOnly="true" />
+                                <asp:BoundField DataField="CUSTOMERNAME" HeaderText="Customer Name" ReadOnly="true" />
                                 <asp:BoundField DataField="CREATEDDATE" HeaderText="Date & Time" ReadOnly="true" />
                                 <asp:BoundField DataField="CREATEDBY" HeaderText="Lead Created By" ReadOnly="true" />
                                 <asp:BoundField DataField="ASSIGNEDTO" HeaderText="Lead Allocated To" ReadOnly="true" />
                                 <asp:BoundField DataField="LEADSTATUS" HeaderText="Lead Status" ReadOnly="true" />
+                                <asp:BoundField DataField="SERVICES" HeaderText="Services" ReadOnly="true" />
+                                <asp:BoundField DataField="CLASS" HeaderText="Flight Class" ReadOnly="true" />
                                 <asp:TemplateField HeaderText="Action">
                                     <ItemTemplate>
                                         <asp:ImageButton ID="btnEdit" ImageUrl="~/CustomScripts/images/editicon.png" runat="server" Width="23px" Height="23px"

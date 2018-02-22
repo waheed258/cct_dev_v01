@@ -3,7 +3,7 @@
 <%@ MasterType VirtualPath="~/Layout.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function (event) {
             $("#ContentPlaceHolder1_txtMobileNum").bind('keypress', function (e) {
                 if (e.keyCode == '9' || e.keyCode == '16') {
                     return;
@@ -44,28 +44,37 @@
                     total += parseInt($(this).val());
                 });
                 $("#ContentPlaceHolder1_txtNoOfPax").val(total);
-            }).change();           
-
-
-            var timer2 = "0:00";
-            var interval = setInterval(function () {
-
-
-                var timer = timer2.split(':');
-                //by parsing integer, I avoid all extra string processing
-                var minutes = parseInt(timer[0], 10);
-                var seconds = parseInt(timer[1], 10);
-                ++seconds;
-                minutes = (seconds < 0) ? ++minutes : minutes;
-                if (minutes < 0) clearInterval(interval);
-                seconds = (seconds < 0) ? 59 : seconds;
-                seconds = (seconds < 10) ? '0' + seconds : seconds;
-                //minutes = (minutes < 10) ?  minutes : minutes;
-                $('.countdown').html(minutes + ':' + seconds);
-                timer2 = minutes + ':' + seconds;
-            }, 1000);
-
+            }).change();
+            DatePickerSet();
+            DatePickerSet1();
         });
+
+        function DatePickerSet() {
+
+            $("#ContentPlaceHolder1_txtDepartureDate").datepicker({
+                startDate: 'today',
+                minDate: 0,
+                numberOfMonths: 1,
+                autoclose: true,
+                dateFormat: 'dd-mm-yy',
+                onSelect: function (selected) {
+                    $("#ContentPlaceHolder1_txtReturnDate").val('');
+                    var date = $(this).datepicker('getDate');
+                    if (date) {
+                        date.setDate(date.getDate());
+                    }
+                    $("#ContentPlaceHolder1_txtReturnDate").datepicker("option", "minDate", date)
+                }
+            });
+        }
+        function DatePickerSet1() {
+            $("#ContentPlaceHolder1_txtReturnDate").datepicker({
+                startDate: 'today',
+                numberOfMonths: 1,
+                dateFormat: 'dd-mm-yy',
+                autoclose: true
+            });
+        }
     </script>
     <style type="text/css">
         .spaced {
@@ -77,14 +86,8 @@
             }
     </style>
     <script type="text/javascript">
-        function ValidateCheckBoxList(sender, args) {
-            if ($("[id*=chbklstAdditionalInfo] input:checked").length > 0)
-                args.IsValid = true;
-            else
-                args.IsValid = false;
-        }
         function ValidateCheckBoxList1(sender, args) {
-            if ($("[id*=chbklstClass] input:checked").length > 0)
+            if ($("[id*=chbklstClass] input:checked").length > 0 || $("[id*=chbklstAdditionalInfo] input:checked").length > 0)
                 args.IsValid = true;
             else
                 args.IsValid = false;
@@ -109,10 +112,15 @@
                 }
             }
         }
+        function FormatIt(obj) {
+            if (obj.value.length == 2) // Day
+                obj.value = obj.value + "/";
+            if (obj.value.length == 5) // month
+                obj.value = obj.value + "/";
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="page-container" id="divCustomerInfoPage" runat="server">
         <!--/content-inner-->
         <div class="inner-content">
@@ -121,20 +129,20 @@
                 <div style="text-align: center; margin-bottom: 10px;">
                     <asp:Label ID="lblMessage" runat="server" Style="color: #006341; font-weight: bold; text-align: center"></asp:Label>
                 </div>
-
                 <!--/forms-->
                 <div class="forms-main">
                     <div class="row">
                         <div class="col-lg-6">
                             <h5 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px">Verify Customer</h5>
                         </div>
-                        <div class="col-lg-6 text-right">
+                        <%--<div class="col-lg-6 text-right">
                             <span class="countdown" style="color: #006341; font-weight: bold; margin-bottom: 10px"></span>
-                        </div>
+                        </div>--%>
                     </div>
                     <div class="graph-form" id="divVerify" runat="server">
                         <div class="validation-form">
                             <div class="vali-form">
+
                                 <div class="col-md-2 form-group1">
                                     <label class="control-label" id="lblMobileNum">Mobile Number</label>
                                     <asp:TextBox ID="txtMobileNum" runat="server" MaxLength="10" CssClass="Verify"></asp:TextBox>
@@ -151,29 +159,11 @@
                                 <div class="col-md-1 form-group button-2">
                                     <asp:Button ID="btnValidate" runat="server" Text="Verify" Style="margin-top: 2em" CssClass="VerifyButton" ValidationGroup="ValidateVerify" OnClick="btnValidate_Click1" />
                                 </div>
-
-                                <div runat="server" id="divHolderOrNot">
-
-                                    <div class="vali-form">
-                                        <div class="col-md-3 form-group1 group-mail" style="margin-top: 2em">
-                                            <label class="control-label" id="lblAccountHolder">Are you a Nedbank account holder?<span style="color: #d0582e">*</span></label>
-                                        </div>
-                                        <div class="col-md-1 form-group1" style="padding-top: 5px; margin-top: 2em">
-                                            <asp:RadioButton ID="rdbtnYes" Text="Yes" GroupName="Nedbankaccountholder" runat="server" AutoPostBack="True" OnCheckedChanged="rdbtnYes_CheckedChanged" />
-                                        </div>
-                                        <div class="col-md-1 form-group1" style="padding-top: 5px; margin-top: 2em">
-                                            <asp:RadioButton ID="rdbtnNo" Text="No" runat="server" GroupName="Nedbankaccountholder" AutoPostBack="True" OnCheckedChanged="rdbtnNo_CheckedChanged" />
-                                        </div>
-                                    </div>
-
-                                </div>
-
                             </div>
-
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    <h5 class="inner-tittle" id="h5CustomerInfo" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px; margin-top: 10px">Customer Information</h5>
+                    <h5 class="inner-tittle" id="h5CustomerInfo" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px; margin-top: 10px">Customer and Lead Information</h5>
                     <div class="graph-form" id="divCustomerDetails" runat="server">
                         <div class="validation-form">
                             <div runat="server">
@@ -193,33 +183,19 @@
                                         <asp:TextBox ID="txtMobileNumber" runat="server"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="rfvMobileNumber" ControlToValidate="txtMobileNumber" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Mobile Number" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                     </div>
-                                    <div class="col-md-2 form-group1 group-mail">
-                                        <label class="control-label">Email</label>
-                                        <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvEmail" ControlToValidate="txtEmail" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Email" ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                    </div>
                                     <div class="col-md-2 form-group1 form-last">
                                         <label class="control-label" id="lblCity">City<span style="color: #d0582e">*</span></label>
                                         <asp:TextBox ID="txtCity" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="rfvCity" ControlToValidate="txtCity" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter City" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                     </div>
-                                    <div class="col-md-3 form-group button-2" id="divSaveCancel" runat="server" style="margin-top: 2em">
-                                        <asp:Button ID="btnSave" runat="server" Text="Submit" class="btn btn-default" ValidationGroup="Save" OnClick="btnSave_Click" />
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-default" />
+                                    <div class="col-md-4 form-group1 group-mail">
+                                        <label class="control-label">Email</label>
+                                        <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvEmail" ControlToValidate="txtEmail" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter Email" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                     </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
 
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <h5 class="inner-tittle" id="h5CreateLead" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px; margin-top: 10px">Create Lead</h5>
-                    <div class="graph-form" id="divNewLead" runat="server">
-                        <div class="validation-form">
-                            <div class="vali-form">
-                                <asp:UpdatePanel ID="updatePanel1" runat="server">
-                                    <ContentTemplate>
+
+                                    <div class="row">
                                         <div class="col-md-2 form-group1">
                                             <label class="control-label" id="lblDestination">Destination<span style="color: #d0582e">*</span></label>
                                             <asp:TextBox ID="txtDestination" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
@@ -232,24 +208,6 @@
                                             <asp:RequiredFieldValidator ID="rfvDepartingFrom" ControlToValidate="txtDepartingFrom" ForeColor="#d0582e" runat="server"
                                                 ErrorMessage="Please enter DepartingFrom" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                         </div>
-                                        <div class="col-md-2 form-group1">
-                                            <label class="control-label input-append date datepicker span12" id="lblDepartureDate">Departure Date<span style="color: #d0582e">*</span></label>
-
-                                            <asp:TextBox ID="txtDepartureDate" runat="server" OnTextChanged="txtDepartureDate_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                            <ajaxToolkit:CalendarExtender ID="clextDeparture" runat="server" TargetControlID="txtDepartureDate" Format="dd-MM-yyyy" />
-
-
-                                            <asp:RequiredFieldValidator ID="rfvDepartureDate" ControlToValidate="txtDepartureDate" ForeColor="#d0582e" runat="server"
-                                                ErrorMessage="Please enter Departure Date" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
-                                        </div>
-                                        <div class="col-md-2 form-group1 form-last">
-                                            <label class="control-label" id="lblReturnDate">Return Date</label>
-                                            <asp:TextBox ID="txtReturnDate" runat="server"></asp:TextBox>
-                                            <ajaxToolkit:CalendarExtender ID="clextReturn" runat="server" TargetControlID="txtReturnDate" Format="dd-MM-yyyy" />
-                                            <asp:CustomValidator ID="cvReturnDate" runat="server"
-                                                ClientValidationFunction="cvfReturnDate"></asp:CustomValidator>
-                                        </div>
-
                                         <div class="col-md-1 form-group1 group-mail , col-md-3 form-group2 group-mail">
                                             <label class="control-label" id="lblNoOfAdults">Adults</label>
                                             <asp:DropDownList ID="ddlNoOfAdults" runat="server" CssClass="pax">
@@ -291,27 +249,39 @@
                                         <div class="col-md-1 form-group1 group-mail">
                                             <label class="control-label" id="lblNoOfPax">Pax</label>
                                             <asp:TextBox ID="txtNoOfPax" runat="server" ReadOnly="true"></asp:TextBox>
+                                        </div>
+                                        <div class="col-md-4 form-group1 group-mail" style="margin-top:35px">                                           
                                             <asp:Label ID="lblNoOfPass" runat="server" Text="" Visible="false" ForeColor="#d0582e"></asp:Label>
                                         </div>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </div>
-                            <div class="clearfix"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2 form-group1">
+                                            <label class="control-label input-append date datepicker span12" id="lblDepartureDate">Departure Date<span style="color: #d0582e">*</span></label>
 
-                            <div class="vali-form vali-form1">
-                                <asp:UpdatePanel ID="updatePanel2" runat="server">
-                                    <ContentTemplate>
+                                            <asp:TextBox ID="txtDepartureDate" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>
+                                            <%--<ajaxToolkit:CalendarExtender ID="clextDeparture" runat="server" TargetControlID="txtDepartureDate" Format="dd/MM/yyyy" />--%>
+                                            <asp:RequiredFieldValidator ID="rfvDepartureDate" ControlToValidate="txtDepartureDate" ForeColor="#d0582e" runat="server"
+                                                ErrorMessage="Please enter Departure Date" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
+                                        </div>
+                                        <div class="col-md-2 form-group1 form-last">
+                                            <label class="control-label" id="lblReturnDate">Return Date</label>
+                                            <asp:TextBox ID="txtReturnDate" runat="server" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>
+                                            <%--<ajaxToolkit:CalendarExtender ID="clextReturn" runat="server" TargetControlID="txtReturnDate" Format="dd/MM/yyyy" />--%>
+                                            <asp:CustomValidator ID="cvReturnDate" runat="server"
+                                                ClientValidationFunction="cvfReturnDate"></asp:CustomValidator>
+                                        </div>
                                         <div class="col-md-1 form-group2 group-mail,checkbox-inline">
                                             <label class="control-label" id="lblAdditionalInfo">Services<span style="color: #d0582e">*</span></label>
                                             <asp:CheckBoxList ID="chbklstAdditionalInfo" runat="server" CssClass="spaced"
-                                                RepeatDirection="Horizontal" OnSelectedIndexChanged="chbklstAdditionalInfo_SelectedIndexChanged" AutoPostBack="true">
+                                                RepeatDirection="Horizontal">
+                                                <asp:ListItem Text="Flight" Value="0"></asp:ListItem>
                                                 <asp:ListItem Text="Flight" Value="1"></asp:ListItem>
                                             </asp:CheckBoxList>
-                                            <asp:CustomValidator ID="cvAdditionalInfo" runat="server" ErrorMessage="Please select at Least One Service"
-                                                ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList" Display="Dynamic"></asp:CustomValidator>
+                                            <%--<asp:CustomValidator ID="cvAdditionalInfo" runat="server" ErrorMessage="Please select at Least One Service"
+                                                ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList" Display="Dynamic"></asp:CustomValidator>--%>
                                         </div>
-                                        <div class="col-md-11 form-group2 group-mail,checkbox-inline" id="divClassItems" runat="server">
-                                            <label class="control-label" id="lblClass">Class</label>
+                                        <div class="col-md-7 form-group2 group-mail,checkbox-inline" id="divClassItems" runat="server">
+                                            <label class="control-label" id="lblClass">Flight Class</label>
                                             <asp:CheckBoxList ID="chbkClass" runat="server" CssClass="spaced"
                                                 RepeatDirection="Horizontal">
                                                 <asp:ListItem Text="Economy" Value="1"></asp:ListItem>
@@ -321,39 +291,54 @@
                                                 <asp:ListItem Text="Premium First" Value="5"></asp:ListItem>
                                             </asp:CheckBoxList>
                                         </div>
-                                        <div class="col-md-12 form-group2 group-mail,checkbox-inline" runat="server">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4 form-group1">
+                                            <label class="control-label" id="lblAdditionalInformation">Additional Information</label>
+                                            <asp:TextBox ID="txtAdditionalInformation" runat="server" placeholder="Special services required" TextMode="MultiLine"></asp:TextBox>
+                                        </div>
+                                        <div class="col-md-5 form-group2 group-mail,checkbox-inline" runat="server">
                                             <asp:CheckBoxList ID="chbklstClass" runat="server" RepeatDirection="Horizontal"
                                                 CssClass="spaced">
                                                 <asp:ListItem Text="Hotel" Value="1"></asp:ListItem>
                                                 <asp:ListItem Text="Car" Value="2"></asp:ListItem>
-                                                <asp:ListItem Text="Special Packages" Value="3"></asp:ListItem>
-                                                <asp:ListItem Text="Insurance" Value="4"></asp:ListItem>
-                                                <asp:ListItem Text="Visa" Value="5"></asp:ListItem>
-                                                <asp:ListItem Text="Forex" Value="6"></asp:ListItem>
+                                                <asp:ListItem Text="Transfer" Value="3"></asp:ListItem>
+                                                <asp:ListItem Text="Visa" Value="4"></asp:ListItem>
+                                                <asp:ListItem Text="Insurance" Value="5"></asp:ListItem>
+                                                <asp:ListItem Text="Tours" Value="6"></asp:ListItem>
                                             </asp:CheckBoxList>
-                                            <asp:CustomValidator ID="cvClass" runat="server" ErrorMessage="Please Select at Least One Value"
+                                            <asp:CustomValidator ID="cvClass" runat="server" ErrorMessage="Please Select at Least One Service"
                                                 ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList1" Display="Dynamic"></asp:CustomValidator>
                                         </div>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="vali-form vali-form1">
-                                <div class="col-md-2 form-group1">
-                                    <label class="control-label" id="lblAdditionalInformation">Additional Information</label>
-                                    <asp:TextBox ID="txtAdditionalInformation" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
-                                </div>
-                                <div class="col-md-4 form-group button-2" style="margin-top: 2em">
-                                    <asp:Button ID="Button1" runat="server" Text="Submit" class="btn btn-default" ValidationGroup="SaveLead" OnClick="Button1_Click" />
-                                    <asp:Button ID="Button2" runat="server" Text="Cancel" class="btn btn-default" />
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
+                                        <div class="col-md-3 form-group button-2 text-right" style="margin-top: 6em">
+                                            <asp:Button ID="Button1" runat="server" Text="Submit" class="btn btn-default" ValidationGroup="SaveLead" OnClick="Button1_Click" />
+                                            <asp:Button ID="Button2" runat="server" Text="Back" OnClick="Button2_Click" class="btn btn-default" />
+                                        </div>
+                                    </div>
+                                    <div class="vali-form vali-form1">
+                                    </div>
+                                    <div class="clearfix"></div>
 
+
+                                    <%--<div class="col-md-3 form-group button-2" id="divSaveCancel" runat="server" style="margin-top: 2em">
+                                        <asp:Button ID="btnSave" runat="server" Text="Submit" class="btn btn-default" ValidationGroup="Save" OnClick="btnSave_Click" />
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-default" />
+                                    </div>--%>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <%--<h5 class="inner-tittle" id="h5CreateLead" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px; margin-top: 10px">Create Lead</h5>--%>
+                    <%--     <div class="" id="divNewLead" runat="server">
+                        <div class="validation-form">
 
                             <!---->
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
                 <!--//forms-->
             </div>

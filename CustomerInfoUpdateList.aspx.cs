@@ -23,7 +23,7 @@ public partial class CustomerInfoUpdateList : System.Web.UI.Page
                 mastertxt.Text = Session["Name"].ToString();
                 if (!IsPostBack)
                 {
-                    ViewState["ps"] = 10;
+                    ViewState["ps"] = 100;
                     GetCustomerInfo();
                 }
             }

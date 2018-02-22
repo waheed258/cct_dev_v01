@@ -42,7 +42,7 @@
                     <div class="col-lg-2">
                         <h4 class="inner-tittle" id="h5VerifyCustomer" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-top: 27px;">Customer List</h4>
                     </div>
-                     <div class="col-lg-4">
+                     <div class="col-lg-3">
                          <asp:DropDownList ID="DropPage" runat="server" OnSelectedIndexChanged="DropPage_SelectedIndexChanged" style="margin-top:24px"
                             AutoPostBack="true">
                             <asp:ListItem Value="10" Selected="True">100</asp:ListItem>
@@ -55,7 +55,7 @@
                     <div class="col-lg-2 form-group1">
                         <asp:TextBox ID="txtSearch" runat="server" placeholder="Search..." ValidationGroup="Search"  style="margin-top:14px"/>
                     </div>
-                    <div class="col-lg-1" style="margin-top: 6px">
+                    <div class="col-lg-2" style="margin-top: 6px">
                         <asp:ImageButton ID="cmdSearch" ImageUrl="CustomScripts/images/search.png" runat="server" Height="30px" style="margin-top:10px"
                             ToolTip="Search..." OnClick="cmdSearch_Click" ValidationGroup="Search" />
                          <asp:ImageButton ID="imgbtnRefresh" ImageUrl="CustomScripts/images/icon-refresh.png" runat="server" Height="30px" style="margin-left:19px"
@@ -71,7 +71,7 @@
                     <asp:GridView ID="gvCustomerUpdate" runat="server" Width="100%"
                         AutoGenerateColumns="False" DataKeyNames="CustomerId" CssClass="rounded-corners"
                         EmptyDataText="There are no data records to display."
-                        BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="10"
+                        BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
                         CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvCustomerUpdate_RowCommand" OnRowEditing="gvCustomerUpdate_RowEditing" OnPageIndexChanging="gvCustomerUpdate_PageIndexChanging">
                         <Columns>
                             <asp:BoundField DataField="CustomerId" HeaderText="ID" ReadOnly="true" />

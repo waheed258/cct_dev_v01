@@ -33,12 +33,7 @@ public partial class NewCustomer : System.Web.UI.Page
                     txtMobileNum.Attributes.Add("onKeyPress", "doClick('" + btnValidate.ClientID + "',event)");
                     Session["CustomerId"] = null;
                     divCustomerDetails.Visible = false;
-                    divHolderOrNot.Visible = false;
-                    h5CreateLead.Visible = false;
                     h5CustomerInfo.Visible = false;
-                    divNewLead.Visible = false;
-                    divClassItems.Visible = false;
-                    clextDeparture.StartDate = DateTime.Today;
                 }
             }
             else
@@ -48,7 +43,6 @@ public partial class NewCustomer : System.Web.UI.Page
         }
         catch { }
     }
-
     protected void GetServices()
     {
         try
@@ -85,7 +79,19 @@ public partial class NewCustomer : System.Web.UI.Page
             DataSet ds = customerBL.ValidateMobileNum(validateEntity);
             if (ds.Tables[0].Rows.Count > 0)
             {
-                ShowHideControlsVerifyOnSuccess();
+                ViewState["IsCustomerData"] = ds;
+
+                divVerify.Visible = false;
+                h5VerifyCustomer.Visible = false;
+                divCustomerDetails.Visible = true;
+                h5CustomerInfo.Visible = true;
+                txtMobileNumber.Enabled = false;
+                txtEmail.Enabled = false;
+                txtCustomerName.Enabled = false;
+                txtSurName.Enabled = false;
+                txtCity.Enabled = false;
+                lblMessage.Text = "";
+
                 Session["CustomerId"] = ds.Tables[0].Rows[0]["CustomerId"].ToString();
                 txtMobileNumber.Text = ds.Tables[0].Rows[0]["MobileNum"].ToString();
                 txtEmail.Text = ds.Tables[0].Rows[0]["EmailId"].ToString();
@@ -95,128 +101,16 @@ public partial class NewCustomer : System.Web.UI.Page
             }
             else
             {
-                ShowHideControlsOnVerifyOnFailure();
-            }
-        }
-        catch { }
-    }
-
-    protected void ShowHideControlsVerifyOnSuccess()
-    {
-        try
-        {
-            divVerify.Visible = false;
-            h5VerifyCustomer.Visible = false;
-            divCustomerDetails.Visible = true;
-            h5CreateLead.Visible = true;
-            divNewLead.Visible = true;
-            h5CustomerInfo.Visible = true;
-            divHolderOrNot.Visible = false;
-            divSaveCancel.Visible = false;
-            txtMobileNumber.Enabled = false;
-            txtEmail.Enabled = false;
-            txtCustomerName.Enabled = false;
-            txtSurName.Enabled = false;
-            txtCity.Enabled = false;
-            lblMessage.Text = "";
-        }
-        catch { }
-    }
-    protected void ShowHideControlsOnVerifyOnFailure()
-    {
-        try
-        {
-            divHolderOrNot.Visible = true;
-        }
-        catch { }
-    }
-    protected void rdbtnYes_CheckedChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            h5CustomerInfo.Visible = true;
-            divCustomerDetails.Visible = true;
-            divSaveCancel.Visible = true;
-            txtMobileNumber.Enabled = true;
-            txtEmail.Enabled = true;
-            txtCustomerName.Enabled = true;
-            txtSurName.Enabled = true;
-            txtCity.Enabled = true;
-            txtMobileNumber.Text = "";
-            txtEmail.Text = "";
-            txtCustomerName.Text = "";
-            txtSurName.Text = "";
-            txtCity.Text = "";
-            txtMobileNumber.Text = txtMobileNum.Text;
-            txtEmail.Text = txtEmailId.Text;
-            txtMobileNumber.Enabled = false;
-        }
-        catch { }
-    }
-    protected void rdbtnNo_CheckedChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            h5CustomerInfo.Visible = true;
-            divCustomerDetails.Visible = true;
-            divSaveCancel.Visible = true;
-            txtMobileNumber.Enabled = true;
-            txtEmail.Enabled = true;
-            txtCustomerName.Enabled = true;
-            txtSurName.Enabled = true;
-            txtCity.Enabled = true;
-            ShowHideControlsOnVerifyOnFailure();
-            txtMobileNumber.Text = "";
-            txtEmail.Text = "";
-            txtCustomerName.Text = "";
-            txtSurName.Text = "";
-            txtCity.Text = "";
-            txtMobileNumber.Text = txtMobileNum.Text;
-            txtEmail.Text = txtEmailId.Text;
-            txtMobileNumber.Enabled = false;
-        }
-        catch { }
-    }
-    protected void btnSave_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            customerEntity.MobileNum = txtMobileNum.Text;
-            customerEntity.EmailId = txtEmailId.Text;
-            if (rdbtnYes.Checked)
-            {
-                customerEntity.NedbankAccountHolder = 1;
-            }
-            else
-            {
-                customerEntity.NedbankAccountHolder = 0;
-            }
-            customerEntity.CustomerName = txtCustomerName.Text;
-            customerEntity.EmailId = txtEmail.Text;
-            customerEntity.Surname = txtSurName.Text;
-            customerEntity.City = txtCity.Text;
-            int result = customerBL.CUDCustomerInfo(customerEntity, 'i');
-            Session["IdentityValue"] = result;
-            if (result > 0)
-            {
-                lblMessage.Text = "Customer Details Saved Successfully, Please Create Lead!";
-                divCustomerDetails.Visible = false;
-                h5CustomerInfo.Visible = false;
-                txtMobileNum.Text = "";
-                txtEmailId.Text = "";
-                h5CreateLead.Visible = true;
-                divNewLead.Visible = true;
                 divVerify.Visible = false;
                 h5VerifyCustomer.Visible = false;
-            }
-            else
-            {
-                lblMessage.Text = "Please try again!";
-                lblMessage.ForeColor = System.Drawing.Color.Red;
                 divCustomerDetails.Visible = true;
                 h5CustomerInfo.Visible = true;
-                txtMobileNum.Text = "";
-                txtEmailId.Text = "";
+                txtMobileNumber.Enabled = true;
+                txtEmail.Enabled = true;
+                txtCustomerName.Enabled = true;
+                txtSurName.Enabled = true;
+                txtCity.Enabled = true;
+                lblMessage.Text = "";
             }
         }
         catch { }
@@ -225,6 +119,18 @@ public partial class NewCustomer : System.Web.UI.Page
     {
         try
         {
+            if (ViewState["IsCustomerData"] == null)
+            {
+                customerEntity.MobileNum = txtMobileNum.Text;
+                customerEntity.EmailId = txtEmailId.Text;
+                customerEntity.NedbankAccountHolder = 1;
+                customerEntity.CustomerName = txtCustomerName.Text;
+                customerEntity.EmailId = txtEmail.Text;
+                customerEntity.Surname = txtSurName.Text;
+                customerEntity.City = txtCity.Text;
+                int result = customerBL.CUDCustomerInfo(customerEntity, 'i');
+                ViewState["IdentityValue"] = result;
+            }
             lblNoOfPass.Visible = true;
             int a = Convert.ToInt32(ddlNoOfAdults.SelectedValue);
             int c = Convert.ToInt32(ddlNoOfChilds.SelectedValue);
@@ -245,13 +151,13 @@ public partial class NewCustomer : System.Web.UI.Page
                     {
                         ne.Destination = txtDestination.Text;
 
-                        if (Session["IdentityValue"] == null)
+                        if (ViewState["IdentityValue"] == null)
                         {
                             ne.CustomerId = Convert.ToInt32(Session["CustomerId"].ToString());
                         }
                         else
                         {
-                            ne.CustomerId = Convert.ToInt32(Session["IdentityValue"].ToString());
+                            ne.CustomerId = Convert.ToInt32(ViewState["IdentityValue"].ToString());
                         }
                         ne.DepartingFrom = txtDepartingFrom.Text;
                         ne.DepartureDate = txtDepartureDate.Text;
@@ -284,6 +190,7 @@ public partial class NewCustomer : System.Web.UI.Page
             {
                 lblNoOfPass.Text = "No of infants should not exceed adults";
             }
+
         }
         catch { }
     }
@@ -314,58 +221,8 @@ public partial class NewCustomer : System.Web.UI.Page
         }
         catch { }
     }
-
-    protected void passengers()
+    protected void Button2_Click(object sender, EventArgs e)
     {
-        try
-        {
-            lblNoOfPass.Visible = true;
-            int a = Convert.ToInt32(ddlNoOfAdults.SelectedValue);
-            int c = Convert.ToInt32(ddlNoOfChilds.SelectedValue);
-            int i = Convert.ToInt32(ddlNoOfInfants.SelectedValue);
-            j = a + c + i;
-            if (i <= a)
-            {
-                if (a == 9)
-                {
-                    if (ddlNoOfChilds.SelectedIndex != 0 || ddlNoOfInfants.SelectedIndex != 0)
-                        lblNoOfPass.Text = "No of Pax should not exceed 9";
-                }
-                else
-                {
-                    if (j > 9)
-                        lblNoOfPass.Text = "No of Pax should not exceed 9";
-                    else
-                        txtNoOfPax.Text = j.ToString();
-                }
-            }
-            else
-                lblNoOfPass.Text = "No of infants should not exceed adults";
-        }
-        catch { }
-    }
-    protected void chbklstAdditionalInfo_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            if (chbklstAdditionalInfo.SelectedIndex == 0)
-            {
-                divClassItems.Visible = true;
-            }
-            else
-            {
-                divClassItems.Visible = false;
-            }
-        }
-        catch { }
-    }
-    protected void txtDepartureDate_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            txtReturnDate.Text = "";
-            clextReturn.StartDate = Convert.ToDateTime(txtDepartureDate.Text, new CultureInfo("en-GB"));
-        }
-        catch { }
-    }
+        Response.Redirect("NewCustomer.aspx");
+    }    
 }

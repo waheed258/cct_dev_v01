@@ -115,7 +115,7 @@
                                         <div class="col-md-2 form-group1">
                                             <label class="control-label" id="lblDepartureDate">Departure Date</label>
                                             <asp:TextBox ID="txtDepartureDate" runat="server" OnTextChanged="txtDepartureDate_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                            <ajaxToolkit:CalendarExtender ID="clextDeparture" runat="server" TargetControlID="txtDepartureDate" Format="dd-MM-yyyy" />
+                                            <ajaxToolkit:CalendarExtender ID="clextDeparture" runat="server" TargetControlID="txtDepartureDate" Format="dd/MM/yyyy" />
                                             <asp:RequiredFieldValidator ID="rfvDepartureDate" ControlToValidate="txtDepartureDate" ForeColor="#d0582e" runat="server"
                                                 ErrorMessage="Please enter Departure Date" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                         </div>
@@ -123,7 +123,7 @@
                                         <div class="col-md-2 form-group1 form-last">
                                             <label class="control-label" id="lblReturnDate">Return Date</label>
                                             <asp:TextBox ID="txtReturnDate" runat="server"></asp:TextBox>
-                                            <ajaxToolkit:CalendarExtender ID="clextReturn" runat="server" TargetControlID="txtReturnDate" Format="dd-MM-yyyy" />
+                                            <ajaxToolkit:CalendarExtender ID="clextReturn" runat="server" TargetControlID="txtReturnDate" Format="dd/MM/yyyy" />                                            
                                             <asp:RequiredFieldValidator ID="rfvReturnDate" ControlToValidate="txtReturnDate" ForeColor="#d0582e" runat="server"
                                                 ErrorMessage="Please enter Return Date" ValidationGroup="Save"></asp:RequiredFieldValidator>
                                             <asp:CustomValidator ID="cvReturnDate" runat="server"
@@ -195,7 +195,7 @@
                                                 ForeColor="#d0582e" ValidationGroup="Save" ClientValidationFunction="ValidateCheckBoxList1" Display="Dynamic"></asp:CustomValidator>
                                         </div>
                                         <div class="col-md-6 form-group2 group-mail,checkbox-inline" id="divClassItems" runat="server">
-                                            <label class="control-label" id="lblClass" style="margin-left: 15px">Class</label>
+                                            <label class="control-label" id="lblClass" style="margin-left: 15px">Flight Class</label>
                                             <asp:CheckBoxList ID="chbkClass" runat="server" CssClass="spaced"
                                                 RepeatDirection="Horizontal">
                                                 <asp:ListItem Text="Economy" Value="1"></asp:ListItem>

@@ -20,8 +20,9 @@
                 background-color: #006341;
                 color: #FFF !important;
             }
-            .rounded-corners {
-                       -webkit-border-radius: 8px;
+
+        .rounded-corners {
+            -webkit-border-radius: 8px;
             -moz-border-radius: 8px;
             border-radius: 8px;
             overflow: hidden;
@@ -69,15 +70,18 @@
                         <asp:GridView ID="gvLeadData" runat="server" Width="100%"
                             AutoGenerateColumns="False" DataKeyNames="SrNo,ClientReqId"
                             EmptyDataText="There are no data records to display." CssClass="rounded-corners"
-                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"     
+                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvLeadData_RowCommand1" OnRowDataBound="gvLeadData_RowDataBound1" OnRowEditing="gvLeadData_RowEditing1" OnPageIndexChanging="gvLeadData_PageIndexChanging">
                             <Columns>
                                 <asp:BoundField DataField="SRNO" HeaderText="Sl.No" ReadOnly="true" />
                                 <asp:BoundField DataField="CLIENTREQID" HeaderText="Lead Ref No" ReadOnly="true" />
+                                <asp:BoundField DataField="CUSTOMERNAME" HeaderText="Customer Name" ReadOnly="true" />
                                 <asp:BoundField DataField="CREATEDDATE" HeaderText="Date & Time" ReadOnly="true" />
                                 <asp:BoundField DataField="CREATEDBY" HeaderText="Lead Created By" ReadOnly="true" />
                                 <asp:BoundField DataField="ASSIGNEDTO" HeaderText="Lead Allocated To" ReadOnly="true" />
                                 <asp:BoundField DataField="STATUS" HeaderText="Lead Status" ReadOnly="true" />
+                                <asp:BoundField DataField="SERVICES" HeaderText="Services" ReadOnly="true" />
+                                <asp:BoundField DataField="CLASS" HeaderText="Flight Class" ReadOnly="true" />
                                 <asp:TemplateField HeaderText="Action">
                                     <ItemTemplate>
                                         <asp:ImageButton ID="btnEdit" ImageUrl="~/CustomScripts/images/editicon.png" runat="server" Width="23px" Height="23px"
