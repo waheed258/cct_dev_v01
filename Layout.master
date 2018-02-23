@@ -134,7 +134,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     <a href="#" class="dropdown-toggle" data-hover="Reports" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
                                                     <ul class="dropdown-menu">
                                                         <li><a href="LeadsList.aspx">All Leads</a></li>
-                                                        <li><a href="CustomerList.aspx">All Customers</a></li>
+                                                        <li><a href="OpenLeadList.aspx">Open Leads</a></li>
                                                     </ul>
                                                 </li>
 
