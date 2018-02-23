@@ -175,6 +175,7 @@ public partial class NewLead : System.Web.UI.Page
             if (Services.Contains("Flight"))
             {
                 chbklstClass.SelectedIndex = 0;
+                //cvFlightClass.Enabled = true;
             }
             foreach (ListItem li in chbklstAdditionalInfo.Items)
             {
@@ -365,4 +366,12 @@ public partial class NewLead : System.Web.UI.Page
              divOnlyNotes.Visible = true;
          }
     }
+    //protected void chbklstClass_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    if (chbklstClass.Items[0].Selected == true)
+    //        cvFlightClass.Enabled = true;
+    //    else
+    //        cvFlightClass.Enabled = false;
+    //}
+    
 }

@@ -76,10 +76,38 @@
                 args.IsValid = false;
         }
         function ValidateCheckBoxList1(sender, args) {
-            if ($("[id*=chbklstClass] input:checked").length > 0)
-                args.IsValid = true;
+            if ($("[id*=chbklstClass] input:checked").length > 0) {
+                if ($("[id*=chbkClass] input:checked").length > 0)
+                    args.IsValid = true;
+                else
+                    args.IsValid = false;
+                //args.IsValid = true;
+            }
+            else {
+                if ($("[id*=chbklstAdditionalInfo] input:checked").length > 0)
+                    args.IsValid = true;
+                else
+                    args.IsValid = false;
+
+                //args.IsValid = false; chbklstAdditionalInfo
+            }
+        }
+
+        function ValidateClassList(source, args) {
+            if ($("[id*=chbklstAdditionalInfo] input:checked").length > 0)
+            {
+                var chkListModules = document.getElementById('<%= chbkClass.ClientID %>');
+                var chkListinputs = chkListModules.getElementsByTagName("input");
+                for (var i = 0; i < chkListinputs.length; i++) {
+                    if (chkListinputs[i].checked) {
+                        args.IsValid = true;
+
+                        return;
+                    }
+                }
+            }
             else
-                args.IsValid = false;
+                args.IsValid = true;
         }
     </script>
 </asp:Content>
@@ -241,8 +269,8 @@
                                                     <asp:ListItem Text="First" Value="4"></asp:ListItem>
                                                     <asp:ListItem Text="Premium First" Value="5"></asp:ListItem>
                                                 </asp:CheckBoxList>
-                                                <asp:CustomValidator ID="cvFlightClass" runat="server" ErrorMessage="Please select at Least one class" Enabled="false"
-                                                    ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateClassList" Display="Dynamic"></asp:CustomValidator>
+                                                <asp:CustomValidator ID="cvFlightClass" runat="server" ErrorMessage="Please select at least one class" Enabled="true"
+                                                    ForeColor="#d0582e" ClientValidationFunction="ValidateClassList" Display="Dynamic"></asp:CustomValidator>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -255,8 +283,8 @@
                                                     <asp:ListItem Text="Visa" Value="5"></asp:ListItem>
                                                     <asp:ListItem Text="Forex" Value="6"></asp:ListItem>
                                                 </asp:CheckBoxList>
-                                                <asp:CustomValidator ID="cvClass" runat="server" ErrorMessage="Please Select at Least One Service"
-                                                    ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList1" Display="Dynamic"></asp:CustomValidator>
+                                                <asp:CustomValidator ID="cvClass" runat="server" ErrorMessage="Please select at least one Service / Class"
+                                                    ForeColor="#d0582e" ValidationGroup="Save" ClientValidationFunction="ValidateCheckBoxList1" Display="Dynamic"></asp:CustomValidator>
                                             </div>
                                         </div>
                                     </div>
@@ -306,7 +334,7 @@
                                     <div class="vali-form vali-form1">
 
                                         <div class="col-md-7 form-group button-2 text-center" style="margin-top: -15px">
-                                            <asp:Button ID="btnUpdate" runat="server" Style="margin-top: 55px" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click"/>
+                                            <asp:Button ID="btnUpdate" runat="server" Style="margin-top: 55px" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
                                             <asp:Button ID="btnCancel" runat="server" Style="margin-top: 55px" Text="Cancel" class="btn btn-default" OnClientClick="javascript:window.close();" />
                                         </div>
                                     </div>
