@@ -168,7 +168,7 @@
                                     <asp:RegularExpressionValidator ID="revEmail" runat="server" ForeColor="Red" Display="Dynamic" ErrorMessage="Please check Email Format"
                                         ControlToValidate="txtEmailId" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="ValidateVerify">
                                     </asp:RegularExpressionValidator>
-                                    <asp:RequiredFieldValidator id="rfvEmailId" runat="server" ControlToValidate="txtEmailId" ForeColor="#d0582e" 
+                                    <asp:RequiredFieldValidator ID="rfvEmailId" runat="server" ControlToValidate="txtEmailId" ForeColor="#d0582e"
                                         ErrorMessage="Please enter email id" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-1 form-group button-2">
@@ -178,19 +178,19 @@
                                 <div class="col-md-2 form-group1 group-mail">
                                     <label class="control-label" id="lblCustomerName">Customer Name<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtCustomerName" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvCustomerName" ControlToValidate="txtCustomerName" ForeColor="#d0582e" runat="server" 
+                                    <asp:RequiredFieldValidator ID="rfvCustomerName" ControlToValidate="txtCustomerName" ForeColor="#d0582e" runat="server"
                                         ErrorMessage="Please enter Customer Name" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-2 form-group1">
                                     <label class="control-label" id="lblSurname">Surname<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtSurName" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvSurName" ControlToValidate="txtSurName" ForeColor="#d0582e" runat="server" 
+                                    <asp:RequiredFieldValidator ID="rfvSurName" ControlToValidate="txtSurName" ForeColor="#d0582e" runat="server"
                                         ErrorMessage="Please enter Surname" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-2 form-group1 form-last">
                                     <label class="control-label" id="lblCity">City<span style="color: #d0582e">*</span></label>
                                     <asp:TextBox ID="txtCity" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvCity" ControlToValidate="txtCity" ForeColor="#d0582e" runat="server" 
+                                    <asp:RequiredFieldValidator ID="rfvCity" ControlToValidate="txtCity" ForeColor="#d0582e" runat="server"
                                         ErrorMessage="Please enter City" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
@@ -218,15 +218,13 @@
                                         <div class="col-md-2 form-group1">
                                             <label class="control-label input-append date datepicker span12" id="lblDepartureDate">Departure Date<span style="color: #d0582e">*</span></label>
 
-                                            <asp:TextBox ID="txtDepartureDate" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>
-                                            <%--<ajaxToolkit:CalendarExtender ID="clextDeparture" runat="server" TargetControlID="txtDepartureDate" Format="dd/MM/yyyy" />--%>
+                                            <asp:TextBox ID="txtDepartureDate" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>                                            
                                             <asp:RequiredFieldValidator ID="rfvDepartureDate" ControlToValidate="txtDepartureDate" ForeColor="#d0582e" runat="server"
                                                 ErrorMessage="Please enter Departure Date" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                         </div>
                                         <div class="col-md-2 form-group1 form-last">
                                             <label class="control-label" id="lblReturnDate">Return Date</label>
-                                            <asp:TextBox ID="txtReturnDate" runat="server" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>
-                                            <%--<ajaxToolkit:CalendarExtender ID="clextReturn" runat="server" TargetControlID="txtReturnDate" Format="dd/MM/yyyy" />--%>
+                                            <asp:TextBox ID="txtReturnDate" runat="server" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>                                            
                                             <asp:CustomValidator ID="cvReturnDate" runat="server"
                                                 ClientValidationFunction="cvfReturnDate"></asp:CustomValidator>
                                         </div>
@@ -244,7 +242,6 @@
                                                 <asp:ListItem Value="9" Text="9"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
-
                                         <div class="col-md-1 form-group1,col-md-3 form-group2 group-mail">
                                             <label class="control-label" id="lblNoOfChilds">Children</label>
                                             <asp:DropDownList ID="ddlNoOfChilds" runat="server" CssClass="pax">
@@ -285,10 +282,7 @@
                                                     <asp:CheckBoxList ID="chbklstAdditionalInfo" runat="server" CssClass="spaced" AutoPostBack="true"
                                                         RepeatDirection="Horizontal" OnSelectedIndexChanged="chbklstAdditionalInfo_SelectedIndexChanged">
                                                         <asp:ListItem Text="Flight" Value="0"></asp:ListItem>
-                                                        <%--<asp:ListItem Text="Flight" Value="1"></asp:ListItem>--%>
                                                     </asp:CheckBoxList>
-                                                    <%--<asp:CustomValidator ID="cvAdditionalInfo" runat="server" ErrorMessage="Please select at Least One Service"
-                                                ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList" Display="Dynamic"></asp:CustomValidator>--%>
                                                 </div>
                                                 <div class="col-md-10 form-group2 group-mail,checkbox-inline" id="divClassItems" runat="server">
                                                     <label class="control-label" id="lblClass">Flight Class</label>
@@ -301,7 +295,7 @@
                                                         <asp:ListItem Text="Premium First" Value="5"></asp:ListItem>
                                                     </asp:CheckBoxList>
                                                     <asp:CustomValidator ID="cvFlightClass" runat="server" ErrorMessage="Please select at Least one class" Enabled="false"
-                                                ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateClassList" Display="Dynamic"></asp:CustomValidator>
+                                                        ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateClassList" Display="Dynamic"></asp:CustomValidator>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -318,7 +312,6 @@
                                                     <asp:CustomValidator ID="cvClass" runat="server" ErrorMessage="Please Select at Least One Service"
                                                         ForeColor="#d0582e" ValidationGroup="SaveLead" ClientValidationFunction="ValidateCheckBoxList1" Display="Dynamic"></asp:CustomValidator>
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="col-md-6 form-group2">
@@ -336,21 +329,10 @@
                                             <asp:Button ID="Button2" runat="server" Text="Back" OnClick="Button2_Click" class="btn btn-default" />
                                         </div>
                                     </div>
-
-                                    <%--<div class="clearfix"></div>--%>
                                 </div>
                             </div>
-
-                            <%--<div class="clearfix"></div>--%>
                         </div>
                     </div>
-                    <%--<h5 class="inner-tittle" id="h5CreateLead" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px; margin-top: 10px">Create Lead</h5>--%>
-                    <%--     <div class="" id="divNewLead" runat="server">
-                        <div class="validation-form">
-
-                            <!---->
-                        </div>
-                    </div>--%>
                 </div>
                 <!--//forms-->
             </div>

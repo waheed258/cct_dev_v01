@@ -73,11 +73,11 @@ public partial class LeadAllocation : System.Web.UI.Page
     {
         try
         {
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    e.Row.Cells[6].Text = e.Row.Cells[6].Text.TrimEnd(',');
-            //    e.Row.Cells[7].Text = e.Row.Cells[7].Text.TrimEnd(',');
-            //}
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Cells[7].Text = e.Row.Cells[7].Text.TrimEnd(',');
+                e.Row.Cells[8].Text = e.Row.Cells[8].Text.TrimEnd(',');
+            }
         }
         catch { }
     }

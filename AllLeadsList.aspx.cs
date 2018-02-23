@@ -93,12 +93,11 @@ public partial class AllLeadsList : System.Web.UI.Page
     {
         try
         {
-
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    e.Row.Cells[9].Text = e.Row.Cells[9].Text.TrimEnd(',');
-            //    e.Row.Cells[10].Text = e.Row.Cells[10].Text.TrimEnd(',');
-            //}
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Cells[7].Text = e.Row.Cells[7].Text.TrimEnd(',');
+                e.Row.Cells[8].Text = e.Row.Cells[8].Text.TrimEnd(',');
+            }
         }
         catch { }
     }

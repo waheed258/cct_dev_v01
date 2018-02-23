@@ -46,9 +46,9 @@
                     <div class="col-lg-2">
                         <asp:DropDownList ID="DropPage" runat="server" OnSelectedIndexChanged="DropPage_SelectedIndexChanged" Style="margin-top: 24px"
                             AutoPostBack="true">
-                            <asp:ListItem Value="10" Selected="True">100</asp:ListItem>
-                            <asp:ListItem Value="25">200</asp:ListItem>
-                            <asp:ListItem Value="50">500</asp:ListItem>
+                            <asp:ListItem Value="100" Selected="True">100</asp:ListItem>
+                            <asp:ListItem Value="200">200</asp:ListItem>
+                            <asp:ListItem Value="500">500</asp:ListItem>
                         </asp:DropDownList>
                         <label class="control-label">
                             Records per page</label>
@@ -71,7 +71,7 @@
                         <asp:GridView ID="gvUserList" runat="server" Width="100%"
                             AutoGenerateColumns="False" DataKeyNames="SRNO,ClientReqId"
                             EmptyDataText="There are no data records to display." CssClass="rounded-corners"
-                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
+                            BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100" OnRowDataBound="gvUserList_RowDataBound"
                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnRowCommand="gvUserList_RowCommand" OnRowEditing="gvUserList_RowEditing" OnPageIndexChanging="gvUserList_PageIndexChanging">
                             <Columns>
                                 <asp:BoundField DataField="SRNO" HeaderText="Sl.No" ReadOnly="true" />

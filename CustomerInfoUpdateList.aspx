@@ -45,9 +45,9 @@
                      <div class="col-lg-3">
                          <asp:DropDownList ID="DropPage" runat="server" OnSelectedIndexChanged="DropPage_SelectedIndexChanged" style="margin-top:24px"
                             AutoPostBack="true">
-                            <asp:ListItem Value="10" Selected="True">100</asp:ListItem>
-                            <asp:ListItem Value="25">200</asp:ListItem>
-                            <asp:ListItem Value="50">500</asp:ListItem>
+                            <asp:ListItem Value="100" Selected="True">100</asp:ListItem>
+                            <asp:ListItem Value="200">200</asp:ListItem>
+                            <asp:ListItem Value="500">500</asp:ListItem>
                         </asp:DropDownList>
                          <label class="control-label">
                             Records per page</label>

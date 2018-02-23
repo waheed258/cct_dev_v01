@@ -51,13 +51,12 @@ public partial class NewLead : System.Web.UI.Page
                         divOnlyNotes.Visible = true;
                         divfollowupdate.Visible = false;
                     }
-                    divClassItems.Visible = false;
+                    //divClassItems.Visible = false;
                     
                     GetLeadStatus();
                     GetAssignedTo();
-                    GetDetails();
-                    clextDeparture.StartDate = DateTime.Today;
-                    ccextFollowUpDate.StartDate = DateTime.Today;
+                    GetDetails();                   
+                    
                 }
             }
             else
@@ -157,15 +156,22 @@ public partial class NewLead : System.Web.UI.Page
             {
                 txtNotes.Text = "";
             }
-            if (ds.Tables[0].Rows[0]["AssignedTo"].ToString() != "")
+            
+            if (ds.Tables[0].Rows[0]["AssignedId"].ToString() != "")
             {
-                ddlAssignedTo.SelectedValue = ds.Tables[0].Rows[0]["AssignedTo"].ToString();
+                ddlAssignedTo.SelectedValue = ds.Tables[0].Rows[0]["AssignedId"].ToString();
             }
 
             ddlLeadStatus.SelectedValue = ds.Tables[0].Rows[0]["LeadStatus"].ToString();
             if (ddlLeadStatus.SelectedValue == "4")
             {
-                divfollowupdate.Visible = true;                
+                divfollowupdate.Visible = true;
+                divOnlyAssigned.Visible = false;
+            }
+            if (ddlLeadStatus.SelectedValue == "2")
+            {
+                divOnlyAssigned.Visible = true;
+                divfollowupdate.Visible = false;
             }
             string Services = ds.Tables[0].Rows[0]["Services"].ToString().TrimEnd(',');
             if (Services.Contains("Flight"))

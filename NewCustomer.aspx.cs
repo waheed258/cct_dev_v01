@@ -34,6 +34,9 @@ public partial class NewCustomer : System.Web.UI.Page
                     Session["CustomerId"] = null;
                     divCustomerDetails.Visible = false;
                     h5CustomerInfo.Visible = false;
+                    txtCustomerName.Enabled = false;
+                    txtSurName.Enabled = false;
+                    txtCity.Enabled = false;
                 }
             }
             else
@@ -101,12 +104,11 @@ public partial class NewCustomer : System.Web.UI.Page
             }
             else
             {
-                //divVerify.Visible = false;
-                //h5VerifyCustomer.Visible = false;
+                txtCustomerName.Enabled = true;
+                txtSurName.Enabled = true;
+                txtCity.Enabled = false;
                 divCustomerDetails.Visible = true;
-                h5CustomerInfo.Visible = true;
-                //txtMobileNumber.Enabled = true;
-                //txtEmail.Enabled = true;
+                h5CustomerInfo.Visible = true;               
                 txtCustomerName.Enabled = true;
                 txtSurName.Enabled = true;
                 txtCity.Enabled = true;
@@ -231,7 +233,7 @@ public partial class NewCustomer : System.Web.UI.Page
             cvFlightClass.Enabled = true;
         else
             cvFlightClass.Enabled = false;
-        
+
 
     }
 }
