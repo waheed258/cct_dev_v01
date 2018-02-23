@@ -74,39 +74,39 @@ public partial class NewCustomer : System.Web.UI.Page
             validateEntity.MobileNo = txtMobileNum.Text;
             validateEntity.Email = txtEmailId.Text;
             lblMessage.Text = "";
-            txtMobileNumber.Text = "";
+            //txtMobileNumber.Text = "";
 
             DataSet ds = customerBL.ValidateMobileNum(validateEntity);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 ViewState["IsCustomerData"] = ds;
 
-                divVerify.Visible = false;
-                h5VerifyCustomer.Visible = false;
+                //divVerify.Visible = false;
+                //h5VerifyCustomer.Visible = false;
                 divCustomerDetails.Visible = true;
                 h5CustomerInfo.Visible = true;
-                txtMobileNumber.Enabled = false;
-                txtEmail.Enabled = false;
+                txtMobileNum.Enabled = false;
+                txtEmailId.Enabled = false;
                 txtCustomerName.Enabled = false;
                 txtSurName.Enabled = false;
                 txtCity.Enabled = false;
                 lblMessage.Text = "";
 
                 Session["CustomerId"] = ds.Tables[0].Rows[0]["CustomerId"].ToString();
-                txtMobileNumber.Text = ds.Tables[0].Rows[0]["MobileNum"].ToString();
-                txtEmail.Text = ds.Tables[0].Rows[0]["EmailId"].ToString();
+                txtMobileNum.Text = ds.Tables[0].Rows[0]["MobileNum"].ToString();
+                txtEmailId.Text = ds.Tables[0].Rows[0]["EmailId"].ToString();
                 txtCustomerName.Text = ds.Tables[0].Rows[0]["CustomerName"].ToString();
                 txtSurName.Text = ds.Tables[0].Rows[0]["Surname"].ToString();
                 txtCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
             }
             else
             {
-                divVerify.Visible = false;
-                h5VerifyCustomer.Visible = false;
+                //divVerify.Visible = false;
+                //h5VerifyCustomer.Visible = false;
                 divCustomerDetails.Visible = true;
                 h5CustomerInfo.Visible = true;
-                txtMobileNumber.Enabled = true;
-                txtEmail.Enabled = true;
+                //txtMobileNumber.Enabled = true;
+                //txtEmail.Enabled = true;
                 txtCustomerName.Enabled = true;
                 txtSurName.Enabled = true;
                 txtCity.Enabled = true;
@@ -125,7 +125,7 @@ public partial class NewCustomer : System.Web.UI.Page
                 customerEntity.EmailId = txtEmailId.Text;
                 customerEntity.NedbankAccountHolder = 1;
                 customerEntity.CustomerName = txtCustomerName.Text;
-                customerEntity.EmailId = txtEmail.Text;
+                customerEntity.EmailId = txtEmailId.Text;
                 customerEntity.Surname = txtSurName.Text;
                 customerEntity.City = txtCity.Text;
                 int result = customerBL.CUDCustomerInfo(customerEntity, 'i');
@@ -224,5 +224,14 @@ public partial class NewCustomer : System.Web.UI.Page
     protected void Button2_Click(object sender, EventArgs e)
     {
         Response.Redirect("NewCustomer.aspx");
-    }    
+    }
+    protected void chbklstAdditionalInfo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (chbklstAdditionalInfo.Items[0].Selected == true)
+            cvFlightClass.Enabled = true;
+        else
+            cvFlightClass.Enabled = false;
+        
+
+    }
 }
