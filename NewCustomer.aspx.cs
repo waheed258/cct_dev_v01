@@ -201,7 +201,7 @@ public partial class NewCustomer : System.Web.UI.Page
     {
         try
         {
-            if (chbklstAdditionalInfo.SelectedValue == "1")
+            if (chbklstAdditionalInfo.SelectedValue == "0")
             {
                 status += chbklstAdditionalInfo.SelectedItem.Text + ",";
             }

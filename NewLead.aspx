@@ -269,7 +269,7 @@
 
                                             <div class="vali-form vali-form1">
 
-                                                <div class="col-md-7 form-group button-2" style="margin-top: -3em">
+                                                <div class="col-md-7 form-group button-2 text-center" style="margin-top:-15px">
                                                     <asp:Button ID="btnUpdate" runat="server" Style="margin-top: 55px" Text="Update" class="btn btn-default" ValidationGroup="Save" OnClick="btnUpdate_Click" />
                                                     <asp:Button ID="btnCancel" runat="server" Style="margin-top: 55px" Text="Cancel" class="btn btn-default" OnClientClick="javascript:window.close();" />
                                                 </div>
