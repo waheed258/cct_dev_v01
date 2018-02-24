@@ -44,10 +44,11 @@
                         <label class="control-label">
                             Records per page</label>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
+                        <label class="control-label">Select Services</label>
                         <asp:DropDownList ID="ddlServices" runat="server" OnSelectedIndexChanged="ddlServices_SelectedIndexChanged1" Style="margin-top: 24px"
                             AutoPostBack="true">
-                            <asp:ListItem Value="-1" Selected="True">SELECT</asp:ListItem>
+                            <asp:ListItem Value="-1" Selected="True">- All -</asp:ListItem>
                             <asp:ListItem Value="Flight">Flight</asp:ListItem>
                             <asp:ListItem Value="Hotel">Hotel</asp:ListItem>
                             <asp:ListItem Value="Car">Car</asp:ListItem>
@@ -59,16 +60,16 @@
                     <div class="col-lg-2 form-group1">
                         <asp:TextBox ID="txtSearch" runat="server" placeholder="Search..." Style="margin-top: 14px" />
                     </div>
-                    <div class="col-lg-4" style="margin-top: 6px">
+                    <div class="col-lg-3" style="margin-top: 6px">
                         <asp:ImageButton ID="cmdSearch" ImageUrl="CustomScripts/images/search.png" runat="server" Height="30px" Style="margin-top: 10px"
                             ToolTip="Search" OnClick="cmdSearch_Click1" />
                         <asp:ImageButton ID="imgbtnRefresh" ImageUrl="CustomScripts/images/icon-refresh.png" runat="server" Height="30px" Style="margin-left: 19px"
                             ToolTip="Refresh" OnClick="imgbtnRefresh_Click1" />
                     </div>
                     <div class="col-lg-2 text-right">
-                       <asp:ImageButton ID="imgbtnExcel" ImageUrl="CustomScripts/images/excel-icon.png" runat="server" Height="45px" Style="margin-left: 19px"
+                       <asp:ImageButton ID="imgbtnExcel" ImageUrl="CustomScripts/images/excel-icon.png" runat="server" Height="35px" Style="margin-left: 10px;margin-top: 15px"
                            ToolTip="Export To Excel" OnClick="imgbtnExcel_Click1" />
-                        <asp:ImageButton ID="imgpdf" ImageUrl="CustomScripts/images/pdf.png" runat="server" Height="45px" Style="margin-left: 19px"
+                        <asp:ImageButton ID="imgpdf" ImageUrl="CustomScripts/images/pdf.png" runat="server" Height="35px" Style="margin-left: 10px;margin-top: 15px"
                            ToolTip="Export To PDf" OnClick="imgpdf_Click1" />
                     </div>
                 </div>

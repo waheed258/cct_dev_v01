@@ -63,9 +63,9 @@
                             ToolTip="Refresh" OnClick="imgbtnRefresh_Click" />
                     </div>
                     <div class="col-lg-2 text-right">
-                        <asp:ImageButton ID="imgbtnExcel" ImageUrl="CustomScripts/images/excel-icon.png" runat="server" Height="45px" Style="margin-left: 19px"
+                        <asp:ImageButton ID="imgbtnExcel" ImageUrl="CustomScripts/images/excel-icon.png" runat="server" Height="35px" Style="margin-left: 19px;margin-top: 15px"
                             ToolTip="Export To Excel" OnClick="imgbtnExcel_Click" />
-                        <asp:ImageButton ID="imgpdf" ImageUrl="CustomScripts/images/pdf.png" runat="server" Height="45px" Style="margin-left: 19px"
+                        <asp:ImageButton ID="imgpdf" ImageUrl="CustomScripts/images/pdf.png" runat="server" Height="35px" Style="margin-left: 19px;margin-top: 15px"
                             ToolTip="Export To PDf" OnClick="imgpdf_Click" />
                     </div>
                 </div>
