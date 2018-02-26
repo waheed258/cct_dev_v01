@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,11 +12,13 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
 
-public partial class LeadsList : System.Web.UI.Page
+public partial class ServiceWiseReport : System.Web.UI.Page
 {
+
     DataSet ds = new DataSet();
     NewLeadBL newLeadBL = new NewLeadBL();
     EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         Label mastertxt = (Label)Master.FindControl("lblProfile");
@@ -30,16 +32,15 @@ public partial class LeadsList : System.Web.UI.Page
             GetGridData();
         }
     }
-
     protected void GetGridData()
     {
         try
         {
-            gvLeadsList.PageSize = int.Parse(ViewState["ps"].ToString());
+            gvServiceLeadsList.PageSize = int.Parse(ViewState["ps"].ToString());
             ds = newLeadBL.GetLeadData();
-            gvLeadsList.DataSource = ds;
+            gvServiceLeadsList.DataSource = ds;
             ViewState["dt"] = ds.Tables[0];
-            gvLeadsList.DataBind();
+            gvServiceLeadsList.DataBind();
         }
         catch { }
     }
@@ -59,8 +60,8 @@ public partial class LeadsList : System.Web.UI.Page
                     "%' OR STATUS LIKE '%" + instring + "%'");
                 if (dr.Count() > 0)
                 {
-                    gvLeadsList.DataSource = dr.CopyToDataTable();
-                    gvLeadsList.DataBind();
+                    gvServiceLeadsList.DataSource = dr.CopyToDataTable();
+                    gvServiceLeadsList.DataBind();
                 }
             }
         }
@@ -70,7 +71,32 @@ public partial class LeadsList : System.Web.UI.Page
         }
     }
 
+    public void SearchServices(string instring)
+    {
+        try
+        {
+            if (ViewState["dt"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["dt"];
+                DataRow[] dr = dt.Select(
+                    "Services like '%" + instring + "%'");
+                if (dr.Count() > 0)
+                {
+                    gvServiceLeadsList.DataSource = dr.CopyToDataTable();
+                    gvServiceLeadsList.DataBind();
+                }
+                else
+                {
+                    gvServiceLeadsList.DataSource = null;
+                    gvServiceLeadsList.DataBind();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
 
+        }
+    }
     public override void VerifyRenderingInServerForm(Control control)
     {
         try
@@ -81,8 +107,7 @@ public partial class LeadsList : System.Web.UI.Page
         /* Verifies that the control is rendered */
     }
 
-
-    protected void DropPage_SelectedIndexChanged1(object sender, EventArgs e)
+    protected void DropPage_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
         {
@@ -91,8 +116,20 @@ public partial class LeadsList : System.Web.UI.Page
         }
         catch { }
     }
-   
-    protected void cmdSearch_Click1(object sender, ImageClickEventArgs e)
+    protected void ddlServices_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if (ddlServices.SelectedValue != "-1")
+            {
+                SearchServices(ddlServices.SelectedValue.Trim(','));
+            }
+            else
+                GetGridData();
+        }
+        catch { }
+    }
+    protected void cmdSearch_Click(object sender, ImageClickEventArgs e)
     {
         try
         {
@@ -100,15 +137,15 @@ public partial class LeadsList : System.Web.UI.Page
         }
         catch { }
     }
-    protected void imgbtnRefresh_Click1(object sender, ImageClickEventArgs e)
+    protected void imgbtnRefresh_Click(object sender, ImageClickEventArgs e)
     {
         try
         {
-            Response.Redirect("LeadsList.aspx");
+            Response.Redirect("ServiceWiseReport.aspx");
         }
         catch { }
     }
-    protected void imgbtnExcel_Click1(object sender, ImageClickEventArgs e)
+    protected void imgbtnExcel_Click(object sender, ImageClickEventArgs e)
     {
         try
         {
@@ -118,26 +155,26 @@ public partial class LeadsList : System.Web.UI.Page
             Response.ClearHeaders();
             Response.Charset = "";
             string datetime = DateTime.Now.ToString();
-            string FileName = "LeadsList " + datetime + ".xls";
+            string FileName = "ServiceWiseReport " + datetime + ".xls";
             StringWriter strwritter = new StringWriter();
             HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.ContentType = "application/vnd.ms-excel";
             Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
-            gvLeadsList.GridLines = GridLines.Both;
-            gvLeadsList.HeaderStyle.Font.Bold = true;
-            gvLeadsList.RenderControl(htmltextwrtter);
+            gvServiceLeadsList.GridLines = GridLines.Both;
+            gvServiceLeadsList.HeaderStyle.Font.Bold = true;
+            gvServiceLeadsList.RenderControl(htmltextwrtter);
             Response.Write(strwritter.ToString());
             Response.End();
         }
         catch { }
     }
-    protected void imgpdf_Click1(object sender, ImageClickEventArgs e)
+    protected void imgpdf_Click(object sender, ImageClickEventArgs e)
     {
         try
         {
-            PdfPTable pdfptable = new PdfPTable(gvLeadsList.HeaderRow.Cells.Count);
-            foreach (TableCell headerCell in gvLeadsList.HeaderRow.Cells)
+            PdfPTable pdfptable = new PdfPTable(gvServiceLeadsList.HeaderRow.Cells.Count);
+            foreach (TableCell headerCell in gvServiceLeadsList.HeaderRow.Cells)
             {
 
                 Font font = new Font();
@@ -146,12 +183,12 @@ public partial class LeadsList : System.Web.UI.Page
                 pdfptable.AddCell(pdfCell);
 
             }
-            foreach (GridViewRow gridviewrow in gvLeadsList.Rows)
+            foreach (GridViewRow gridviewrow in gvServiceLeadsList.Rows)
             {
                 foreach (TableCell tableCell in gridviewrow.Cells)
                 {
 
-                    tableCell.BackColor = gvLeadsList.HeaderStyle.BackColor;
+                    tableCell.BackColor = gvServiceLeadsList.HeaderStyle.BackColor;
                     PdfPCell pdfCell = new PdfPCell(new Phrase(tableCell.Text.Trim()));
                     pdfptable.AddCell(pdfCell);
 
@@ -164,18 +201,18 @@ public partial class LeadsList : System.Web.UI.Page
             pdfDocument.Add(pdfptable);
             pdfDocument.Close();
             Response.ContentType = "application/pdf";
-            Response.AppendHeader("content-disposition", "attachment;filename=LeadList.pdf");
+            Response.AppendHeader("content-disposition", "attachment;filename=ServiceWiseReport.pdf");
             Response.Write(pdfDocument);
             Response.Flush();
             Response.End();
         }
         catch { }
     }
-    protected void gvLeadsList_PageIndexChanging1(object sender, GridViewPageEventArgs e)
+    protected void gvServiceLeadsList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
         {
-            gvLeadsList.PageIndex = e.NewPageIndex;
+            gvServiceLeadsList.PageIndex = e.NewPageIndex;
             this.GetGridData();
         }
         catch { }
