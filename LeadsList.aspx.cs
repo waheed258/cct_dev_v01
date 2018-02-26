@@ -180,4 +180,16 @@ public partial class LeadsList : System.Web.UI.Page
         }
         catch { }
     }
+    protected void gvLeadsList_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Cells[8].Text = e.Row.Cells[8].Text.TrimEnd(',');
+                e.Row.Cells[9].Text = e.Row.Cells[9].Text.TrimEnd(',');
+            }
+        }
+        catch { }
+    }
 }

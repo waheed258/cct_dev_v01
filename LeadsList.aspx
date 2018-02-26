@@ -71,7 +71,7 @@
                             EmptyDataText="There are no data records to display." CssClass="rounded-corners"
                             BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
                             CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black"
-                            OnPageIndexChanging="gvLeadsList_PageIndexChanging1">
+                            OnPageIndexChanging="gvLeadsList_PageIndexChanging1" OnRowDataBound="gvLeadsList_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="SRNO" HeaderText="Sl.No" ReadOnly="true" />
                                 <asp:BoundField DataField="CLIENTREQID" HeaderText="Lead Ref No" ReadOnly="true" />

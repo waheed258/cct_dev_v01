@@ -8,7 +8,7 @@
             width: 100%;
         }
 
-            #ContentPlaceHolder1_gvOpenLeads td, #ContentPlaceHolder1_gvUserList th {
+            #ContentPlaceHolder1_gvOpenLeads td, #ContentPlaceHolder1_gvOpenLeads th {
                 border: 1px solid #ddd;
                 padding: 1px 8px;
             }
@@ -75,7 +75,7 @@
                             AutoGenerateColumns="False"
                             EmptyDataText="There are no data records to display." CssClass="rounded-corners"
                             BorderStyle="Solid" BorderWidth="0px" AllowPaging="true" PageSize="100"
-                            CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnPageIndexChanging="gvOpenLeads_PageIndexChanging">
+                            CellPadding="4" CellSpacing="2" Style="font-size: 100%;" ForeColor="Black" OnPageIndexChanging="gvOpenLeads_PageIndexChanging" OnRowDataBound="gvOpenLeads_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="SRNO" HeaderText="Sl.No" ReadOnly="true" />
                                 <asp:BoundField DataField="CLIENTREQID" HeaderText="Lead Ref No" ReadOnly="true" />

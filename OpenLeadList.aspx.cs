@@ -112,7 +112,7 @@ public partial class OpenLeadList : System.Web.UI.Page
             Response.ClearContent();
             Response.ClearHeaders();
             Response.Charset = "";
-            string FileName = "LeadsList" + DateTime.Now + ".xls";
+            string FileName = "OpenLeads" + DateTime.Now + ".xls";
             StringWriter strwritter = new StringWriter();
             HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -153,7 +153,7 @@ public partial class OpenLeadList : System.Web.UI.Page
             pdfDocument.Add(pdfptable);
             pdfDocument.Close();
             Response.ContentType = "application/pdf";
-            Response.AppendHeader("content-disposition", "attachment;filename=LeadList.pdf");
+            Response.AppendHeader("content-disposition", "attachment;filename=OpenLeads.pdf");
             Response.Write(pdfDocument);
             Response.Flush();
             Response.End();
@@ -166,6 +166,18 @@ public partial class OpenLeadList : System.Web.UI.Page
         {
             gvOpenLeads.PageIndex = e.NewPageIndex;
             GetOpenLeads();
+        }
+        catch { }
+    }
+    protected void gvOpenLeads_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Cells[8].Text = e.Row.Cells[8].Text.TrimEnd(',');
+                e.Row.Cells[9].Text = e.Row.Cells[9].Text.TrimEnd(',');
+            }
         }
         catch { }
     }
