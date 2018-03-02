@@ -38,17 +38,17 @@ public partial class NewLead : System.Web.UI.Page
                     lblrefno.Text = " " + decryptedrefno;
                     ViewState["id"] = decryptedparam;
                     ViewState["isleadallocate"] = Request.QueryString["isleadallocate"].ToString();
-                    if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
-                    {
-                        isleadaalocate.Visible = false;
-                    }
-                    else
-                    {
+                    //if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
+                    //{
+                    //    isleadaalocate.Visible = false;
+                    //}
+                    //else
+                    //{
                         isleadaalocate.Visible = true;
                         divOnlyAssigned.Visible = false;
                         divOnlyNotes.Visible = true;
                         divfollowupdate.Visible = false;
-                    }
+                    //}
                     //divClassItems.Visible = false;
 
                     GetLeadStatus();

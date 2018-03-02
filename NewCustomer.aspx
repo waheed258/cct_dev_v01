@@ -188,10 +188,8 @@
                                         ErrorMessage="Please enter Surname" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-md-2 form-group1 form-last">
-                                    <label class="control-label" id="lblCity">City<span style="color: #d0582e">*</span></label>
+                                    <label class="control-label" id="lblCity">City</label>
                                     <asp:TextBox ID="txtCity" runat="server" CssClass="onlyAlphabet toupper"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvCity" ControlToValidate="txtCity" ForeColor="#d0582e" runat="server"
-                                        ErrorMessage="Please enter City" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -218,13 +216,13 @@
                                         <div class="col-md-2 form-group1">
                                             <label class="control-label input-append date datepicker span12" id="lblDepartureDate">Departure Date<span style="color: #d0582e">*</span></label>
 
-                                            <asp:TextBox ID="txtDepartureDate" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>                                            
+                                            <asp:TextBox ID="txtDepartureDate" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="rfvDepartureDate" ControlToValidate="txtDepartureDate" ForeColor="#d0582e" runat="server"
                                                 ErrorMessage="Please enter Departure Date" ValidationGroup="SaveLead"></asp:RequiredFieldValidator>
                                         </div>
                                         <div class="col-md-2 form-group1 form-last">
                                             <label class="control-label" id="lblReturnDate">Return Date</label>
-                                            <asp:TextBox ID="txtReturnDate" runat="server" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>                                            
+                                            <asp:TextBox ID="txtReturnDate" runat="server" onkeyup="FormatIt(this);" runat="server" MaxLength="10"></asp:TextBox>
                                             <asp:CustomValidator ID="cvReturnDate" runat="server"
                                                 ClientValidationFunction="cvfReturnDate"></asp:CustomValidator>
                                         </div>
