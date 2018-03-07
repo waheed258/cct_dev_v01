@@ -150,8 +150,7 @@
                                     </div>
                                     <div class="col-md-2 form-group1 form-last">
                                         <label class="control-label" id="lblCity">City<span style="color: #d0582e">*</span></label>
-                                        <asp:TextBox ID="txtCity" runat="server" CssClass="onlyAlphabet toupper" ReadOnly="true"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvCity" ControlToValidate="txtCity" ForeColor="#d0582e" runat="server" ErrorMessage="Please enter City" ValidationGroup="Save"></asp:RequiredFieldValidator>
+                                        <asp:TextBox ID="txtCity" runat="server" CssClass="onlyAlphabet toupper" ReadOnly="true"></asp:TextBox>                                        
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
