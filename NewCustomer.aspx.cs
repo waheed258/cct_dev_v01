@@ -134,23 +134,23 @@ public partial class NewCustomer : System.Web.UI.Page
                 ViewState["IdentityValue"] = result;
             }
             lblNoOfPass.Visible = true;
-            int a = Convert.ToInt32(ddlNoOfAdults.SelectedValue);
-            int c = Convert.ToInt32(ddlNoOfChilds.SelectedValue);
-            int i = Convert.ToInt32(ddlNoOfInfants.SelectedValue);
-            j = a + c + i;
-            if (i <= a)
-            {
-                if (a == 9)
-                {
-                    if (ddlNoOfChilds.SelectedIndex != 0 || ddlNoOfInfants.SelectedIndex != 0)
-                        lblNoOfPass.Text = "No of Pax should not exceed 9";
-                }
-                else
-                {
-                    if (j > 9)
-                        lblNoOfPass.Text = "No of Pax should not exceed 9";
-                    else
-                    {
+            //int a = Convert.ToInt32(ddlNoOfAdults.SelectedValue);
+            //int c = Convert.ToInt32(ddlNoOfChilds.SelectedValue);
+            //int i = Convert.ToInt32(ddlNoOfInfants.SelectedValue);
+            //j = a + c + i;
+            //if (i <= a)
+            //{
+            //    if (a == 9)
+            //    {
+            //        if (ddlNoOfChilds.SelectedIndex != 0 || ddlNoOfInfants.SelectedIndex != 0)
+            //            lblNoOfPass.Text = "No of Pax should not exceed 9";
+            //    }
+            //    else
+            //    {
+            //        if (j > 9)
+            //            lblNoOfPass.Text = "No of Pax should not exceed 9";
+            //        else
+            //        {
                         ne.Destination = txtDestination.Text;
 
                         if (ViewState["IdentityValue"] == null)
@@ -179,19 +179,19 @@ public partial class NewCustomer : System.Web.UI.Page
                         ne.AdditionalInfo = txtAdditionalInformation.Text;
                         checkboxvalues1();
                         ne.Class = status;
-                        int result = nlb.CRUDClientRequest(ne, 'i');
-                        if (result == 1)
+                        int leadresult = nlb.CRUDClientRequest(ne, 'i');
+                        if (leadresult == 1)
                         {
                             lblMessage.Text = "Lead Details Saved Successfully!";
                             Response.Redirect("UserLeadList.aspx");
                         }
-                    }
-                }
-            }
-            else
-            {
-                lblNoOfPass.Text = "No of infants should not exceed adults";
-            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    lblNoOfPass.Text = "No of infants should not exceed adults";
+            //}
 
         }
         catch { }

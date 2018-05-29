@@ -44,10 +44,10 @@ public partial class NewLead : System.Web.UI.Page
                     //}
                     //else
                     //{
-                        isleadaalocate.Visible = true;
-                        divOnlyAssigned.Visible = false;
-                        divOnlyNotes.Visible = true;
-                        divfollowupdate.Visible = false;
+                    isleadaalocate.Visible = true;
+                    divOnlyAssigned.Visible = false;
+                    divOnlyNotes.Visible = true;
+                    divfollowupdate.Visible = false;
                     //}
                     //divClassItems.Visible = false;
 
@@ -274,97 +274,97 @@ public partial class NewLead : System.Web.UI.Page
         try
         {
             lblNoOfPass.Visible = true;
-            int a = Convert.ToInt32(ddlNoOfAdults.SelectedValue);
-            int c = Convert.ToInt32(ddlNoOfChilds.SelectedValue);
-            int i = Convert.ToInt32(ddlNoOfInfants.SelectedValue);
-            j = a + c + i;
-            if (i <= a)
+            //int a = Convert.ToInt32(ddlNoOfAdults.SelectedValue);
+            //int c = Convert.ToInt32(ddlNoOfChilds.SelectedValue);
+            //int i = Convert.ToInt32(ddlNoOfInfants.SelectedValue);
+            //j = a + c + i;
+            //if (i <= a)
+            //{
+            //    if (a == 9)
+            //    {
+            //        if (ddlNoOfChilds.SelectedIndex != 0 || ddlNoOfInfants.SelectedIndex != 0)
+            //            lblNoOfPass.Text = "No of Pax should not exceed 9";
+            //    }
+            //    else
+            //    {
+            //        if (j > 9)
+            //        {
+            //            lblNoOfPass.Text = "No of Pax should not exceed 9";
+            //        }
+            //        else
+            //        {
+            string id = ViewState["id"].ToString();
+            ne.ClientReqId = id;
+            ne.CustomerId = Convert.ToInt32(Session["CustomerId"].ToString());
+            ne.Destination = txtDestination.Text;
+            ne.DepartingFrom = txtDepartingFrom.Text;
+            ne.DepartureDate = txtDepartureDate.Text;
+            ne.ReturnDate = txtReturnDate.Text;
+            ne.NoOfPax = j;
+            ne.NoOfAdults = Convert.ToInt32(ddlNoOfAdults.SelectedValue);
+            ne.NoOfChilds = Convert.ToInt32(ddlNoOfChilds.SelectedValue);
+            ne.NoOfInfants = Convert.ToInt32(ddlNoOfInfants.SelectedValue);
+            ne.AssignedTo = Convert.ToInt32(ddlAssignedTo.SelectedValue);
+            ne.LeadStatus = Convert.ToInt32(ddlLeadStatus.SelectedValue);
+            ne.UpdatedBy = Convert.ToInt32(Session["LoginId"].ToString());
+            ne.FollowupDate = txtFollowUpdate.Text;
+            ne.Notes = txtNotes.Text;
+            ne.CreatedBy = 0;
+            ne.AdditionalInfo = txtAdditionalInformation.Text;
+            checkboxvalues();
+            ne.Services = status;
+            checkboxvalues1();
+            ne.Class = status;
+            int result = nlb.CRUDClientRequest(ne, 'u');
+            if (result == 1)
             {
-                if (a == 9)
+                lblMessage.Text = "Details updated successfuly!";
+                if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
                 {
-                    if (ddlNoOfChilds.SelectedIndex != 0 || ddlNoOfInfants.SelectedIndex != 0)
-                        lblNoOfPass.Text = "No of Pax should not exceed 9";
+                    Response.Redirect("~/AllLeadsList.aspx");
                 }
                 else
                 {
-                    if (j > 9)
-                    {
-                        lblNoOfPass.Text = "No of Pax should not exceed 9";
-                    }
-                    else
-                    {
-                        string id = ViewState["id"].ToString();
-                        ne.ClientReqId = id;
-                        ne.CustomerId = Convert.ToInt32(Session["CustomerId"].ToString());
-                        ne.Destination = txtDestination.Text;
-                        ne.DepartingFrom = txtDepartingFrom.Text;
-                        ne.DepartureDate = txtDepartureDate.Text;
-                        ne.ReturnDate = txtReturnDate.Text;
-                        ne.NoOfPax = j;
-                        ne.NoOfAdults = Convert.ToInt32(ddlNoOfAdults.SelectedValue);
-                        ne.NoOfChilds = Convert.ToInt32(ddlNoOfChilds.SelectedValue);
-                        ne.NoOfInfants = Convert.ToInt32(ddlNoOfInfants.SelectedValue);
-                        ne.AssignedTo = Convert.ToInt32(ddlAssignedTo.SelectedValue);
-                        ne.LeadStatus = Convert.ToInt32(ddlLeadStatus.SelectedValue);
-                        ne.UpdatedBy = Convert.ToInt32(Session["LoginId"].ToString());
-                        ne.FollowupDate = txtFollowUpdate.Text;
-                        ne.Notes = txtNotes.Text;
-                        ne.CreatedBy = 0;
-                        ne.AdditionalInfo = txtAdditionalInformation.Text;                        
-                        checkboxvalues();
-                        ne.Services = status;
-                        checkboxvalues1();
-                        ne.Class = status;
-                        int result = nlb.CRUDClientRequest(ne, 'u');
-                        if (result == 1)
-                        {
-                            lblMessage.Text = "Details updated successfuly!";
-                            if (Convert.ToInt32(ViewState["isleadallocate"].ToString()) == 0)
-                            {
-                                Response.Redirect("~/AllLeadsList.aspx");
-                            }
-                            else
-                            {
-                                Response.Redirect("~/LeadAllocation.aspx");
-                            }
-                            Clear();
-
-                        }
-                        else
-                        {
-                            lblMessage.Text = "Please try again!";
-                        }
-
-                    }
+                    Response.Redirect("~/LeadAllocation.aspx");
                 }
+                Clear();
+
             }
             else
-                lblNoOfPass.Text = "No of infants should not exceed adults";
+            {
+                lblMessage.Text = "Please try again!";
+            }
+
+            //        }
+            //    }
+            //}
+            //else
+            //    lblNoOfPass.Text = "No of infants should not exceed adults";
         }
         catch { }
     }
 
     protected void ddlLeadStatus_SelectedIndexChanged(object sender, EventArgs e)
     {
-         if (ddlLeadStatus.SelectedValue == "2")
-         {
-             divOnlyNotes.Visible = true;
-             divOnlyAssigned.Visible = true;
-             divfollowupdate.Visible = false;
-         }
-         else if (ddlLeadStatus.SelectedValue == "4")
-         {
-             divOnlyNotes.Visible = true;
-             divOnlyAssigned.Visible = false;
-             divfollowupdate.Visible = true;
-             txtFollowUpdate.Text = "";
-         }
-         else
-         {
-             divfollowupdate.Visible = false;
-             divOnlyAssigned.Visible = false;
-             divOnlyNotes.Visible = true;
-         }
+        if (ddlLeadStatus.SelectedValue == "2")
+        {
+            divOnlyNotes.Visible = true;
+            divOnlyAssigned.Visible = true;
+            divfollowupdate.Visible = false;
+        }
+        else if (ddlLeadStatus.SelectedValue == "4")
+        {
+            divOnlyNotes.Visible = true;
+            divOnlyAssigned.Visible = false;
+            divfollowupdate.Visible = true;
+            txtFollowUpdate.Text = "";
+        }
+        else
+        {
+            divfollowupdate.Visible = false;
+            divOnlyAssigned.Visible = false;
+            divOnlyNotes.Visible = true;
+        }
     }
     //protected void chbklstClass_SelectedIndexChanged(object sender, EventArgs e)
     //{
@@ -373,5 +373,5 @@ public partial class NewLead : System.Web.UI.Page
     //    else
     //        cvFlightClass.Enabled = false;
     //}
-    
+
 }
