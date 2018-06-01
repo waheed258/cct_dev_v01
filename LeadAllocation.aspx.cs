@@ -92,9 +92,10 @@ public partial class LeadAllocation : System.Web.UI.Page
                 int res = Convert.ToInt32(gvLeadData.DataKeys[row.RowIndex].Values[0]);
                 string encryptedparam = encryptdecrypt.Encrypt(res.ToString());
                 string encryptedRefNo = encryptdecrypt.Encrypt(gvLeadData.DataKeys[row.RowIndex].Values[1].ToString());
-                string url = "NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 1 + "&refno=" + encryptedRefNo;
-                string s = "window.open('" + url + "', '_blank');";
-                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+                Response.Redirect("NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 1 + "&refno=" + encryptedRefNo + "&t=" + 1);
+                //string url = "NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 1 + "&refno=" + encryptedRefNo;
+                //string s = "window.open('" + url + "', '_blank');";
+                //ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             }
         }
         catch { }

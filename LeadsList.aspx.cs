@@ -17,6 +17,7 @@ public partial class LeadsList : System.Web.UI.Page
     DataSet ds = new DataSet();
     NewLeadBL newLeadBL = new NewLeadBL();
     EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
+    UserBL userbl = new UserBL();
     protected void Page_Load(object sender, EventArgs e)
     {
         Label mastertxt = (Label)Master.FindControl("lblProfile");
@@ -28,9 +29,25 @@ public partial class LeadsList : System.Web.UI.Page
         {
             ViewState["ps"] = 100;
             GetGridData();
+            GetAssignedTo();
         }
     }
+    protected void GetAssignedTo()
+    {
+        try
+        {
+            DataSet dataset = userbl.GetUsers(0);
+            ddlLeadAllocatedTo.DataSource = dataset;
+            ddlLeadAllocatedTo.DataTextField = "FirstName";
+            ddlLeadAllocatedTo.DataValueField = "UserId";
+            ddlLeadAllocatedTo.DataBind();
+            ddlLeadAllocatedTo.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select User --", "-1"));
+        }
+        catch (Exception ex)
+        {
 
+        }
+    }
     protected void GetGridData()
     {
         try
@@ -91,7 +108,7 @@ public partial class LeadsList : System.Web.UI.Page
         }
         catch { }
     }
-   
+
     protected void cmdSearch_Click1(object sender, ImageClickEventArgs e)
     {
         try
@@ -191,5 +208,27 @@ public partial class LeadsList : System.Web.UI.Page
             }
         }
         catch { }
+    }
+    protected void ddlLeadAllocatedTo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string instring = ddlLeadAllocatedTo.SelectedItem.Text;
+            if (ViewState["dt"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["dt"];
+                DataRow[] dr = dt.Select(
+                    "ASSIGNEDTO LIKE '%" + instring + "%'");
+                if (dr.Count() > 0)
+                {
+                    gvLeadsList.DataSource = dr.CopyToDataTable();
+                    gvLeadsList.DataBind();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 }

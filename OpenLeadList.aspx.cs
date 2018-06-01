@@ -89,7 +89,7 @@ public partial class OpenLeadList : System.Web.UI.Page
     {
         try
         {
-            Response.Redirect("OpenLeadsList.aspx");
+            Response.Redirect("OpenLeadList.aspx");
         }
         catch { }
     }

@@ -64,9 +64,10 @@ public partial class AllLeadsList : System.Web.UI.Page
                 int res = Convert.ToInt32(gvAllLeads.DataKeys[row.RowIndex].Values[0]);
                 string encryptedparam = encryptdecrypt.Encrypt(res.ToString());
                 string encryptedRefNo = encryptdecrypt.Encrypt(gvAllLeads.DataKeys[row.RowIndex].Values[1].ToString());
-                string url = "NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 0 + "&refno=" + encryptedRefNo;                
-                string s = "window.open('" + url + "', '_blank');";
-                ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+                Response.Redirect("NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 0 + "&refno=" + encryptedRefNo + encryptedRefNo + "&t=" + 2);   
+                //string url = "NewLead.aspx?id=" + Server.UrlEncode(encryptedparam) + "&isleadallocate=" + 0 + "&refno=" + encryptedRefNo;                
+                //string s = "window.open('" + url + "', '_blank');";
+                //ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             }
         }
         catch { }

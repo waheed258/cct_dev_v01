@@ -94,8 +94,7 @@
         }
 
         function ValidateClassList(source, args) {
-            if ($("[id*=chbklstAdditionalInfo] input:checked").length > 0)
-            {
+            if ($("[id*=chbklstAdditionalInfo] input:checked").length > 0) {
                 var chkListModules = document.getElementById('<%= chbkClass.ClientID %>');
                 var chkListinputs = chkListModules.getElementsByTagName("input");
                 for (var i = 0; i < chkListinputs.length; i++) {
@@ -123,7 +122,15 @@
                 </div>
                 <!--/forms-->
                 <div class="forms-main">
-                    <h5 class="inner-tittle" id="h5CustomerInfo" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px; margin-top: 10px">Customer Information</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h5 class="inner-tittle" id="h5CustomerInfo" runat="server" style="font-family: Open Sans, sans-serif; color: #006341; font-weight: bold; margin-bottom: 10px; margin-top: 10px">Customer Information</h5>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <asp:Button ID="btnBack" runat="server" Text="Back" class="btn btn-default" OnClick="btnBack_Click" />
+                        </div>
+                    </div>
+
                     <div class="graph-form" id="divCustomerDetails" runat="server">
                         <div class="validation-form">
                             <div runat="server">
@@ -150,7 +157,7 @@
                                     </div>
                                     <div class="col-md-2 form-group1 form-last">
                                         <label class="control-label" id="lblCity">City<span style="color: #d0582e">*</span></label>
-                                        <asp:TextBox ID="txtCity" runat="server" CssClass="onlyAlphabet toupper" ReadOnly="true"></asp:TextBox>                                        
+                                        <asp:TextBox ID="txtCity" runat="server" CssClass="onlyAlphabet toupper" ReadOnly="true"></asp:TextBox>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>

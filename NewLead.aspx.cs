@@ -22,6 +22,7 @@ public partial class NewLead : System.Web.UI.Page
     CustomerBL customerBL = new CustomerBL();
     CustomerEntity customerEntity = new CustomerEntity();
     EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
+    //string t = string.Empty;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -35,6 +36,7 @@ public partial class NewLead : System.Web.UI.Page
                     Session["CustomerId"] = null;
                     string decryptedparam = encryptdecrypt.Decrypt(Request.QueryString["id"].ToString());
                     string decryptedrefno = encryptdecrypt.Decrypt(Request.QueryString["refno"].ToString());
+                    ViewState["t"] = Request.QueryString["t"].ToString();
                     lblrefno.Text = " " + decryptedrefno;
                     ViewState["id"] = decryptedparam;
                     ViewState["isleadallocate"] = Request.QueryString["isleadallocate"].ToString();
@@ -374,4 +376,19 @@ public partial class NewLead : System.Web.UI.Page
     //        cvFlightClass.Enabled = false;
     //}
 
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        if (ViewState["t"].ToString() == "1")
+        {
+            Response.Redirect("LeadAllocation.aspx");
+        }
+        else if (ViewState["t"].ToString() == "2")
+        {
+            Response.Redirect("AllLeadsList.aspx");
+        }
+        else
+        {
+            Response.Redirect("UserLeadList.aspx");
+        }
+    }
 }
